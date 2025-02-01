@@ -1,7 +1,7 @@
 import pygame
 import time
 from sys import exit
-
+ 
 def testpygames():
     pygame.init
 
