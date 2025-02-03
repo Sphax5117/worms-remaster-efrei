@@ -2,14 +2,14 @@
 import pygame
 from game_on import game_on
 from menu import menu
-from sys import exit
+from setting import setting
 
+#the main function who regroups all the functions
 def main():
-    #launch the menu() on python
-    do = menu()
 
-    if do == 1:
+    if menu() == 'start':
         game_on()
-    if do == 2:
-        pygame.quit()
-        exit()
+    elif menu() == 'setting':
+        setting()
+
+main()
