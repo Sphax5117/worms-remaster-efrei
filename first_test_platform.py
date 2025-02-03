@@ -1,6 +1,7 @@
 import pygame
 import time
 from sys import exit
+import menu
  
 def testpygames():
     pygame.init

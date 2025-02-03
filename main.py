@@ -1,35 +1,15 @@
-#importation of all the usefull librairy
+#all the import mandatory 
 import pygame
-import time
-from sys import exit 
+from game_on import game_on
+from menu import menu
+from sys import exit
 
-def game():
+def main():
+    #launch the menu() on python
+    do = menu()
 
-    pygame.init
-
-    #initialization of the screen of the side of the screen and we set a caption for the window
-    screen = pygame.display.set_mode((1200,800)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
-    pygame.display.set_caption("Funny Granny")
-
-    #helps to limit the game to 60fps
-    clock = pygame.time.Clock()
-
-
-    #the principal loop that is True when the game is live
-    while True:
-
-        #That help to exit the game when we use the red cross on the windows
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-
-        #fill the screen with a black backround
-        screen.fill((199, 199, 199))
-
-        #update the game every 60 seconds
-        pygame.display.update()
-        clock.tick(60)
-
-
-game()
+    if do == 1:
+        game_on()
+    if do == 2:
+        pygame.quit()
+        exit()
