@@ -6,7 +6,7 @@ pygame.init()
 screen = pygame.display.set_mode((640, 480))
 pygame.display.set_caption("Menu Example")
 font = pygame.font.SysFont(None, 48)
-
+ù
 menu_options = ["Start Game", "Options", "Quit"]
 selected_index = 0
 clock = pygame.time.Clock()
