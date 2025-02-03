@@ -1,40 +1,35 @@
-
+#importation of all the usefull librairy
 import pygame
-import sys
+import time
+from sys import exit 
 
-pygame.init()
-screen = pygame.display.set_mode((640, 480))
-pygame.display.set_caption("Menu Example")
-font = pygame.font.SysFont(None, 48)
+def game():
 
-menu_options = ["Start Game", "Options", "Quit"]
-selected_index = 0
-clock = pygame.time.Clock()
+    pygame.init
 
-running = True
-while running:
-    screen.fill((30, 30, 30))
+    #initialization of the screen of the side of the screen and we set a caption for the window
+    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+    pygame.display.set_caption("Funny Granny")
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN:
-                selected_index = (selected_index + 1) % len(menu_options)
-            elif event.key == pygame.K_UP:
-                selected_index = (selected_index - 1) % len(menu_options)
-            elif event.key == pygame.K_RETURN:
-                if menu_options[selected_index] == "Quit":
-                    running = False
-                # Handle other options as needed
+    #helps to limit the game to 60fps
+    clock = pygame.time.Clock()
 
-    for i, option in enumerate(menu_options):
-        color = (200, 200, 200) if i == selected_index else (100, 100, 100)
-        text_surface = font.render(option, True, color)
-        screen.blit(text_surface, (250, 150 + i * 60))
 
-    pygame.display.flip()
-    clock.tick(30)
+    #the principal loop that is True when the game is live
+    while True:
 
-pygame.quit()
-sys.exit()
+        #That help to exit the game when we use the red cross on the windows
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        #fill the screen with a black backround
+        screen.fill((0, 0, 0))
+
+        #update the game every 60 seconds
+        pygame.display.update()
+        clock.tick(60)
+
+
+game()
