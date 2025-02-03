@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+screen = pygame.display.set_mode((800,800)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
 
 def menu():
     pygame.init
@@ -44,4 +45,4 @@ class Button():
     
     #define a function to draw all the buttons
     def draw(self):
-
+        screen.blit(self.image, (self.rect.x, self.rect.y))
