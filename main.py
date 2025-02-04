@@ -10,6 +10,7 @@ def main():
     if menu() == 'start':
         game_on()
     elif menu() == 'setting':
-        setting()
+        if setting() == True:
+            game_on()
 
 main()
