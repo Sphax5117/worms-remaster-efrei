@@ -66,7 +66,7 @@ def menu():
             return 'start'
         
         if exit_button.draw():
-            run = False
+            return 'exit'
         
         if setting_button.draw():
             return 'setting'

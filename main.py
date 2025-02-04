@@ -6,11 +6,17 @@ from setting import setting
 
 #the main function who regroups all the functions
 def main():
+    run = True
 
-    if menu() == 'start':
-        game_on()
-    elif menu() == 'setting':
-        if setting() == True:
+    #loop to launch the game
+    while run:
+        if menu() == 'start':
             game_on()
+        elif menu() == 'setting':
+            if setting() == True:
+                game_on()
+        elif menu() == 'exit':
+            run = False
+    
 
 main()
