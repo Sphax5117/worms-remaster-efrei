@@ -18,7 +18,8 @@ def testpygames():
     bridge_surface.fill('Brown')
 
     #backround surface 
-    backround_image = pygame.image.load('')
+    backround_image = pygame.image.load('assets/backroundtest.png')
+    backround_image = pygame.transform.scale(backround_image, (1200,600))
 
     #for the weapons and bullets
     bullet = pygame.image.load('graphics_temp/players.png')
@@ -117,9 +118,13 @@ def testpygames():
 
         #display the backround on the screen
         screen.fill((0, 0, 0))
-                
+
         #display the brige on the screen 
         screen.blit(bridge_surface,(0,500))
+
+        #screen for the backround
+        screen.blit(backround_image, (0,0))
+                
         
 
         #display the players1 + gravity
