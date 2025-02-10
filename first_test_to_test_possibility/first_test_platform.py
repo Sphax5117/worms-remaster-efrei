@@ -14,8 +14,10 @@ def testpygames():
     clock = pygame.time.Clock()
 
     #structure of the game, simples bridges
-    bridge_surface = pygame.Surface((1500, 10))
+    bridge_surface = pygame.Surface((1500, 50))
     bridge_surface.fill('Brown')
+    rect_house = pygame.Surface((100, 10))
+    rect_house.fill('brown')
 
     #backround surface 
     backround_image = pygame.image.load('assets/backroundtest.png')
@@ -119,11 +121,12 @@ def testpygames():
         #display the backround on the screen
         screen.fill((0, 0, 0))
 
-        #display the brige on the screen 
-        screen.blit(bridge_surface,(0,500))
 
         #screen for the backround
         screen.blit(backround_image, (0,0))
+
+        #display the brige on the screen 
+        screen.blit(bridge_surface,(0,500))
                        
 
         #display the players1 + gravity
