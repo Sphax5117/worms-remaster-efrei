@@ -4,6 +4,7 @@ from game_on import game_on
 from menu import menu
 from setting import setting
 
+#test de commit
 #the main function who regroups all the functions
 def main():
     run = True
