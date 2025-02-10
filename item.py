@@ -10,3 +10,17 @@ class Item_heal:
         self.x = x
         self.y = y
         self.width = width
+    def draw(self, screen):
+        if not self.collected:
+            screen.blit(self.image, self.rect)
+    def check_collected(self):
+        if self.rect.collidepoint(player_rect) and not self.collected:
+            self.collected = True
+            return True
+        return False
+
+    items = [
+        Item(300, 250, "sword", sword_img),
+        Item(500, 350, "gun", gun_img),
+        Item(600, 200, "potion", potion_img)
+    ]
