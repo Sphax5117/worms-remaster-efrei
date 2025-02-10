@@ -22,9 +22,9 @@ def testpygames():
     backround_image = pygame.transform.scale(backround_image, (1200,600))
 
     #for the weapons and bullets
-    bullet = pygame.image.load('graphics_temp/players.png')
+    bullet = pygame.image.load('assets/items/grenade_it.png').convert_alpha()
     #for the scale of the bullet
-    bullet = pygame.transform.scale(bullet, (5,5))
+    bullet = pygame.transform.scale(bullet, (25,25))
     #to consider the bullet as a rectangle
     bullet_rect = bullet.get_rect()
 
@@ -78,13 +78,13 @@ def testpygames():
                     if current_player == 1 and count <= 5:
                         x = player1_rect.centerx
                         y = player1_rect.centery
-                        vx, vy = 5*directionp1, -5
+                        vx, vy = 10*directionp1, -10
                         bullets.append({"x":x, "y": y, "vx": vx, "vy": vy })
 
                     elif current_player == 2 and count <=  5:
                         x = player2_rect.centerx
                         y = player2_rect.centery
-                        vx, vy = 5*directionp2, -5
+                        vx, vy = 10*directionp2, -10
                         bullets.append({"x":x, "y": y, "vx": vx, "vy": vy })
                 
                 if event.key == pygame.K_t :
@@ -92,18 +92,18 @@ def testpygames():
                     if current_player == 1 and count <= 5:
                         x = player1_rect.centerx
                         y = player1_rect.centery
-                        vx, vy = 5*directionp1, -5
+                        vx, vy = 10*directionp1, -10
 
                     elif current_player == 2 and count <=  5:
                         x = player2_rect.centerx
                         y = player2_rect.centery
-                        vx, vy = 5*directionp2, -5
+                        vx, vy = 10*directionp2, -10
 
                     #generate the trajectory of the bullet
                     trajectory.clear()
                     temp_x, temp_y, temp_vy = x, y ,vy
 
-                    for i in range(50):
+                    for i in range(100):
                         temp_x += vx
                         temp_y += temp_vy
                         temp_vy += bullet_gravity
@@ -124,8 +124,7 @@ def testpygames():
 
         #screen for the backround
         screen.blit(backround_image, (0,0))
-                
-        
+                       
 
         #display the players1 + gravity
         player1_gravity += 0.5
@@ -202,17 +201,18 @@ def testpygames():
 
         # Mise à jour des projectiles + la gravité
         bullet_remove = []
-        for bullet in bullets:
-            bullet["x"] += bullet["vx"]
-            bullet["y"] += bullet["vy"]
-            bullet["vy"] += bullet_gravity
-            if bullet["y"] >= 500:
-                bullet_remove.append(bullet)
-            else:
-                pygame.draw.circle(screen, (255, 255, 255), (int(bullet["x"]), int(bullet["y"])), 5)
+        for bullet_data in bullets:
+            bullet_data["x"] += bullet_data["vx"]
+            bullet_data["y"] += bullet_data["vy"]
+            bullet_data["vy"] += bullet_gravity
 
-        for bullet in bullet_remove:
-            bullets.remove(bullet)
+            if bullet_data["y"] >= 500:
+                bullet_remove.append(bullet_data)
+            else:
+               screen.blit(bullet, (int(bullet_data["x"]), int(bullet_data["y"])))
+
+        for bullet_data in bullet_remove:
+            bullets.remove(bullet_data)
 
         #update everything
         pygame.display.update()
