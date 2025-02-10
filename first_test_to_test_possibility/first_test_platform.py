@@ -1,6 +1,7 @@
 import pygame
 import time
 from sys import exit
+
  
 def testpygames():
     pygame.init
@@ -17,18 +18,18 @@ def testpygames():
     bridge_surface.fill('Brown')
 
     #backround surface 
-    #backround_image = pygame.image.load('')
+    backround_image = pygame.image.load('')
 
     #for the weapons and bullets
-    bullet = pygame.image.load('players.png')
+    bullet = pygame.image.load('graphics_temp/players.png')
     #for the scale of the bullet
     bullet = pygame.transform.scale(bullet, (5,5))
     #to consider the bullet as a rectangle
     bullet_rect = bullet.get_rect()
 
     #players need to have a better well organised folder
-    player1 = pygame.image.load('players.png')
-    player2 = pygame.image.load('players.png')
+    player1 = pygame.image.load('graphics_temp/players.png')
+    player2 = pygame.image.load('graphics_temp/players.png')
     #for the scale of the player
     player1 = pygame.transform.scale(player1, (20,20))
     player2 = pygame.transform.scale(player1, (20,20))
@@ -176,6 +177,7 @@ def testpygames():
 
                 if player2_rect.colliderect(player1_rect):
                     player2_rect.x -= 2
+
             
             if keys[pygame.K_LEFT]:
                 player2_rect.x -= 2

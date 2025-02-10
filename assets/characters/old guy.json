@@ -1,0 +1,131 @@
+{
+  "bodyTypeName": "male",
+  "url": "https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light&overalls=Overalls_leather&hair=Balding_white&shoes=Boots_brown&facial_eyes=Nerd_Glasses_black&gloves=none_Gloves&bracers=none_Bracers&sex=male&clothes=Shortsleeve_orange&bandages=none_Bandages&belt=none_Leather_Belt&weapon=Cane_cane",
+  "spritesheets": "https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator/spritesheets/",
+  "version": 1,
+  "datetime": "2/10/2025, 9:09:53 AM",
+  "credits": [
+    {
+      "fileName": "body/bodies/male/light.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "bluecarrot16,JaidynReiman,Benjamin K. Smith (BenCreating),Evert,Eliza Wyatt (ElizaWy),TheraHedwig,MuffinElZangano,Durrani,Johannes Sjölund (wulax),Stephen Challener (Redshrike)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles,https://opengameart.org/content/lpc-medieval-fantasy-character-sprites,https://opengameart.org/content/lpc-male-jumping-animation-by-durrani,https://opengameart.org/content/lpc-runcycle-and-diagonal-walkcycle,https://opengameart.org/content/lpc-revised-character-basics,https://opengameart.org/content/lpc-be-seated,https://opengameart.org/content/lpc-runcycle-for-male-muscular-and-pregnant-character-bases-with-modular-heads,https://opengameart.org/content/lpc-jump-expanded,https://opengameart.org/content/lpc-character-bases",
+      "notes": "see details at https://opengameart.org/content/lpc-character-bases; 'Thick' Male Revised Run/Climb by JaidynReiman (based on ElizaWy's LPC Revised)"
+    },
+    {
+      "fileName": "head/heads/human/male/light.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "bluecarrot16,Benjamin K. Smith (BenCreating),Stephen Challener (Redshrike)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles,https://opengameart.org/content/lpc-character-bases",
+      "notes": "original head by Redshrike, tweaks by BenCreating, modular version by bluecarrot16"
+    },
+    {
+      "fileName": "hair/balding/adult/white.png",
+      "licenses": "OGA-BY 3.0",
+      "authors": "ElizaWy",
+      "urls": "https://opengameart.org/content/lpc-hair",
+      "notes": ""
+    },
+    {
+      "fileName": "facial/glasses/nerd/adult/black.png",
+      "licenses": "CC-BY-SA 3.0,GPL 3.0",
+      "authors": "JaidynReiman,Thane Brimhall (pennomi),laetissima",
+      "urls": "https://opengameart.org/content/lpc-base-character-expressions",
+      "notes": "Original by Pennomi, repositioning and recolors by JaidynReiman."
+    },
+    {
+      "fileName": "torso/clothes/shortsleeve/shortsleeve/male/orange.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+      "authors": "bluecarrot16,ElizaWy,Stephen Challener (Redshrike)",
+      "urls": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles,http://opengameart.org/content/lpc-revised-character-basics,http://opengameart.org/content/lpc-clothing-updates",
+      "notes": "original by ElizaWy walkcycle only; extended to all animations by adapting from longsleeve, edited to v3 bases by bluecarrot16"
+    },
+    {
+      "fileName": "torso/aprons/overalls/male/leather.png",
+      "licenses": "OGA-BY 3.0,GPL 3.0",
+      "authors": "ElizaWy,bluecarrot16,JaidynReiman",
+      "urls": "https://opengameart.org/content/lpc-revised-character-basics,http://opengameart.org/content/lpc-clothing-updates",
+      "notes": "original overalls by ElizaWy, extended to all animation frames, adapted from teen to male base, and edited for v3 bases by bluecarrot16; extended to combat animations by JaidynReiman"
+    },
+    {
+      "fileName": "feet/boots/male/brown.png",
+      "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 2.0,GPL 3.0",
+      "authors": "bluecarrot16,Nila122",
+      "urls": "https://opengameart.org/content/lpc-clothes-and-hair",
+      "notes": "original by Nila122, edited for male and v3 bases by bluecarrot16"
+    },
+    {
+      "fileName": "weapon/polearm/cane/male/cane.png",
+      "licenses": "CC-BY-SA 3.0,GPL 3.0",
+      "authors": "bluecarrot16",
+      "urls": "https://opengameart.org/content/lpc-gentleman",
+      "notes": ""
+    }
+  ],
+  "layers": [
+    {
+      "fileName": "body/bodies/male/light.png",
+      "zPos": 10,
+      "parentName": "body",
+      "name": "Body_color",
+      "variant": "light",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "feet/boots/male/brown.png",
+      "zPos": 25,
+      "parentName": "shoes",
+      "name": "Boots",
+      "variant": "brown",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "torso/clothes/shortsleeve/shortsleeve/male/orange.png",
+      "zPos": 35,
+      "parentName": "clothes",
+      "name": "Shortsleeve",
+      "variant": "orange",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering"
+    },
+    {
+      "fileName": "torso/aprons/overalls/male/leather.png",
+      "zPos": 38,
+      "parentName": "overalls",
+      "name": "Overalls",
+      "variant": "leather",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "head/heads/human/male/light.png",
+      "zPos": 100,
+      "parentName": "head",
+      "name": "Human_male",
+      "variant": "light",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "facial/glasses/nerd/adult/black.png",
+      "zPos": 115,
+      "parentName": "facial_eyes",
+      "name": "Nerd_Glasses",
+      "variant": "black",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "hair/balding/adult/white.png",
+      "zPos": 120,
+      "parentName": "hair",
+      "name": "Balding",
+      "variant": "white",
+      "supportedAnimations": "spellcast,thrust,walk,slash,shoot,hurt,watering,idle,jump,run,sit,emote,climb,combat,1h_slash,1h_backslash,1h_halfslash"
+    },
+    {
+      "fileName": "weapon/polearm/cane/male/cane.png",
+      "zPos": 140,
+      "parentName": "weapon",
+      "name": "Cane",
+      "variant": "cane",
+      "supportedAnimations": "walk,thrust"
+    }
+  ]
+}
