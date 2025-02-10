@@ -1,6 +1,13 @@
 import pygame
-import time
 from sys import exit
+
+#to handle the house in the middle of the house
+class GroupeObjet(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height, color):
+        super().__init__()
+        self.image = pygame.Surface((width, height))
+        self.image.fill(color)
+        self.rect = self.image.get_rect(topleft=(x, y))
 
  
 def testpygames():
@@ -17,14 +24,11 @@ def testpygames():
     bridge_surface = pygame.Surface((1500, 50))
     bridge_surface.fill('Brown')
 
-    #the house
-    house = pygame.Surface((260, 200))
-    house.fill('brown')
-    house_rect = house.get_rect(midbottom = (242,530))
-
-    basement = pygame.Surface((300, 60))
-    basement.fill('brown')
-    basement_rect = basement.get_rect(midbottom = (242,500))
+    # Création des objets (maison + sous-sol) dans un groupe
+    house_group = pygame.sprite.Group()
+    house = GroupeObjet(115, 350, 260, 200, 'green')  # Maison
+    basement = GroupeObjet(100, 440, 300, 60, 'green')  # Sous-sol
+    house_group.add(house, basement)
 
     #backround surface 
     backround_image = pygame.image.load('first_test_to_test_possibility/backroundtest.png')
@@ -45,8 +49,9 @@ def testpygames():
     player2 = pygame.transform.scale(player1, (20,20))
     #con,sider the player as a rectangle for better positioning
     player1_rect = player1.get_rect(midbottom = (1000,500))
-    player2_rect = player2.get_rect(midbottom = (0, 500))
+    player2_rect = player2.get_rect(midbottom = (800, 500))
     #for the gravity of the player
+
     player1_gravity = 0
     player2_gravity = 0
 
@@ -54,6 +59,7 @@ def testpygames():
     player_turn = pygame.USEREVENT + 1
     pygame.time.set_timer(player_turn, 45000)
     current_player = 1
+
 
     bullets = []
     bullet_gravity = 0.3
@@ -123,21 +129,141 @@ def testpygames():
                 if event.key == pygame.K_h :
                     trajectory_show = False
 
+
+        keys = pygame.key.get_pressed()
            
+        if player1_rect.colliderect(player2_rect):
+                if player1_rect.bottom > player2_rect.top and player1_rect.top < player2_rect.top:
+                    player1_rect.bottom = player2_rect.top
+                    player1_gravity = 0
+                    if current_player == 1:
+                        if keys[pygame.K_LEFT]:
+                            player1_rect.x -= 5
+                        if keys[pygame.K_RIGHT]:
+                            player1_rect.x += 5
+                        if keys[pygame.K_UP]:
+                            player1_gravity = -9
+
+        elif player2_rect.bottom > player1_rect.top and player2_rect.top < player1_rect.top:
+                    player2_rect.bottom = player1_rect.top
+                    player2_gravity = 0
+                    if current_player == 2:
+                        if keys[pygame.K_LEFT]:
+                            player1_rect.x -= 5
+                        if keys[pygame.K_RIGHT]:
+                            player1_rect.x += 5
+                        if keys[pygame.K_UP]:
+                            player1_gravity = -9
+        
+        for obj in house_group:
+            #gestion de la collision avec la maison 
+            if player1_rect.colliderect(obj.rect):
+                if player1_rect.bottom > obj.rect.top and player1_rect.top < obj.rect.top:
+                    player1_rect.bottom = obj.rect.top
+                    player1_gravity = 0
+                    if current_player == 1:
+                        if keys[pygame.K_LEFT]:
+                            player1_rect.x -= 5
+                        if keys[pygame.K_RIGHT]:
+                            player1_rect.x += 5
+                        if keys[pygame.K_UP]:
+                            player1_gravity = -9
+
+                elif player2_rect.bottom > obj.rect.top and player2_rect.top < obj.rect.top:
+                    player2_rect.bottom = obj.rect.top
+                    player2_gravity = 0
+                    if current_player == 2:
+                        if keys[pygame.K_LEFT]:
+                            player1_rect.x -= 5
+                        if keys[pygame.K_RIGHT]:
+                            player1_rect.x += 5
+                        if keys[pygame.K_UP]:
+                            player1_gravity = -9
+        
+
+        #Players 1
+        #pour les mouvements ici droite et gauche ou on prends on compte la collision entre deux joueur
+
+        for obj in house_group:
+            if current_player == 1:
+                if keys[pygame.K_RIGHT]:
+                    player1_rect.x += 2
+                    directionp1 = 1
+                    
+
+                    if player1_rect.colliderect(player2_rect):
+                        player1_rect.x -= 2
+                    if player1_rect.colliderect(obj):
+                        player1_rect.x -= 2
+                
+                if keys[pygame.K_LEFT]:
+                    player1_rect.x -= 2
+                    directionp1 = -1
+
+                    if player1_rect.colliderect(player2_rect):
+                        player1_rect.x += 2
+                    if player1_rect.colliderect(obj):
+                        player1_rect.x += 2
+                if keys[pygame.K_UP] and player1_rect.bottom >= 470:
+                    player1_gravity = -9
 
 
-        #screen.blit(backround_image, (0,0))
 
-        screen.blit(house, house_rect.topleft)
-        screen.blit(basement, basement_rect.topleft)
+            elif current_player == 2:
+                if keys[pygame.K_RIGHT]:
+                    player2_rect.x += 2
+                    directionp2 = 1
+
+                    if player2_rect.colliderect(player1_rect):
+                        player2_rect.x -= 2
+                    if player2_rect.colliderect(obj.rect):
+                        player2_rect.x -= 2
+                
+                if keys[pygame.K_LEFT]:
+                    player2_rect.x -= 2
+                    directionp2 = -1
+
+                    if player2_rect.colliderect(player1_rect):
+                        player2_rect.x += 2
+                    if player2_rect.colliderect(obj):
+                        player2_rect.x += 2
+                
+                if keys[pygame.K_UP] and player2_rect.bottom >= 470:
+                    player2_gravity = -9
+
+        #affiche la trajectoire
+        if trajectory_show:
+            for point in trajectory:
+                pygame.draw.circle(screen, trajectory_color, point, 2)
+            
+
+        # Mise à jour des projectiles + la gravité
+        bullet_remove = []
+        for bullet_data in bullets:
+            bullet_data["x"] += bullet_data["vx"]
+            bullet_data["y"] += bullet_data["vy"]
+            bullet_data["vy"] += bullet_gravity
+
+            if bullet_data["y"] >= 470:
+                bullet_remove.append(bullet_data)
+            else:
+               screen.blit(bullet, (int(bullet_data["x"]), int(bullet_data["y"])))
+
+        for bullet_data in bullet_remove:
+            bullets.remove(bullet_data)
+
+        screen.blit(backround_image, (0,0))
+
+        house_group.draw(screen)
 
         #display the brige on the screen 
         screen.blit(bridge_surface,(0,470))
 
 
         #screen for the backround
-        screen.blit(backround_image, (0,0))
-                       
+        #screen.blit(backround_image, (0,0))
+
+                               
 
         #display the players1 + gravity
         player1_gravity += 0.5
@@ -161,86 +287,6 @@ def testpygames():
             player2_rect.centerx = 10
         screen.blit(player2, player2_rect)
 
-        keys = pygame.key.get_pressed()
-
-        #Players 1
-        #pour les mouvements ici droite et gauche ou on prends on compte la collision entre deux joueur
-
-        if current_player == 1:
-            if keys[pygame.K_RIGHT]:
-                player1_rect.x += 2
-                directionp1 = 1
-                
-
-                if player1_rect.colliderect(player2_rect):
-                    player1_rect.x -= 2
-                if player1_rect.colliderect(house_rect):
-                    player1_rect.x -= 2
-                if player1_rect.colliderect(basement_rect):
-                    player1_rect.x -= 2
-            
-            if keys[pygame.K_LEFT]:
-                player1_rect.x -= 2
-                directionp1 = -1
-
-                if player1_rect.colliderect(player2_rect):
-                    player1_rect.x += 2
-                if player1_rect.colliderect(house_rect):
-                    player1_rect.x += 2
-                if player1_rect.colliderect(basement_rect):
-                    player1_rect.x += 2
-            if keys[pygame.K_UP] and player1_rect.bottom >= 470:
-                player1_gravity = -9
-
-
-
-        elif current_player == 2:
-            if keys[pygame.K_RIGHT]:
-                player2_rect.x += 2
-                directionp2 = 1
-
-                if player2_rect.colliderect(player1_rect):
-                    player2_rect.x -= 2
-                if player2_rect.colliderect(house_rect):
-                    player2_rect.x -= 2
-                if player2_rect.colliderect(basement_rect):
-                    player2_rect.x -= 2
-            
-            if keys[pygame.K_LEFT]:
-                player2_rect.x -= 2
-                directionp2 = -1
-
-                if player2_rect.colliderect(player1_rect):
-                    player2_rect.x += 2
-                if player2_rect.colliderect(house_rect):
-                    player2_rect.x += 2
-                if player2_rect.colliderect(basement_rect):
-                    player2_rect.x += 2
-            
-            if keys[pygame.K_UP] and player2_rect.bottom >= 470:
-                player2_gravity = -9
-
-        #affiche la trajectoire
-        if trajectory_show:
-            for point in trajectory:
-                pygame.draw.circle(screen, trajectory_color, point, 2)
-            
-
-        # Mise à jour des projectiles + la gravité
-        bullet_remove = []
-        for bullet_data in bullets:
-            bullet_data["x"] += bullet_data["vx"]
-            bullet_data["y"] += bullet_data["vy"]
-            bullet_data["vy"] += bullet_gravity
-
-            if bullet_data["y"] >= 470:
-                bullet_remove.append(bullet_data)
-            else:
-               screen.blit(bullet, (int(bullet_data["x"]), int(bullet_data["y"])))
-
-        for bullet_data in bullet_remove:
-            bullets.remove(bullet_data)
-
         #update everything
         pygame.display.update()
 
@@ -248,4 +294,6 @@ def testpygames():
         clock.tick(60)
 
 
+
+            
 testpygames()
