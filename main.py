@@ -1,40 +1,22 @@
-
+#all the import mandatory 
 import pygame
-import sys
+from game_on import game_on
+from menu import menu
+from setting import setting
 
-pygame.init()
-screen = pygame.display.set_mode((640, 480))
-pygame.display.set_caption("Menu Example")
-font = pygame.font.SysFont(None, 48)
-ù
-menu_options = ["Start Game", "Options", "Quit"]
-selected_index = 0
-clock = pygame.time.Clock()
+#the main function who regroups all the functions
+def main():
+    run = True
 
-running = True
-while running:
-    screen.fill((30, 30, 30))
+    #loop to launch the game
+    while run:
+        if menu() == 'start':
+            game_on()
+        elif menu() == 'setting':
+            if setting() == True:
+                game_on()
+        elif menu() == 'exit':
+            run = False
+    
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN:
-                selected_index = (selected_index + 1) % len(menu_options)
-            elif event.key == pygame.K_UP:
-                selected_index = (selected_index - 1) % len(menu_options)
-            elif event.key == pygame.K_RETURN:
-                if menu_options[selected_index] == "Quit":
-                    running = False
-                # Handle other options as needed
-
-    for i, option in enumerate(menu_options):
-        color = (200, 200, 200) if i == selected_index else (100, 100, 100)
-        text_surface = font.render(option, True, color)
-        screen.blit(text_surface, (250, 150 + i * 60))
-
-    pygame.display.flip()
-    clock.tick(30)
-
-pygame.quit()
-sys.exit()
+main()
