@@ -38,9 +38,9 @@ def menu():
 
     #usefull variables
     run = True
-    start_img = pygame.image.load('graphics_temp/start_btn.png')
-    exit_img = pygame.image.load('graphics_temp/exit_btn.png')
-    setting_img = pygame.image.load('graphics_temp/setting.jpeg')
+    start_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/start_btn.png')
+    exit_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/exit_btn.png')
+    setting_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/setting.jpeg')
 
     #initialization of the screen of the side of the screen and we set a caption for the window
     screen = pygame.display.set_mode((800,800)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
