@@ -18,7 +18,7 @@ def testpygames():
     bridge_surface.fill('Brown')
 
     #backround surface 
-    #backround_image = pygame.image.load('')
+    backround_image = pygame.image.load('')
 
     #for the weapons and bullets
     bullet = pygame.image.load('graphics_temp/players.png')
@@ -177,6 +177,7 @@ def testpygames():
 
                 if player2_rect.colliderect(player1_rect):
                     player2_rect.x -= 2
+
             
             if keys[pygame.K_LEFT]:
                 player2_rect.x -= 2
