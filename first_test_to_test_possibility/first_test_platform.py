@@ -16,8 +16,15 @@ def testpygames():
     #structure of the game, simples bridges
     bridge_surface = pygame.Surface((1500, 50))
     bridge_surface.fill('Brown')
-    rect_house = pygame.Surface((100, 10))
-    rect_house.fill('brown')
+
+    #the house
+    house = pygame.Surface((260, 200))
+    house.fill('brown')
+    house_rect = house.get_rect(midbottom = (242,530))
+
+    basement = pygame.Surface((300, 60))
+    basement.fill('brown')
+    basement_rect = basement.get_rect(midbottom = (242,500))
 
     #backround surface 
     backround_image = pygame.image.load('first_test_to_test_possibility/backroundtest.png')
@@ -37,8 +44,8 @@ def testpygames():
     player1 = pygame.transform.scale(player1, (20,20))
     player2 = pygame.transform.scale(player1, (20,20))
     #con,sider the player as a rectangle for better positioning
-    player1_rect = player1.get_rect(midbottom = (260,500))
-    player2_rect = player2.get_rect(midbottom = (400, 500))
+    player1_rect = player1.get_rect(midbottom = (1000,500))
+    player2_rect = player2.get_rect(midbottom = (0, 500))
     #for the gravity of the player
     player1_gravity = 0
     player2_gravity = 0
@@ -109,7 +116,7 @@ def testpygames():
                         temp_x += vx
                         temp_y += temp_vy
                         temp_vy += bullet_gravity
-                        if temp_y >= 500:
+                        if temp_y >= 470:
                             break
                         trajectory.append((int(temp_x), int(temp_y)))
 
@@ -118,22 +125,25 @@ def testpygames():
 
            
 
-        #display the backround on the screen
-        screen.fill((0, 0, 0))
+
+        #screen.blit(backround_image, (0,0))
+
+        screen.blit(house, house_rect.topleft)
+        screen.blit(basement, basement_rect.topleft)
+
+        #display the brige on the screen 
+        screen.blit(bridge_surface,(0,470))
 
 
         #screen for the backround
         screen.blit(backround_image, (0,0))
-
-        #display the brige on the screen 
-        screen.blit(bridge_surface,(0,500))
                        
 
         #display the players1 + gravity
         player1_gravity += 0.5
         player1_rect.y += player1_gravity
-        if player1_rect.bottom >= 500:
-            player1_rect.bottom = 500
+        if player1_rect.bottom >= 470:
+            player1_rect.bottom = 470
         if player1_rect.centerx >= 1190:
             player1_rect.centerx = 1190
         if player1_rect.centerx <= 10:
@@ -143,8 +153,8 @@ def testpygames():
         #display the players2 + gravity
         player2_gravity += 0.5
         player2_rect.y += player2_gravity
-        if player2_rect.bottom >= 500:
-            player2_rect.bottom = 500
+        if player2_rect.bottom >= 470:
+            player2_rect.bottom = 470
         if player2_rect.centerx >= 1190:
             player2_rect.centerx = 1190
         if player2_rect.centerx <= 10:
@@ -164,6 +174,10 @@ def testpygames():
 
                 if player1_rect.colliderect(player2_rect):
                     player1_rect.x -= 2
+                if player1_rect.colliderect(house_rect):
+                    player1_rect.x -= 2
+                if player1_rect.colliderect(basement_rect):
+                    player1_rect.x -= 2
             
             if keys[pygame.K_LEFT]:
                 player1_rect.x -= 2
@@ -171,8 +185,11 @@ def testpygames():
 
                 if player1_rect.colliderect(player2_rect):
                     player1_rect.x += 2
-            
-            if keys[pygame.K_UP] and player1_rect.bottom >= 500:
+                if player1_rect.colliderect(house_rect):
+                    player1_rect.x += 2
+                if player1_rect.colliderect(basement_rect):
+                    player1_rect.x += 2
+            if keys[pygame.K_UP] and player1_rect.bottom >= 470:
                 player1_gravity = -9
 
 
@@ -184,7 +201,10 @@ def testpygames():
 
                 if player2_rect.colliderect(player1_rect):
                     player2_rect.x -= 2
-
+                if player2_rect.colliderect(house_rect):
+                    player2_rect.x -= 2
+                if player2_rect.colliderect(basement_rect):
+                    player2_rect.x -= 2
             
             if keys[pygame.K_LEFT]:
                 player2_rect.x -= 2
@@ -192,8 +212,12 @@ def testpygames():
 
                 if player2_rect.colliderect(player1_rect):
                     player2_rect.x += 2
+                if player2_rect.colliderect(house_rect):
+                    player2_rect.x += 2
+                if player2_rect.colliderect(basement_rect):
+                    player2_rect.x += 2
             
-            if keys[pygame.K_UP] and player2_rect.bottom >= 500:
+            if keys[pygame.K_UP] and player2_rect.bottom >= 470:
                 player2_gravity = -9
 
         #affiche la trajectoire
@@ -209,7 +233,7 @@ def testpygames():
             bullet_data["y"] += bullet_data["vy"]
             bullet_data["vy"] += bullet_gravity
 
-            if bullet_data["y"] >= 500:
+            if bullet_data["y"] >= 470:
                 bullet_remove.append(bullet_data)
             else:
                screen.blit(bullet, (int(bullet_data["x"]), int(bullet_data["y"])))
