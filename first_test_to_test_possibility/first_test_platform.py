@@ -20,19 +20,19 @@ def testpygames():
     rect_house.fill('brown')
 
     #backround surface 
-    backround_image = pygame.image.load('assets/backroundtest.png')
+    backround_image = pygame.image.load('first_test_to_test_possibility/backroundtest.png')
     backround_image = pygame.transform.scale(backround_image, (1200,600))
 
     #for the weapons and bullets
-    bullet = pygame.image.load('assets/items/grenade_it.png').convert_alpha()
+    bullet = pygame.image.load('first_test_to_test_possibility/assets/items/grenade_it.png').convert_alpha()
     #for the scale of the bullet
     bullet = pygame.transform.scale(bullet, (25,25))
     #to consider the bullet as a rectangle
     bullet_rect = bullet.get_rect()
 
     #players need to have a better well organised folder
-    player1 = pygame.image.load('graphics_temp/players.png')
-    player2 = pygame.image.load('graphics_temp/players.png')
+    player1 = pygame.image.load('first_test_to_test_possibility/graphics_temp/players.png')
+    player2 = pygame.image.load('first_test_to_test_possibility/graphics_temp/players.png')
     #for the scale of the player
     player1 = pygame.transform.scale(player1, (20,20))
     player2 = pygame.transform.scale(player1, (20,20))
