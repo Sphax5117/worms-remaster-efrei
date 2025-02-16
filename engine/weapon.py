@@ -15,7 +15,7 @@ class Weapon:
 
     def reload(self, amnt):
         """reload method with a specific amount"""
-    self.ammo += amnt
+        self.ammo += amnt
 
     def draw(self,screen, position):
         """Display the weapons on the screen"""
