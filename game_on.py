@@ -1,11 +1,10 @@
 #importation of all the usefull librairy
 import pygame
-import time
 from sys import exit 
-from menu import menu
+import os
 
 def game_on():
-
+    os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
     pygame.init
 
     #initialization of the screen of the side of the screen and we set a caption for the window

@@ -1,23 +1,33 @@
+import os
+os.environ['SDL_VIDEO_WINDOW_POS'] = "1"
+
 #all the import mandatory 
 import pygame
 from game_on import game_on
 from menu import menu
 from setting import setting
+from utilities import size
+
 
 #test de commit
 #the main function who regroups all the functions
 def main():
     run = True
 
+    screensize  = (800, 800)
+
     #loop to launch the game
     while run:
-        if menu() == 'start':
+        choice_menu = menu(screensize)
+
+        if choice_menu == 'start':
             game_on()
-        elif menu() == 'setting':
-            if setting() == True:
-                game_on()
-        elif menu() == 'exit':
+        elif choice_menu == 'setting' and setting(screensize):
+            screensize = size()
+        elif choice_menu == 'exit':
             run = False
+    
+    return
     
 
 main()
