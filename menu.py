@@ -14,10 +14,10 @@ def menu(screensize):
     setting_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/setting.jpeg')
 
     #initialization of the screen of the side of the screen and we set a caption for the window
-    screen = pygame.display.set_mode((screensize)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
+    screen = pygame.display.set_mode((screensize)) 
     pygame.display.set_caption("Funny Granny")
 
-        # Button class
+    # Button class
     class Button():
         def __init__(self, x_factor, y_factor, image):
             self.image = image
@@ -27,7 +27,7 @@ def menu(screensize):
             self.clicked = False
         
         def update_position(self, screen_width, screen_height):
-            """Update button position based on new screen size."""
+            #Update button position based on new screen size.
             self.rect = self.image.get_rect()
             self.rect.topleft = (int(screen_width * self.x_factor), int(screen_height * self.y_factor))
 
