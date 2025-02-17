@@ -5,10 +5,10 @@ import os
 
 def game_on():
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
-    pygame.init
+    pygame.init() 
 
     #initialization of the screen of the side of the screen and we set a caption for the window
-    screen = pygame.display.set_mode((1200,800)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
+    screen = pygame.display.set_mode((1500,750)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
     pygame.display.set_caption("Funny Granny")
 
     #helps to limit the game to 60fps
@@ -31,3 +31,4 @@ def game_on():
         pygame.display.update()
         clock.tick(60)
 
+    return

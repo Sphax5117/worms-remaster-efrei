@@ -35,7 +35,7 @@ def testpygames():
     backround_image = pygame.transform.scale(backround_image, (1200,600))
 
     #for the weapons and bullets
-    bullet = pygame.image.load('first_test_to_test_possibility/assets/items/grenade_it.png').convert_alpha()
+    bullet = pygame.image.load('assets/items/grenade_it.png').convert_alpha()
     #for the scale of the bullet
     bullet = pygame.transform.scale(bullet, (25,25))
     #to consider the bullet as a rectangle

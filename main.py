@@ -9,7 +9,6 @@ from setting import setting
 from utilities import size
 
 
-#test de commit
 #the main function who regroups all the functions
 def main():
     run = True

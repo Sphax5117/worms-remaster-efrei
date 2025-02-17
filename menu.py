@@ -8,52 +8,51 @@ def menu(screensize):
 
     #usefull variables
     run = True
+    screen_width, screen_height = screensize
     start_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/start_btn.png')
     exit_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/exit_btn.png')
     setting_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/setting.jpeg')
 
     #initialization of the screen of the side of the screen and we set a caption for the window
-    screen = pygame.display.set_mode((screensize)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
+    screen = pygame.display.set_mode((screensize)) 
     pygame.display.set_caption("Funny Granny")
 
-    #class for button
+    # Button class
     class Button():
-        #define the class for the buttons
-        def __init__(self, x, y, image):
-            self.image = image 
-            self.rect = self.image.get_rect()
-            self.rect.topleft = (x, y)
+        def __init__(self, x_factor, y_factor, image):
+            self.image = image
+            self.x_factor = x_factor  # Percentage of screen width
+            self.y_factor = y_factor  # Percentage of screen height
+            self.update_position(screen_width, screen_height)
             self.clicked = False
         
-        #define a function to draw all the buttons
+        def update_position(self, screen_width, screen_height):
+            #Update button position based on new screen size.
+            self.rect = self.image.get_rect()
+            self.rect.topleft = (int(screen_width * self.x_factor), int(screen_height * self.y_factor))
+
         def draw(self):
             action = False
-
-            #get the mouse position (usefull for the click)
             pos = pygame.mouse.get_pos()
 
-            #check is our mouse is over the button (1) and clicked (2) only one time
             if self.rect.collidepoint(pos):
-                if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+                if pygame.mouse.get_pressed()[0] == 1 and not self.clicked:
                     self.clicked = True
                     action = True
 
-            #checked if the mouse is released
             if pygame.mouse.get_pressed()[0] == 0:
                 self.clicked = False
 
-            #draw the button
             screen.blit(self.image, (self.rect.x, self.rect.y))
-
             return action
-
+        
     #helps to limit the menu to 60fps
     clock = pygame.time.Clock()
 
     #create some button instances
-    start_button = Button(100, 300, start_img)
-    exit_button = Button(450,300, exit_img)
-    setting_button = Button(600, 600, setting_img)
+    start_button = Button(0.1, 0.3, start_img)  # 10% of screen width, 30% of screen height
+    exit_button = Button(0.6, 0.3, exit_img)   # 45% of screen width, 30% of screen height
+    setting_button = Button(0.72, 0.72, setting_img)  # 60% of screen width, 60% of screen height
 
 
     #the while loop for the menu

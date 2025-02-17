@@ -15,10 +15,10 @@ def setting(screensize):
     clock = pygame.time.Clock()
 
     # Button settings
-    button_color = (100, 100, 255)
+    button_color = (255, 255, 255)
     button_rect = pygame.Rect(300, 350, 200, 50)
     font = pygame.font.Font(None, 36)
-    button_text = font.render("Auto Resize", True, (255, 255, 255))
+    button_text = font.render("Auto Resize", True, (0, 0, 0))
     text_rect = button_text.get_rect(center=button_rect.center)
 
     # the principal loop that is True when the game is live
@@ -40,7 +40,7 @@ def setting(screensize):
 
 
         # fill the screen with a black background
-        screen.fill((0, 0, 0))
+        screen.fill((48, 106, 192))
 
         # Draw button
         pygame.draw.rect(screen, button_color, button_rect)
@@ -50,3 +50,4 @@ def setting(screensize):
         pygame.display.update()
         clock.tick(60)
 
+    return 
