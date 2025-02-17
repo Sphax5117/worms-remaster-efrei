@@ -40,7 +40,7 @@ def setting(screensize):
 
 
         # fill the screen with a black background
-        screen.fill((0, 0, 0))
+        screen.fill((48, 106, 192))
 
         # Draw button
         pygame.draw.rect(screen, button_color, button_rect)
