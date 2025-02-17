@@ -8,7 +8,7 @@ def game_on():
     pygame.init
 
     #initialization of the screen of the side of the screen and we set a caption for the window
-    screen = pygame.display.set_mode((1200,800)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
+    screen = pygame.display.set_mode((1500,750)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
     pygame.display.set_caption("Funny Granny")
 
     #helps to limit the game to 60fps
