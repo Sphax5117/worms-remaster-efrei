@@ -74,6 +74,7 @@ class Player:
             self.rainbow_time = self.rainbow_time - 1
 
 
+'''Mettre les joueurs a des positions aléatoires au début de la partie (tout en restant sur la map)'''
 # players:
 player1 = Player(2, 1, 128, 310)
 player2 = Player(1, 2, 600, 310)
