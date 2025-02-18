@@ -51,8 +51,8 @@ def menu(screensize):
 
     #create some button instances
     start_button = Button(0.1, 0.3, start_img)  # 10% of screen width, 30% of screen height
-    exit_button = Button(0.6, 0.3, exit_img)   # 45% of screen width, 30% of screen height
-    setting_button = Button(0.72, 0.72, setting_img)  # 60% of screen width, 60% of screen height
+    exit_button = Button(0.5, 0.3, exit_img)   # 45% of screen width, 30% of screen height
+    setting_button = Button(0.90, 0.90, setting_img)  # 60% of screen width, 60% of screen height
 
 
     #the while loop for the menu

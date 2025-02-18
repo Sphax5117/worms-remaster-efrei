@@ -1,6 +1,3 @@
-import os
-os.environ['SDL_VIDEO_WINDOW_POS'] = "1"
-
 #all the import mandatory 
 import pygame
 from game_on import game_on
