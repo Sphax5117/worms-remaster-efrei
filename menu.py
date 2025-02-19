@@ -9,9 +9,14 @@ def menu(screensize):
     #usefull variables
     run = True
     screen_width, screen_height = screensize
-    start_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/start_btn.png')
-    exit_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/exit_btn.png')
-    setting_img = pygame.image.load('first_test_to_test_possibility/graphics_temp/setting.jpeg')
+    start_img = pygame.image.load('assets/menu/start_bt.png')
+    exit_img = pygame.image.load('assets/menu/exit_bt.png')
+    setting_img = pygame.image.load('assets/menu/setting_bt.png')
+
+    #scale the image
+    start_img = pygame.transform.scale(start_img, (400, 150))
+    exit_img = pygame.transform.scale(exit_img, (400, 150))
+    setting_img = pygame.transform.scale(setting_img, (400, 150))   
 
     #initialization of the screen of the side of the screen and we set a caption for the window
     screen = pygame.display.set_mode((screensize)) 
@@ -50,9 +55,9 @@ def menu(screensize):
     clock = pygame.time.Clock()
 
     #create some button instances
-    start_button = Button(0.1, 0.3, start_img)  # 10% of screen width, 30% of screen height
-    exit_button = Button(0.5, 0.3, exit_img)   # 45% of screen width, 30% of screen height
-    setting_button = Button(0.90, 0.90, setting_img)  # 60% of screen width, 60% of screen height
+    start_button = Button(0.3, 0.2, start_img)  # 10% of screen width, 30% of screen height
+    exit_button = Button(0.3, 0.4, exit_img)   # 45% of screen width, 30% of screen height
+    setting_button = Button(0.3, 0.6, setting_img)  # 60% of screen width, 60% of screen height
 
 
     #the while loop for the menu
