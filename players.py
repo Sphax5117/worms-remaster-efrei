@@ -10,7 +10,7 @@ class Player:
         self.sprite = pg.image.load("assets/players/blob.png").convert_alpha()
         self.sprite_sheet = pg.Rect(color*72, 0*90, 72, 90)
         self.animation_time = 0
-        self.rainbow_time = 17.5
+        self.rainbow_time = 17.5 ### on garde le raimbow ???
         # players number:
         self.nb = nb
         # position/movement variables:

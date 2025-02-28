@@ -2,6 +2,7 @@
 import pygame
 from sys import exit 
 import os
+from players import *
 
 def game_on():
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
@@ -11,8 +12,10 @@ def game_on():
     screen = pygame.display.set_mode((1500,750)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
     pygame.display.set_caption("Funny Granny")
 
+    #determine
+
     #helps to limit the game to 60fps
-    clock = pygame.time.Clock()
+    clock = pygame.time.Clock(60)
 
 
     #the principal loop that is True when the game is live
