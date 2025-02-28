@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2275574-959c-4fde-b418-e7bb750acaf7" name="Changes" comment="all in one directory">
-      <change afterPath="$PROJECT_DIR$/Musics/Funny Granny 2.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Musics/Funny Granny Goofy.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first_test_to_test_possibility/assets/menu/Group 7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first_test_to_test_possibility/assets/menu/Group 8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first_test_to_test_possibility/assets/menu/Group 9.png" afterDir="false" />
+    <list default="true" id="f2275574-959c-4fde-b418-e7bb750acaf7" name="Changes" comment="added songs and menu buttons">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_02_2025,_10_49_[Changes]/pill.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_02_2025,_10_49_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_02_2025,_10_49_[Changes]/soup.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_02_2025,_10_50_[Changes]/pill.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_02_2025,_10_50_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_02_2025,_10_50_[Changes]/soup.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_02_2025__10_49__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_02_2025__10_50__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +125,10 @@
       <workItem from="1738564929027" duration="1904000" />
       <workItem from="1739172985839" duration="6066000" />
       <workItem from="1739784599211" duration="587000" />
-      <workItem from="1739785190072" duration="2581000" />
+      <workItem from="1739785190072" duration="2626000" />
+      <workItem from="1739969887841" duration="5000" />
+      <workItem from="1739969896236" duration="3305000" />
+      <workItem from="1740504022800" duration="639000" />
     </task>
     <task id="LOCAL-00001" summary="dazdad">
       <option name="closed" value="true" />
@@ -163,7 +170,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739181231963</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added songs and menu buttons">
+      <option name="closed" value="true" />
+      <created>1739798745134</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1739798745134</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added songs and menu buttons">
+      <option name="closed" value="true" />
+      <created>1739798768895</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1739798768895</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,10 +196,11 @@
     <MESSAGE value="dazdad" />
     <MESSAGE value="added sprites" />
     <MESSAGE value="all in one directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="all in one directory" />
+    <MESSAGE value="added songs and menu buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="added songs and menu buttons" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bouboule_la_chouette$first_test_platform.coverage" NAME="first_test_platform Coverage Results" MODIFIED="1739181200577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/first_test_to_test_possibility" />
+    <SUITE FILE_PATH="coverage/bouboule_la_chouette$first_test_platform.coverage" NAME="first_test_platform Coverage Results" MODIFIED="1740419365694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/first_test_to_test_possibility" />
     <SUITE FILE_PATH="coverage/bouboule_la_chouette$main.coverage" NAME="main Coverage Results" MODIFIED="1738507295434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
