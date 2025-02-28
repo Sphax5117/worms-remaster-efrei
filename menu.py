@@ -5,6 +5,7 @@ import os
 def menu(screensize):
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
     pygame.init()
+    pygame.mixer.init()
 
     #usefull variables
     run = True
@@ -12,11 +13,18 @@ def menu(screensize):
     start_img = pygame.image.load('assets/menu/start_bt.png')
     exit_img = pygame.image.load('assets/menu/exit_bt.png')
     setting_img = pygame.image.load('assets/menu/setting_bt.png')
+    backround_img = pygame.image.load('assets/menu/bg.png')
+    pygame.mixer.music.load('Musics/Funny Granny 2.mp3')
 
-    #scale the image
-    start_img = pygame.transform.scale(start_img, (400, 150))
-    exit_img = pygame.transform.scale(exit_img, (400, 150))
-    setting_img = pygame.transform.scale(setting_img, (400, 150))   
+    #for the music in loop
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play(-1)
+
+    #scale the image (button and backround)
+    start_img = pygame.transform.scale(start_img, (300, 100))
+    exit_img = pygame.transform.scale(exit_img, (300, 100))
+    setting_img = pygame.transform.scale(setting_img, (300, 100)) 
+    backround_img = pygame.transform.scale(backround_img, (screen_width, screen_height))  
 
     #initialization of the screen of the side of the screen and we set a caption for the window
     screen = pygame.display.set_mode((screensize)) 
@@ -55,16 +63,16 @@ def menu(screensize):
     clock = pygame.time.Clock()
 
     #create some button instances
-    start_button = Button(0.3, 0.2, start_img)  # 10% of screen width, 30% of screen height
-    exit_button = Button(0.3, 0.4, exit_img)   # 45% of screen width, 30% of screen height
-    setting_button = Button(0.3, 0.6, setting_img)  # 60% of screen width, 60% of screen height
+    start_button = Button(0.4, 0.45, start_img)  
+    exit_button = Button(0.4, 0.6, exit_img)   
+    setting_button = Button(0.4, 0.75, setting_img)  
 
 
     #the while loop for the menu
     while run:
 
         #fill the screen with a black backround
-        screen.fill((48, 106, 192))
+        screen.blit(backround_img, (0,0))
 
         #draw our button for the menu
         if start_button.draw():
@@ -81,6 +89,7 @@ def menu(screensize):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+        
 
         #update the game every 60 seconds
         pygame.display.update()

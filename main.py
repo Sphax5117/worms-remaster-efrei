@@ -10,7 +10,7 @@ from utilities import size
 def main():
     run = True
 
-    screensize  = (800, 800)
+    screensize  = (1200, 700)
 
     #loop to launch the game
     while run:

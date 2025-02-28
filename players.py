@@ -7,7 +7,7 @@ class Player:
     # definition of Player class
     def __init__(self, color, nb, x_pos, y_pos):
         # sprite variables:
-        self.sprite = pg.image.load("assets/players/blob.png").convert_alpha()
+        #self.sprite = pg.image.load("assets/players/blob.png").convert_alpha()
         self.sprite_sheet = pg.Rect(color*72, 0*90, 72, 90)
         self.animation_time = 0
         self.rainbow_time = 17.5 ### on garde le raimbow ???

@@ -2,7 +2,6 @@
 import pygame
 from sys import exit 
 import os
-from players import *
 
 def game_on():
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
@@ -15,7 +14,7 @@ def game_on():
     #determine
 
     #helps to limit the game to 60fps
-    clock = pygame.time.Clock(60)
+    clock = pygame.time.Clock()
 
 
     #the principal loop that is True when the game is live
