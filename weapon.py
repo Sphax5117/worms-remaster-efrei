@@ -34,4 +34,38 @@ class Bullet:
         self.direction = direction
         self.speed = speed
         self.damage = damage
-        sel.alive
+        sel.alive = True
+
+        def update(self):
+            """update the position of the bullet"""
+            self.pos += self.direction * self.speed
+
+            if self.pos.x < 0 or self.pos.x > 800 or self.pos.y < 0 or self.pos.y > 600:
+                self.alive = False
+
+        def draw(self, screen):
+            """draw the bullet"""
+            pg.draw.circle(screen, (255, 0, 0), (int(self.pos.x), int(self.pos.y)),5)
+
+'''ARME DE TEST !!!!'''
+
+class shotgun(Weapon):
+    def __init__(self):
+        super().__init__("shotgun",damage = 5, fire_range=200, ammo=6, sprite_path="shotgun.png")
+        self.pellets = 6 # number of bullet per shot
+
+    def fire(self, pos, direction, bullets_list):
+        if self.ammo > 0:
+            self.ammo -= 1
+            for _ in range(self.pellets):
+
+                angle_offset = random.uniform(-15, 15)
+                angle_rad = math.radians(angle_offset)
+                new_dir = pg.Verctor2(
+                    math.cos(angle_rad) * direction.x - math.sin(angle_rad) * direction.y,
+                    math.sin(angle_rad) * direction + math.cos(angle_rad) * direction.y
+                ).normalize()
+
+                bullets_list.append(Bullet(pos, new_dir))
+
+
