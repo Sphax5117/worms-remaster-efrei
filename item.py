@@ -19,14 +19,5 @@ class Item:
             return True
         return False
 
-    def heal_player_soup(player):
-
-    def tartane(palyer):
-
-    def
-
-    items = [
-        Item(300, 250, "sword", sword_img),
-        Item(500, 350, "gun", gun_img),
-        Item(600, 200, "Soup", heal_player_soup )
-    ]
+    def heal_player_soup(self):
+        self.health=min(self.health+20,100)
