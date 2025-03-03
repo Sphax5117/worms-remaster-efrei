@@ -10,6 +10,8 @@ def game_on():
     #initialization of the screen of the side of the screen and we set a caption for the window
     screen = pygame.display.set_mode((1500,750)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
     pygame.display.set_caption("Funny Granny")
+    backround_img = pygame.image.load('assets/menu/bg.png')
+    maps_img = pygame.image.load('assets/gameon/test.png')
 
     #determine
 
@@ -27,10 +29,12 @@ def game_on():
                 exit()
 
         #fill the screen with a black backround
-        screen.fill((69, 240, 255))
+        screen.fill(maps_img, (0,0))
 
         #update the game every 60 seconds
         pygame.display.update()
         clock.tick(60)
+
+
 
     return
