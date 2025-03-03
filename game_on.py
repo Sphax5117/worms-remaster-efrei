@@ -13,7 +13,9 @@ def game_on():
     backround_img = pygame.image.load('assets/gameon/skybox.png')
     maps_img = pygame.image.load('assets/gameon/test.png')
 
-    #determine
+    #sclae the image
+    ackround_img = pygame.transform.scale(backround_img, (1500,750))
+    maps_img = pygame.transform.scale(maps_img, (1500, 750))
 
     #helps to limit the game to 60fps
     clock = pygame.time.Clock()
@@ -29,8 +31,8 @@ def game_on():
                 exit()
 
         #fill the screen with a black backround
-        screen.fill(backround_img, (0,0))
-        screen.fill(maps_img, (0,0))
+        screen.blit(backround_img, (0,0))
+        screen.blit(maps_img, (0,0))
 
         #update the game every 60 seconds
         pygame.display.update()
