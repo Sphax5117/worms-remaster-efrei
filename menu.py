@@ -10,9 +10,9 @@ def menu(screensize):
     #usefull variables
     run = True
     screen_width, screen_height = screensize
-    start_img = pygame.image.load('assets/menu/start_bt.png')
-    exit_img = pygame.image.load('assets/menu/exit_bt.png')
-    setting_img = pygame.image.load('assets/menu/setting_bt.png')
+    start_img = pygame.image.load('assets/menu/start_btn.png')
+    exit_img = pygame.image.load('assets/menu/exit_btn.png')
+    setting_img = pygame.image.load('assets/menu/setting_btn.png')
     backround_img = pygame.image.load('assets/menu/bg.png')
     pygame.mixer.music.load('Musics/Funny Granny 2.mp3')
 
@@ -21,9 +21,9 @@ def menu(screensize):
     pygame.mixer.music.play(-1)
 
     #scale the image (button and backround)
-    start_img = pygame.transform.scale(start_img, (300, 100))
+    start_img = pygame.transform.scale(start_img, (500, 100))
     exit_img = pygame.transform.scale(exit_img, (300, 100))
-    setting_img = pygame.transform.scale(setting_img, (300, 100)) 
+    setting_img = pygame.transform.scale(setting_img, (400, 100)) 
     backround_img = pygame.transform.scale(backround_img, (screen_width, screen_height))  
 
     #initialization of the screen of the side of the screen and we set a caption for the window
@@ -63,9 +63,9 @@ def menu(screensize):
     clock = pygame.time.Clock()
 
     #create some button instances
-    start_button = Button(0.4, 0.45, start_img)  
-    exit_button = Button(0.4, 0.6, exit_img)   
-    setting_button = Button(0.4, 0.75, setting_img)  
+    start_button = Button(0.31, 0.45, start_img)  
+    exit_button = Button(0.4, 0.75, exit_img)   
+    setting_button = Button(0.35, 0.6, setting_img)  
 
 
     #the while loop for the menu
