@@ -2,7 +2,7 @@ import pygame
 from sys import exit
 import os
 
-def menu(screensize):
+def menu(screensize, screen):
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
     pygame.init()
     pygame.mixer.init()
@@ -21,13 +21,12 @@ def menu(screensize):
     pygame.mixer.music.play(-1)
 
     #scale the image (button and backround)
-    start_img = pygame.transform.scale(start_img, (500, 100))
-    exit_img = pygame.transform.scale(exit_img, (300, 100))
-    setting_img = pygame.transform.scale(setting_img, (400, 100)) 
-    backround_img = pygame.transform.scale(backround_img, (screen_width, screen_height))  
+    start_img = pygame.transform.smoothscale(start_img, (524*1.5, 82*1.5))
+    exit_img = pygame.transform.smoothscale(exit_img, (295*1.5, 82*1.5))
+    setting_img = pygame.transform.smoothscale(setting_img, (408*1.5, 82*1.5))
+    backround_img = pygame.transform.smoothscale(backround_img, (screen_width, screen_height))
 
     #initialization of the screen of the side of the screen and we set a caption for the window
-    screen = pygame.display.set_mode((screensize)) 
     pygame.display.set_caption("Funny Granny")
 
     # Button class
