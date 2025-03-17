@@ -1,9 +1,7 @@
 #all the import mandatory
 import os
-
 import pygame
 from pygame import display
-
 from game_on import game_on
 from menu import menu
 from setting import setting
