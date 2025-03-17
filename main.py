@@ -16,7 +16,7 @@ def main():
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     info = pygame.display.Info() # get size of user's screen
     screen_width, screen_height = info.current_w, info.current_h #set tuple
-    screen = display.set_mode((screen_width, screen_height))
+    screen = display.set_mode((screen_width, screen_height ))
     run = True
 
 
@@ -30,7 +30,7 @@ def main():
                 run = False
 
         if choice_menu == 'start':
-            game_on()
+            game_on(screen, screensize)
         elif choice_menu == 'setting' and setting(screensize):
             screensize = size()
         elif choice_menu == 'exit':

@@ -3,19 +3,19 @@ import pygame
 from sys import exit 
 import os
 
-def game_on():
+def game_on(screen, screensize):
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
     pygame.init() 
 
     #initialization of the screen of the side of the screen and we set a caption for the window
-    screen = pygame.display.set_mode((1500,750)) #need to add ((0,0), pygame.FULLSCREEN) for the full screen
     pygame.display.set_caption("Funny Granny")
     backround_img = pygame.image.load('assets/gameon/skybox.png')
     maps_img = pygame.image.load('assets/gameon/test.png')
+    screen_width, screen_height = screensize
 
     #sclae the image
-    ackround_img = pygame.transform.scale(backround_img, (1500,750))
-    maps_img = pygame.transform.scale(maps_img, (1500, 750))
+    backround_img = pygame.transform.smoothscale(backround_img, (screen_width, screen_height))
+    maps_img = pygame.transform.smoothscale(maps_img, (screen_width, screen_height))
 
     #helps to limit the game to 60fps
     clock = pygame.time.Clock()
