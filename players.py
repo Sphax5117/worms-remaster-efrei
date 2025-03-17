@@ -7,10 +7,10 @@ class Player:
     # definition of Player class
     def __init__(self, color, nb, x_pos, y_pos):
         # sprite variables:
-        #self.sprite = pg.image.load("assets/players/blob.png").convert_alpha()
-        self.sprite_sheet = pg.Rect(color*72, 0*90, 72, 90)
+        self.sprite = pg.image.load("assets/players/blob.png").convert_alpha()
+        self.sprite_sheet = pg.Rect(color * 72, 0 * 90, 72, 90)
         self.animation_time = 0
-        self.rainbow_time = 17.5 ### on garde le raimbow ???
+        self.rainbow_time = 17.5
         # players number:
         self.nb = nb
         # position/movement variables:
@@ -18,6 +18,9 @@ class Player:
         self.is_jumping = False
         self.jump_height = 20
         self.y_velocity = self.jump_height
+        self.weapons = [Shotgun()]  # list of weapon
+        self.current_weapon = self.weapons[0]  # selected weapon
+        self.bullets_group = pg.sprite.Group()  # group to stock the bullet
         # hit box:
         self.hit_box = pg.Rect(x_pos + 9, y_pos + 12, 54, 78)
 
@@ -53,19 +56,19 @@ class Player:
                 self.is_jumping = False
                 self.y_velocity = self.jump_height
         if is_moving is True and self.hit_box.bottom == 400:
-            self.sprite_sheet[1] = (self.animation_time//8)*90
+            self.sprite_sheet[1] = (self.animation_time // 8) * 90
             if self.animation_time == 23:
                 self.animation_time = 0
             else:
                 self.animation_time = self.animation_time + 1
         else:
-            self.sprite_sheet[1] = 0*90
+            self.sprite_sheet[1] = 0 * 90
             self.animation_time = 0
 
     # methode to make the players change color each 16 frame (I did it because it is cool)
     def rainbow(self):
         if self.rainbow_time == 0:
-            if self.sprite_sheet[0] != 8*72:
+            if self.sprite_sheet[0] != 8 * 72:
                 self.sprite_sheet[0] = self.sprite_sheet[0] + 72
             else:
                 self.sprite_sheet[0] = 0
@@ -79,29 +82,28 @@ class Player:
 player1 = Player(2, 1, 128, 310)
 player2 = Player(1, 2, 600, 310)
 
-class Playe(pygame.sprite.Sprite):
+
+class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image= pygame.image.load('assets/characters/granny.png').convert_alpha
-        self.rect = self.image.get_rect(midbottom = (200,300))
+        self.image = pygame.image.load(sprite_path).convert_alpha
+        self.rect = self.image.get_rect(midbottom=(200, 300))
         self.gravity = 0
 
     def player_input(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE] and self.rect.bottom >= 300 :
-            self.gravity= -20
-    
+        if keys[pygame.K_SPACE] and self.rect.bottom >= 300:
+            self.gravity = -20
+
     def apply_gravity(self):
-        self.gravity +=1
+        self.gravity += 1
         self.rect.y += self.gravity
-        if self.rect.bottom >=300:
+        if self.rect.bottom >= 300:
             self.rect.bottom = 300
 
     def update(self):
         self.player_input()
         self.apply_gravity()
-
-
 
 
 player = pygame.sprite.GroupSingle()
