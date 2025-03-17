@@ -3,14 +3,14 @@ import pygame as pg
 
 
 # Player:
-class Player:
+class Playe:
     # definition of Player class
     def __init__(self, color, nb, x_pos, y_pos):
         # sprite variables:
-        #self.sprite = pg.image.load("assets/players/blob.png").convert_alpha()
+        self.sprite = pg.image.load("assets/players/blob.png").convert_alpha()
         self.sprite_sheet = pg.Rect(color*72, 0*90, 72, 90)
         self.animation_time = 0
-        self.rainbow_time = 17.5 ### on garde le raimbow ???
+        self.rainbow_time = 17.5
         # players number:
         self.nb = nb
         # position/movement variables:
@@ -79,10 +79,10 @@ class Player:
 player1 = Player(2, 1, 128, 310)
 player2 = Player(1, 2, 600, 310)
 
-class Playe(pygame.sprite.Sprite):
+class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image= pygame.image.load('assets/characters/granny.png').convert_alpha
+        self.image= pygame.image.load(sprite_path).convert_alpha
         self.rect = self.image.get_rect(midbottom = (200,300))
         self.gravity = 0
 
