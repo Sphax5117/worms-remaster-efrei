@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8da4fb0-4021-4f3e-9d38-c7e1cc2742bd" name="Changes" comment="made buttons responsives">
+    <list default="true" id="d8da4fb0-4021-4f3e-9d38-c7e1cc2742bd" name="Changes" comment="made game fullscreen + rules button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/menu/setting_btn.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/menu/setting_btn.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_on.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_on.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +39,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.game_on.executor": "Debug",
     "Python.main.executor": "Run",
     "Python.menu.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -76,7 +75,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740994330707</updated>
       <workItem from="1740994332166" duration="3161000" />
-      <workItem from="1742203607471" duration="3134000" />
+      <workItem from="1742203607471" duration="4582000" />
     </task>
     <task id="LOCAL-00001" summary="buttons">
       <option name="closed" value="true" />
@@ -110,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742206329069</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="made game fullscreen + rules button">
+      <option name="closed" value="true" />
+      <created>1742206775239</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742206775239</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,10 +128,12 @@
     <MESSAGE value="added test backgorund" />
     <MESSAGE value="made menu fullscreen + upscaled base image" />
     <MESSAGE value="made buttons responsives" />
-    <option name="LAST_COMMIT_MESSAGE" value="made buttons responsives" />
+    <MESSAGE value="made game fullscreen + rules button" />
+    <option name="LAST_COMMIT_MESSAGE" value="made game fullscreen + rules button" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/bouboule_la_chouette$game_on.coverage" NAME="game_on Coverage Results" MODIFIED="1742208760971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bouboule_la_chouette$menu.coverage" NAME="menu Coverage Results" MODIFIED="1742206196181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/bouboule_la_chouette$main.coverage" NAME="main Coverage Results" MODIFIED="1742206654293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/bouboule_la_chouette$main.coverage" NAME="main Coverage Results" MODIFIED="1742209221118" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
