@@ -73,4 +73,4 @@ def game_on(screen, screensize):
         pygame.display.update()
 
         # Tick the clock and calculate delta_time (time between frames)
-        delta_time = clock.tick(60) / 1000  # Convert milliseconds to seconds
+        delta_time = clock.tick(10) / 1000  # Convert milliseconds to seconds
