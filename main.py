@@ -9,7 +9,6 @@ from utilities import size
 #the main function who regroups all the functions
 def main():
     run = True
-
     screensize  = (1200, 700)
 
     #loop to launch the game
@@ -24,6 +23,4 @@ def main():
             run = False
     
     return
-    
-
 main()
