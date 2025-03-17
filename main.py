@@ -1,9 +1,7 @@
 #all the import mandatory
 import os
-
 import pygame
 from pygame import display
-
 from game_on import game_on
 from menu import menu
 from setting import setting
@@ -18,13 +16,9 @@ def main():
     screen_width, screen_height = info.current_w, info.current_h #set tuple
     screen = display.set_mode((screen_width, screen_height ))
     run = True
-<<<<<<< HEAD
-    screensize  = (1200, 700)
-=======
 
 
     screensize  = (screen_width, screen_height)
->>>>>>> 892ad33af9b5684817266b762f164d01d751d4ef
 
     #loop to launch the game
     while run:
@@ -41,4 +35,6 @@ def main():
             run = False
     
     return
+    
+
 main()
