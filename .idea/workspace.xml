@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8da4fb0-4021-4f3e-9d38-c7e1cc2742bd" name="Changes" comment="added test backgorund">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_03_2025,_10_33_[Changes]/Group 7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_03_2025,_10_33_[Changes]/Group 8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_03_2025,_10_33_[Changes]/Group 9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_03_2025,_10_33_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_03_2025__10_33__Changes_.xml" beforeDir="false" />
+    <list default="true" id="d8da4fb0-4021-4f3e-9d38-c7e1cc2742bd" name="Changes" comment="made menu fullscreen + upscaled base image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/menu/bg.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/menu/bg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740994330707</updated>
       <workItem from="1740994332166" duration="3161000" />
-      <workItem from="1742203607471" duration="2187000" />
+      <workItem from="1742203607471" duration="2700000" />
     </task>
     <task id="LOCAL-00001" summary="buttons">
       <option name="closed" value="true" />
@@ -99,7 +92,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740997410094</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="made menu fullscreen + upscaled base image">
+      <option name="closed" value="true" />
+      <created>1742205825897</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742205825897</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,10 +109,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="buttons" />
     <MESSAGE value="added test backgorund" />
-    <option name="LAST_COMMIT_MESSAGE" value="added test backgorund" />
+    <MESSAGE value="made menu fullscreen + upscaled base image" />
+    <option name="LAST_COMMIT_MESSAGE" value="made menu fullscreen + upscaled base image" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bouboule_la_chouette$menu.coverage" NAME="menu Coverage Results" MODIFIED="1742205573946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/bouboule_la_chouette$main.coverage" NAME="main Coverage Results" MODIFIED="1742205788827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/bouboule_la_chouette$menu.coverage" NAME="menu Coverage Results" MODIFIED="1742206196181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/bouboule_la_chouette$main.coverage" NAME="main Coverage Results" MODIFIED="1742206304469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

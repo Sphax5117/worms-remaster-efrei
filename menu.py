@@ -21,9 +21,9 @@ def menu(screensize, screen):
     pygame.mixer.music.play(-1)
 
     #scale the image (button and backround)
-    start_img = pygame.transform.smoothscale(start_img, (524*1.5, 82*1.5))
-    exit_img = pygame.transform.smoothscale(exit_img, (295*1.5, 82*1.5))
-    setting_img = pygame.transform.smoothscale(setting_img, (408*1.5, 82*1.5))
+    start_img = pygame.transform.smoothscale(start_img, (screen_width//2.5, screen_height//9))
+    exit_img = pygame.transform.smoothscale(exit_img, (screen_width//4.2, screen_height//9))
+    setting_img = pygame.transform.smoothscale(setting_img, (screen_width//3, screen_height//9))
     backround_img = pygame.transform.smoothscale(backround_img, (screen_width, screen_height))
 
     #initialization of the screen of the side of the screen and we set a caption for the window
