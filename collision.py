@@ -59,7 +59,7 @@ class TileMap():
         return tiles
 
 
-#main#
+#main
 map=TileMap('testlevel.csv', spritesheet)
 player_rect.x, player_rect.y=map.start_x, map.start_y
 
