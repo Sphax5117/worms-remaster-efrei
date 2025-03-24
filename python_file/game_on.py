@@ -1,9 +1,8 @@
-# importation of all the useful libraries
+#importation
 import pygame
 from sys import exit
 import os
 from playerrrr import Keylistener, Entity
-
 
 def game_on(screen, screensize):
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
@@ -82,3 +81,4 @@ def game_on(screen, screensize):
 
         # Update the display
         pygame.display.update()
+
