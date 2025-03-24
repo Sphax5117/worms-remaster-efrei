@@ -21,6 +21,12 @@
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/gameon" />
+      <recent name="$PROJECT_DIR$/assets/test.png" />
+    </key>
+  </component>
   <component name="TaskManager">
     <servers />
   </component>
