@@ -24,11 +24,14 @@ class Keylistener:
 
 class Entity(pygame.sprite.Sprite):
     def __init__(self, keylistener : Keylistener):
-        self.spritesheet = pygame.image.load('spritesheet.png')#load the entire sprite sheet with all the player positions
+        super().__init__()
+        self.keylistener = keylistener
+        self.spritesheet = pygame.image.load('assets/characters/granny.png')#load the entire sprite sheet with all the player positions
         self.image= Tool.split_image(self.spritesheet,0, 0, 16, 32)#we obtain the first image from the frame, ask Tom if the width and height are correct for one player
-        self.position = [0,0]
+        self.position = [100,100]
         self.rect=pygame.Rect(0,0,16, 32)
         self.all_images = self.get_all_images()
+        print("Taille de la spritesheet :", self.spritesheet.get_size())
     def update(self):
         self.check_move()
         self.rect.topleft = self.position
@@ -36,11 +39,11 @@ class Entity(pygame.sprite.Sprite):
     def check_move(self):
         if self.keylistener.key_pressed(pygame.K_q):
             self.move_left()
-        elif self.keylistener.key_released(pygame.K_d):
+        elif self.keylistener.key_pressed(pygame.K_d):
             self.move_right()
-        elif self.keylistener.key_released(pygame.K_z):
+        elif self.keylistener.key_pressed(pygame.K_z):
             self.move_up()
-        elif self.keylistener.key_released(pygame.K_s):
+        elif self.keylistener.key_pressed(pygame.K_s):
             self.move_down()
     def move_left(self):
         self.position[0] -=1
