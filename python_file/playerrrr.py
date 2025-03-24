@@ -40,13 +40,13 @@ class Entity(pygame.sprite.Sprite):
         self.rect.topleft = self.position
 
     def check_move(self):
-        if self.keylistener.key_pressed(pygame.K_q):
+        if self.keylistener.key_pressed(pygame.K_LEFT):
             self.move_left()
-        elif self.keylistener.key_pressed(pygame.K_d):
+        elif self.keylistener.key_pressed(pygame.K_RIGHT):
             self.move_right()
-        elif self.keylistener.key_pressed(pygame.K_z):
+        elif self.keylistener.key_pressed(pygame.K_UP):
             self.move_up()
-        elif self.keylistener.key_pressed(pygame.K_s):
+        elif self.keylistener.key_pressed(pygame.K_DOWN):
             self.move_down()
 
     def move_left(self):
