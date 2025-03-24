@@ -1,5 +1,27 @@
 import pygame
 
+#TO DO /
+#créer un perso dans le main ou le game pour tester si ça fonctionne
+
+class Tool:
+    def split_image(spritesheet : pygame.Surface , x : int, y, width : int, height : int):
+        return spritesheet.subsurface(pygame.Rect(x, y, width, height))
+
+
+class Keylistener:
+    def __init__(self):
+        self.keys : list[int] = []
+    def add_key(self, key : int):
+        if key not in self.keys :
+            self.keys.append(key)
+    def remove_key(self, key : int):
+        if key in self.keys :
+            self.keys.remove(key)
+    def key_pressed(self,key):
+        return key in self.keys
+    def clear(self):
+        self.keys.clear()
+
 class Entity(pygame.sprite.Sprite):
     def __init__(self, keylistener : Keylistener):
         self.spritesheet = pygame.image.load('spritesheet.png')#load the entire sprite sheet with all the player positions
@@ -40,39 +62,11 @@ class Entity(pygame.sprite.Sprite):
             "right":[],
             "up":[]
         }
-        for i in range (#nombre de lignes dans l'image):
+
+        for i in range (nombre de lignes dans l'image):
             for j, key in enumerate(images.keys()):
                 images[key].append( Tool.split_image(self.spritesheet, i * 24, j*24, 16, 32))
         return images
 
 
 
-
-
-
-
-
-#TO DO /
-#créer un perso dans le main ou le game pour tester si ça fonctionne
-
-class Tool:
-    def split_image(spritesheet : pygame.Surface , x : int, y, width : int, height : int):
-        return spritesheet.subsurface(pygame.Rect(x, y, width, height))
-
-
-
-
-
-class Keylistener:
-    def __init__(self):
-        self.keys : list[int] = []
-    def add_key(self, key : int):
-        if key not in self.keys :
-            self.keys.append(key)
-    def remove_key(self, key : int):
-        if key in self.keys :
-            self.keys.remove(key)
-    def key_pressed(self,key):
-        return key in self.keys
-    def clear(self):
-        self.keys.clear()
