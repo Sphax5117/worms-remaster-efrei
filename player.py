@@ -63,7 +63,7 @@ class Entity(pygame.sprite.Sprite):
             "up":[]
         }
 
-        for i in range (nombre de lignes dans l'image):
+        for i in range (3):
             for j, key in enumerate(images.keys()):
                 images[key].append( Tool.split_image(self.spritesheet, i * 24, j*24, 16, 32))
         return images

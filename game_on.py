@@ -2,6 +2,7 @@
 import pygame
 from sys import exit
 import os
+from player import Keylistener, Entity
 
 
 def game_on(screen, screensize):
@@ -40,12 +41,23 @@ def game_on(screen, screensize):
 
     delta_time = 0
 
+    # Initialize Keylistener
+    keylistener = Keylistener()
+
+    # Create Player Entity
+    player = Entity(keylistener)
+    all_sprites = pygame.sprite.Group(player)  # Add player to sprite group
+
     # The main game loop
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            elif event.type == pygame.KEYDOWN:
+                keylistener.add_key(event.key)
+            elif event.type == pygame.KEYUP:
+                keylistener.remove_key(event.key)
 
         cloud_x_2 -= cloud_speed_2 * delta_time  # Update based on time
         cloud_x_4 -= cloud_speed_4 * delta_time  # Update for cloud layer 4
@@ -69,8 +81,13 @@ def game_on(screen, screensize):
         screen.blit(cloud_layer_5, (cloud_x_5 + screen_width, 0))  # Seamless second cloud layer 5
         screen.blit(maps_img, (0, 0))  # Draw the platforms
 
+        all_sprites.update()
+        all_sprites.draw(screen)
+
         # Update the display
         pygame.display.update()
 
         # Tick the clock and calculate delta_time (time between frames)
         delta_time = clock.tick(10) / 1000  # Convert milliseconds to seconds
+
+
