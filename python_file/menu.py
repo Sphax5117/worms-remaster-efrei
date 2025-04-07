@@ -10,11 +10,11 @@ def menu(screensize, screen):
     #usefull variables
     run = True
     screen_width, screen_height = screensize
-    start_img = pygame.image.load('../assets/menu/start_btn.png')
-    exit_img = pygame.image.load('../assets/menu/exit_btn.png')
-    setting_img = pygame.image.load('../assets/menu/setting_btn.png')
-    backround_img = pygame.image.load('../assets/menu/bg2.png')
-    pygame.mixer.music.load('../Musics/Funny Granny 2.mp3')
+    start_img = pygame.image.load('assets/menu/start_btn.png')
+    exit_img = pygame.image.load('assets/menu/exit_btn.png')
+    setting_img = pygame.image.load('assets/menu/setting_btn.png')
+    backround_img = pygame.image.load('assets/menu/bg2.png')
+    pygame.mixer.music.load('Musics/Funny Granny 2.mp3')
 
     #for the music in loop
     pygame.mixer.music.set_volume(0.5)
