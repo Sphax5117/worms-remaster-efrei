@@ -1,6 +1,22 @@
 import pygame
 from sys import exit
 import os
+from pathlib import Path
+
+# Get the absolute path to the `menu.py` file
+base_path = Path(__file__).resolve().parent
+
+# Construct the path to the image
+start_img_path = base_path / '..' / 'assets' / 'menu' / 'start_btn.png'
+exit_img_path = base_path / '..' / 'assets' / 'menu' / 'exit_btn.png'
+setting_img_path = base_path / '..' / 'assets' / 'menu' / 'setting_btn.png'
+background_img_path = base_path / '..' / 'assets' / 'menu' / 'bg2.png'
+music_path = base_path / '..' / 'Musics' / 'Funny Granny 2.mp3'
+
+
+
+# Load the image
+  # Convert Path object to string
 
 def menu(screensize, screen):
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
@@ -10,11 +26,11 @@ def menu(screensize, screen):
     #usefull variables
     run = True
     screen_width, screen_height = screensize
-    start_img = pygame.image.load('assets/menu/start_btn.png')
-    exit_img = pygame.image.load('assets/menu/exit_btn.png')
-    setting_img = pygame.image.load('assets/menu/setting_btn.png')
-    backround_img = pygame.image.load('assets/menu/bg2.png')
-    pygame.mixer.music.load('Musics/Funny Granny 2.mp3')
+    start_img = pygame.image.load(str(start_img_path))
+    exit_img = pygame.image.load(str(exit_img_path))
+    setting_img = pygame.image.load(str(setting_img_path))
+    backround_img = pygame.image.load(str(background_img_path))
+    pygame.mixer.music.load(str(music_path))
 
     #for the music in loop
     pygame.mixer.music.set_volume(0.5)
