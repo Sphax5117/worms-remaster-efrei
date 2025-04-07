@@ -25,10 +25,10 @@ class Entity(pygame.sprite.Sprite):
         
         # Chargement des images individuelles au lieu d'une spritesheet
         self.images = {
-            "down": pygame.image.load("frame grand mère/tile132.png"),
-            "left": pygame.image.load("frame grand mère/tile019.png"),
-            "right": pygame.image.load("frame grand mère/tile041.png"),
-            "up": pygame.image.load("frame grand mère/tile132.png")
+            "down": pygame.image.load("../frame grand mère/tile132.png"),
+            "left": pygame.image.load("../frame grand mère/tile019.png"),
+            "right": pygame.image.load("../frame grand mère/tile041.png"),
+            "up": pygame.image.load("../frame grand mère/tile132.png")
         }
         
         self.image = self.images["down"]

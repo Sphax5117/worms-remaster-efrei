@@ -13,11 +13,11 @@ def game_on(screen, screensize):
 
     # Load and scale images only once during initialization
     screen_width, screen_height = screensize
-    backround_img = pygame.transform.scale(pygame.image.load('assets/gameon/bg.png'), (screen_width, screen_height))
-    cloud_layer_2 = pygame.transform.scale(pygame.image.load('assets/gameon/3.png'), (screen_width, screen_height - 10))
-    cloud_layer_4 = pygame.transform.scale(pygame.image.load('assets/gameon/4.png'), (screen_width, screen_height - 10))
-    cloud_layer_5 = pygame.transform.scale(pygame.image.load('assets/gameon/5.png'), (screen_width, screen_height - 10))
-    maps_img = pygame.transform.smoothscale(pygame.image.load('assets/gameon/test.png'), (screen_width, screen_height))
+    backround_img = pygame.transform.scale(pygame.image.load('../assets/gameon/bg.png'), (screen_width, screen_height))
+    cloud_layer_2 = pygame.transform.scale(pygame.image.load('../assets/gameon/3.png'), (screen_width, screen_height - 10))
+    cloud_layer_4 = pygame.transform.scale(pygame.image.load('../assets/gameon/4.png'), (screen_width, screen_height - 10))
+    cloud_layer_5 = pygame.transform.scale(pygame.image.load('../assets/gameon/5.png'), (screen_width, screen_height - 10))
+    maps_img = pygame.transform.smoothscale(pygame.image.load('../assets/gameon/test.png'), (screen_width, screen_height))
 
     # Initial positions and speeds for cloud layers
     cloud_x_2 = 0  # Starting x position for 2.png
