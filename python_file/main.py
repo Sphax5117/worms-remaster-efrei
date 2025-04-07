@@ -2,7 +2,7 @@
 import os
 import pygame
 from pygame import display
-from game_on_test import game_on
+from game_on_true import game_on
 from menu import menu
 from setting import setting
 from utilities import size
