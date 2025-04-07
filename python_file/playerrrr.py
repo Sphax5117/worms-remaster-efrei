@@ -54,8 +54,14 @@ class Entity(pygame.sprite.Sprite):
         self.animation_timer = 0.0   # Timer accumulator (in seconds)
         self.animation_speed = 0.015  # Reduced time per frame (faster animation)
 
+        # Gravity settings:
+        self.gravity = 0.5          # Gravity strength (acceleration per update)
+        self.velocity_y = 0         # Current vertical velocity
+        self.ground_y = 500         # Y position representing the ground level
+
     def update(self):
         self.check_move()
+        self.apply_gravity()
         self.rect.topleft = self.position
 
     def check_move(self):
@@ -65,9 +71,21 @@ class Entity(pygame.sprite.Sprite):
         elif self.keylistener.key_pressed(pygame.K_RIGHT):
             self.move_right()
         elif self.keylistener.key_pressed(pygame.K_UP):
-            self.move_up()
+            self.move_up()  # jump if on ground
         elif self.keylistener.key_pressed(pygame.K_DOWN):
             self.move_down()
+
+    def apply_gravity(self):
+        # Apply gravity if the player is not on the ground
+        if self.position[1] < self.ground_y:
+            self.velocity_y += self.gravity
+        else:
+            # On ground: ensure vertical velocity is 0 and the player is exactly on the ground
+            self.velocity_y = 0
+            self.position[1] = self.ground_y
+
+        # Update vertical position
+        self.position[1] += self.velocity_y
 
     def animate(self):
         # Increase the timer assuming update is called about 60 times per second
@@ -89,9 +107,12 @@ class Entity(pygame.sprite.Sprite):
         self.image = pygame.transform.flip(self.left_frames[self.current_frame], True, False)
 
     def move_up(self):
-        self.position[1] -= 5
+        # Jump only when on the ground to prevent mid-air jumps
+        if self.position[1] >= self.ground_y:
+            self.velocity_y = -10  # jump impulse
         self.image = self.images["up"]
 
     def move_down(self):
+        # Manual downward input can move the player down, but gravity is also applied.
         self.position[1] += 5
         self.image = self.images["down"]
