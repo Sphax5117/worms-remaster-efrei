@@ -3,6 +3,16 @@ import pygame
 from sys import exit
 import os
 from playerrrr import Keylistener, Entity
+from pathlib import Path
+
+# Get the absolute path to the `menu.py` file
+base_path = Path(__file__).resolve().parent
+
+bg =  base_path / '..' / 'assets' / 'gameon' / 'bg.png'
+cloud2 = base_path / '..' / 'assets' / 'gameon' / '3.png'
+cloud3 = base_path / '..' / 'assets' / 'gameon' / '4.png'
+cloud4 = base_path / '..' / 'assets' / 'gameon' / '5.png'
+map = base_path / '..' / 'assets' / 'gameon' / 'maptest.png'
 
 def game_on(screen, screensize):
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
@@ -13,11 +23,11 @@ def game_on(screen, screensize):
 
     # Load and scale images only once during initialization
     screen_width, screen_height = screensize
-    backround_img = pygame.transform.scale(pygame.image.load('assets/gameon/bg.png'), (screen_width, screen_height))
-    cloud_layer_2 = pygame.transform.scale(pygame.image.load('assets/gameon/3.png'), (screen_width, screen_height - 10))
-    cloud_layer_4 = pygame.transform.scale(pygame.image.load('assets/gameon/4.png'), (screen_width, screen_height - 10))
-    cloud_layer_5 = pygame.transform.scale(pygame.image.load('assets/gameon/5.png'), (screen_width, screen_height - 10))
-    maps_img = pygame.transform.smoothscale(pygame.image.load('assets/gameon/maptest.png'), (screen_width, screen_height))
+    backround_img = pygame.transform.scale(pygame.image.load(str(bg)), (screen_width, screen_height))
+    cloud_layer_2 = pygame.transform.scale(pygame.image.load(str(cloud2)), (screen_width, screen_height - 10))
+    cloud_layer_4 = pygame.transform.scale(pygame.image.load(str(cloud3)), (screen_width, screen_height - 10))
+    cloud_layer_5 = pygame.transform.scale(pygame.image.load(str(cloud4)), (screen_width, screen_height - 10))
+    maps_img = pygame.transform.smoothscale(pygame.image.load(str(map)), (screen_width, screen_height))
 
     # Initial positions and speeds for cloud layers
     cloud_x_2 = 0  # Starting x position for 2.png

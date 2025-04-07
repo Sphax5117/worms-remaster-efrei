@@ -1,5 +1,15 @@
 import pygame
 
+
+from pathlib import Path
+
+# Get the absolute path to the `menu.py` file
+base_path = Path(__file__).resolve().parent
+
+grand_mere_down =  base_path / '..' / 'frame grand mère' / 'tile132.png'
+grand_mere_left =  base_path / '..' / 'frame grand mère' / 'tile019.png'
+grand_mere_right =  base_path / '..' / 'frame grand mère' / 'tile041.png'
+grand_mere_up =  base_path / '..' / 'frame grand mère' / 'tile132.png'
 class Keylistener:
     def __init__(self):
         self.keys = []
@@ -25,10 +35,10 @@ class Entity(pygame.sprite.Sprite):
         
         # Chargement des images individuelles au lieu d'une spritesheet
         self.images = {
-            "down": pygame.image.load("frame grand mère/tile132.png"),
-            "left": pygame.image.load("frame grand mère/tile019.png"),
-            "right": pygame.image.load("frame grand mère/tile041.png"),
-            "up": pygame.image.load("frame grand mère/tile132.png")
+            "down": pygame.image.load(str(grand_mere_down)),
+            "left": pygame.image.load(str(grand_mere_left)),
+            "right": pygame.image.load(str(grand_mere_right)),
+            "up": pygame.image.load(str(grand_mere_up))
         }
         
         self.image = self.images["down"]

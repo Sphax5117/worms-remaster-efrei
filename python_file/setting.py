@@ -1,7 +1,12 @@
 import pygame
 import os
 from sys import exit
+from pathlib import Path
 
+# Get the absolute path to the `menu.py` file
+base_path = Path(__file__).resolve().parent
+
+rules =  base_path / '..' / 'assets' / 'rules' / 'rules.png'
 
 def setting(screensize):
     # Step 1: Initialize pygame
@@ -14,7 +19,7 @@ def setting(screensize):
     screen = pygame.display.set_mode((screen_width, screen_height))
 
     # Step 3: Load and scale the image
-    rules_img_path = 'assets/rules/rules.png'
+    rules_img_path = str(rules)
     if not os.path.exists(rules_img_path):
         print(f"Error: The file '{rules_img_path}' does not exist.")
         pygame.quit()
