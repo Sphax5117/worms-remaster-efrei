@@ -1,100 +1,141 @@
 import pygame
+import os
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, x=100, y=100):
         super().__init__()
-        self.LEFT_KEY, self.RIGHT_KEY, self.FACING_LEFT = False, False, False
-        self.is_jumping, self.on_ground = False, False
-        self.gravity, self.friction = 0.35, -0.12
-        # Load animation frames from image files
-        self.frames = [
-            pygame.image.load('assets\mamy frame couoée\tile117.png').convert_alpha(),
-            pygame.image.load('assets\mamy frame couoée\tile118.png').convert_alpha(),
-            pygame.image.load('assets\mamy frame couoée\tile119.png').convert_alpha(),
-            pygame.image.load('assets\mamy frame couoée\tile120.png').convert_alpha()
-        ]
+        # Movement properties
+        self.position = pygame.Vector2(x, y)
+        self.velocity = pygame.Vector2(0, 0)
+        self.acceleration = pygame.Vector2(0, 0)
+        self.gravity = 0.35
+        self.friction = -0.12
+        self.max_speed = 4
+        self.move_up_speed = -3
+        self.move_down_speed = 3
         
-        self.animation_index = 0
-        self.image = self.frames[self.animation_index]  # Set first frame
-        self.rect = self.image.get_rect()
-        self.position = pygame.math.Vector2(0, 0)
-        self.velocity = pygame.math.Vector2(0, 0)
-        self.acceleration = pygame.math.Vector2(0, self.gravity)
-        self.animation_timer = 0  # Timer to track animation speed
-
-    def draw(self, display):
-        display.blit(self.image, (self.rect.x, self.rect.y))
-
-    def update(self, dt, tiles):
-        self.horizontal_movement(dt)
-        self.checkCollisionx(tiles)
-        self.vertical_movement(dt)
-        self.checkCollisionsy(tiles)
-    
-    def animate(self, dt):
-        """Cycles through frames to create an animation effect."""
-        self.animation_timer += dt
-        if self.animation_timer > 100:  # Change frame every 100 milliseconds
-            self.animation_index = (self.animation_index + 1) % len(self.frames)
-            self.image = self.frames[self.animation_index]
-            self.animation_timer = 0
-
-    def horizontal_movement(self, dt):
-        self.acceleration.x = 0
-        if self.LEFT_KEY:
-            self.acceleration.x -= 0.3
-        elif self.RIGHT_KEY:
-            self.acceleration.x += 0.3
-
-        self.acceleration.x += self.velocity.x * self.friction
-        self.velocity.x += self.acceleration.x * dt
-        self.limit_velocity(4)
-        self.position.x += self.velocity.x * dt + (self.acceleration.x * 0.5) * (dt * dt)
-        self.rect.x = self.position.x
-
-    def vertical_movement(self, dt):
-        self.velocity.y += self.acceleration.y * dt
-        if self.velocity.y > 7:
-            self.velocity.y = 7
-        self.position.y += self.velocity.y * dt + (self.acceleration.y * 0.5) * (dt * dt)
-        self.rect.bottom = self.position.y
-
-    def limit_velocity(self, max_vel):
-        self.velocity.x = max(-max_vel, min(self.velocity.x, max_vel))
-        if abs(self.velocity.x) < 0.01:
-            self.velocity.x = 0
-
-    def jump(self):
-        if self.on_ground:
-            self.is_jumping = True
-            self.velocity.y -= 8
-            self.on_ground = False
-
-    def get_hits(self, tiles):
-        return [tile for tile in tiles if self.rect.colliderect(tile.rect)]
-
-    def checkCollisionx(self, tiles):
-        collisions = self.get_hits(tiles)
-        for tile in collisions:
-            if self.velocity.x > 0:
-                self.position.x = tile.rect.left - self.rect.width
-            elif self.velocity.x < 0:
-                self.position.x = tile.rect.right
-            self.velocity.x = 0
-            self.rect.x = self.position.x
-
-    def checkCollisionsy(self, tiles):
+        # State tracking
         self.on_ground = False
-        self.rect.bottom += 1  
-        collisions = self.get_hits(tiles)
-        for tile in collisions:
-            if self.velocity.y > 0:
-                self.on_ground = True
-                self.is_jumping = False
-                self.velocity.y = 0
-                self.position.y = tile.rect.top
-                self.rect.bottom = self.position.y
-            elif self.velocity.y < 0:
-                self.velocity.y = 0
-                self.position.y = tile.rect.bottom + self.rect.height
-                self.rect.top = self.position.y
+        self.facing_left = False
+        
+        # Animation frames
+        self.animation_frames = {
+            "left": [self._load_image("assets/frame grand mère/tile019.png")],
+            "right": [self._load_image("assets/frame grand mère/tile041.png")],
+            "up": [self._load_image("assets/frame grand mère/tile132.png")],
+            "down": [self._load_image("assets/mamy frame couoée/tile117.png")]
+        }
+        self.current_animation = "down"
+        self.image = self.animation_frames[self.current_animation][0]
+        self.rect = self.image.get_rect(topleft=self.position)
+
+    def _load_image(self, path):
+        """Helper method to load images with error handling"""
+        try:
+            return pygame.image.load(path).convert_alpha()
+        except:
+            print(f"Failed to load image: {path}")
+            surf = pygame.Surface((32, 32))
+            surf.fill((255, 0, 255))
+            return surf
+
+    def update(self, dt, tilemap):
+        """Update player position and state"""
+        self._handle_input()
+        self._apply_physics(dt)
+        self._handle_collisions(tilemap.solid_tiles)
+        self._update_animation_state()
+        self.rect.topleft = self.position
+
+    def _handle_input(self):
+        """Handle keyboard input for movement"""
+        keys = pygame.key.get_pressed()
+        
+        # Horizontal movement
+        if keys[pygame.K_LEFT]:
+            self.acceleration.x = -0.3
+            self.facing_left = True
+        elif keys[pygame.K_RIGHT]:
+            self.acceleration.x = 0.3
+            self.facing_left = False
+        else:
+            self.acceleration.x = 0
+            
+        # Vertical movement
+        if keys[pygame.K_UP]:
+            self.velocity.y = self.move_up_speed
+        elif keys[pygame.K_DOWN]:
+            self.velocity.y = self.move_down_speed
+
+    def _apply_physics(self, dt):
+        """Apply physics to movement"""
+        # Apply friction to horizontal movement
+        self.acceleration.x += self.velocity.x * self.friction
+        
+        # Update velocity
+        self.velocity.x += self.acceleration.x * dt
+        
+        # Apply gravity only if not moving up/down
+        if not (pygame.key.get_pressed()[pygame.K_UP] or pygame.key.get_pressed()[pygame.K_DOWN]):
+            self.velocity.y += self.gravity
+        
+        # Limit speeds
+        self.velocity.x = max(-self.max_speed, min(self.velocity.x, self.max_speed))
+        self.velocity.y = min(self.velocity.y, 7)  # Terminal velocity
+        
+        # Update position
+        self.position += self.velocity
+
+    def _handle_collisions(self, solid_tiles):
+        """Handle collisions with solid tiles"""
+        # Store current position for collision testing
+        old_position = self.position.copy()
+        
+        # Update rect position for collision detection
+        self.rect.topleft = self.position
+        
+        # Reset ground state
+        self.on_ground = False
+        
+        # Check collisions with all solid tiles
+        for tile in solid_tiles:
+            if self.rect.colliderect(tile.rect):
+                # Horizontal collision
+                if self.velocity.x > 0:  # Moving right into tile
+                    self.position.x = tile.rect.left - self.rect.width
+                elif self.velocity.x < 0:  # Moving left into tile
+                    self.position.x = tile.rect.right
+                self.velocity.x = 0
+                
+                # Vertical collision
+                if self.velocity.y > 0:  # Landing on tile
+                    self.position.y = tile.rect.top
+                    self.on_ground = True
+                    self.velocity.y = 0
+                elif self.velocity.y < 0:  # Hitting tile from below
+                    self.position.y = tile.rect.bottom
+                    self.velocity.y = 0
+                
+                # Update rect to new position
+                self.rect.topleft = self.position
+
+    def _update_animation_state(self):
+        """Update animation based on movement state"""
+        keys = pygame.key.get_pressed()
+        
+        if keys[pygame.K_UP]:
+            self.current_animation = "up"
+        elif keys[pygame.K_DOWN]:
+            self.current_animation = "down"
+        elif self.velocity.x < -0.1:
+            self.current_animation = "left"
+        elif self.velocity.x > 0.1:
+            self.current_animation = "right"
+        else:
+            self.current_animation = "down"  # Default to down animation
+            
+        self.image = self.animation_frames[self.current_animation][0]
+
+    def draw(self, surface):
+        """Draw the player"""
+        surface.blit(self.image, self.rect)

@@ -13,7 +13,7 @@ def menu(screensize, screen):
     start_img = pygame.image.load('assets/menu/start_btn.png')
     exit_img = pygame.image.load('assets/menu/exit_btn.png')
     setting_img = pygame.image.load('assets/menu/setting_btn.png')
-    backround_img = pygame.image.load('assets/menu/bg.png')
+    backround_img = pygame.image.load('assets/menu/bg2.png')
     pygame.mixer.music.load('Musics/Funny Granny 2.mp3')
 
     #for the music in loop
@@ -93,4 +93,3 @@ def menu(screensize, screen):
         #update the game every 60 seconds
         pygame.display.update()
         clock.tick(60)
-

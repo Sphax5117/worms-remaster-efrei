@@ -1,4 +1,4 @@
-#importation
+
 import pygame
 from sys import exit
 import os
