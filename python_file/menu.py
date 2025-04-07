@@ -53,7 +53,7 @@ def menu(screensize, screen):
             self.y_factor = y_factor  # Percentage of screen height
             self.update_position(screen_width, screen_height)
             self.clicked = False
-        
+
         def update_position(self, screen_width, screen_height):
             #Update button position based on new screen size.
             self.rect = self.image.get_rect()
@@ -73,14 +73,14 @@ def menu(screensize, screen):
 
             screen.blit(self.image, (self.rect.x, self.rect.y))
             return action
-        
+
     #helps to limit the menu to 60fps
     clock = pygame.time.Clock()
 
     #create some button instances
-    start_button = Button(0.31, 0.45, start_img)  
-    exit_button = Button(0.4, 0.75, exit_img)   
-    setting_button = Button(0.35, 0.6, setting_img)  
+    start_button = Button(0.31, 0.45, start_img)
+    exit_button = Button(0.4, 0.75, exit_img)
+    setting_button = Button(0.35, 0.6, setting_img)
 
 
     #the while loop for the menu
@@ -92,10 +92,10 @@ def menu(screensize, screen):
         #draw our button for the menu
         if start_button.draw():
             return 'start'
-        
+
         if exit_button.draw():
             return 'exit'
-        
+
         if setting_button.draw():
             return 'setting'
 
@@ -104,7 +104,7 @@ def menu(screensize, screen):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-        
+
 
         #update the game every 60 seconds
         pygame.display.update()
