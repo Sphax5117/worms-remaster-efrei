@@ -10,7 +10,7 @@ from readyscreen import readyscreen
 
 def game_on(screen, screensize):
     #The ready screen
-    readyscreen(screen,screensize, 5)
+    #readyscreen(screen,screensize, 5)
 
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
     pygame.display.set_caption("Funny Granny")
