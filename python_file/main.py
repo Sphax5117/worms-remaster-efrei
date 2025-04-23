@@ -1,4 +1,3 @@
-"all the import mandatory"
 import os
 import pygame
 from pygame import display
@@ -7,35 +6,36 @@ from menu import menu
 from setting import setting
 from utilities import size
 
-
-#the main function who regroups all the functions
 def main():
+    # Initialisation Pygame
     pygame.init()
     os.environ['SDL_VIDEO_CENTERED'] = '1'
-    info = pygame.display.Info() # get size of user's screen
-    screen_width, screen_height = info.current_w, info.current_h #set tuple
-    screen = display.set_mode((screen_width, screen_height ))
-    run = True
+    
+    # Configuration écran
+    info = pygame.display.Info()
+    screensize = (info.current_w, info.current_h)
+    screen = display.set_mode(screensize)
+    pygame.display.set_caption("Funny Granny")
+    
+    running = True
+    while running:
+        # Affiche le menu principal
+        choice = menu(screensize, screen)
 
-
-    screensize  = (screen_width, screen_height)
-
-    #loop to launch the game
-    while run:
-        choice_menu = menu(screensize, screen)
+        if choice == 'start':
+            game_on(screen, screensize)  # Lance directement le jeu complet
+        elif choice == 'setting':
+            if setting(screensize):
+                screensize = size()
+                screen = display.set_mode(screensize)
+        elif choice == 'exit':
+            running = False
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = pygame.mouse.get_pos()  # Récupère la position du clic de la souris
+                print(f"Coordonnées du clic: ({mouse_x}, {mouse_y})")
 
-        if choice_menu == 'start':
-            game_on(screen, screensize)
-        elif choice_menu == 'setting' and setting(screensize):
-            screensize = size()
-        elif choice_menu == 'exit':
-            run = False
+    pygame.quit()
 
-
-    return
-
-
-main()
+if __name__ == "__main__":
+    main()
