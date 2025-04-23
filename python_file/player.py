@@ -18,23 +18,42 @@ class Keylistener:
         return key in self.keys
 
 class Player(Sprite):
-    def __init__(self, keylistener, x=100, y=100):
+    def __init__(self, keylistener, x=100, y=100, costume = None):
         super().__init__()
         self.keylistener = keylistener
         base_path = Path(__file__).resolve().parent
 
-        # Chargement des animations
-        self.left_frames = []
-        for frame in range(117, 126):
-            frame_path = base_path / '..' / 'frame grand mère' / f'tile{frame}.png'
-            image = pygame.image.load(str(frame_path)).convert_alpha()
-            self.left_frames.append(image)
+        #for the mamy
+        if costume == "mamy":
 
-        # Images statiques
-        self.images = {
-            "down": pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile132.png')).convert_alpha(),
-            "up": pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile132.png')).convert_alpha()
-        }
+            # Chargement des animations
+            self.left_frames = []
+            for frame in range(117, 126):
+                frame_path = base_path / '..' / 'frame grand mère' / f'tile{frame}.png'
+                image = pygame.image.load(str(frame_path)).convert_alpha()
+                self.left_frames.append(image)
+
+            # Images statiques
+            self.images = {
+                "down": pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile132.png')).convert_alpha(),
+                "up": pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile132.png')).convert_alpha()
+            }
+        
+        #for the papy
+        elif costume == "papy":
+
+            # Chargement des animations
+            self.left_frames = []
+            for frame in range(117, 126):
+                frame_path = base_path / '..' / 'frame papy' / f'tile{frame}.png'
+                image = pygame.image.load(str(frame_path)).convert_alpha()
+                self.left_frames.append(image)
+
+            # Images statiques
+            self.images = {
+                "down": pygame.image.load(str(base_path / '..' / 'frame papy' / 'tile132.png')).convert_alpha(),
+                "up": pygame.image.load(str(base_path / '..' / 'frame papy' / 'tile132.png')).convert_alpha()
+            }
 
         self.image = self.images["down"]
         self.rect = self.image.get_rect(topleft=(x, y))
@@ -70,13 +89,13 @@ class Player(Sprite):
             self.move_right()
 
         # Début du saut
-        if self.keylistener.key_pressed(pygame.K_SPACE) and self.on_ground:
+        if self.keylistener.key_pressed(pygame.K_UP) and self.on_ground:
             self.velocity_y = self.jump_strength
             self.on_ground = False
             self.is_jumping = True
 
         # Saut nerveux (si on relâche espace en plein saut)
-        if not self.keylistener.key_pressed(pygame.K_SPACE) and self.is_jumping:
+        if not self.keylistener.key_pressed(pygame.K_UP) and self.is_jumping:
             if self.velocity_y < 0:  # Seulement si on monte
                 self.velocity_y *= self.jump_cut_power
             self.is_jumping = False
