@@ -147,6 +147,8 @@ def game_on(screen, screensize):
         screen.blit(map_img, (0, 0))
         screen.blit(timer_text, timer_rect)
 
+        solid_obstacles.draw(screen)
+
 
         all_sprites.update(solid_obstacles)
         player_group.draw(screen)
