@@ -34,7 +34,7 @@ def game_on(screen, screensize):
     cloud_layer_2 = pygame.transform.scale(pygame.image.load(str(cloud2)).convert_alpha(), (screen_width, screen_height - 10))
     cloud_layer_5 = pygame.transform.scale(pygame.image.load(str(cloud4)).convert_alpha(), (screen_width, screen_height - 10))
     map_img = pygame.transform.smoothscale(pygame.image.load(str(mapimg)).convert_alpha(), (screen_width, screen_height))
-    spawn_position = [(370, 158), (372, 158), (374, 158), (376,158), (376,158)]
+    spawn_position = [(270, 158), (270, 158), (270, 158), (270,158), (270,158)]
 
     cloud_w = cloud_layer_2.get_width()
     cloud_x_5 = random.randint(0, screen_width)
