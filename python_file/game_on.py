@@ -33,7 +33,12 @@ def game_on(screen, screensize):
     cloud_layer_2 = pygame.transform.scale(pygame.image.load(str(cloud2)).convert_alpha(), (screen_width, screen_height - 10))
     cloud_layer_5 = pygame.transform.scale(pygame.image.load(str(cloud4)).convert_alpha(), (screen_width, screen_height - 10))
     map_img = pygame.transform.smoothscale(pygame.image.load(str(mapimg)).convert_alpha(), (screen_width, screen_height))
-    spawn_position = [(270, 158), (270, 158), (270, 158), (270,158), (270,158)]
+    spawn_position_ratios = [
+    (376 / DESIGN_W, 158 / DESIGN_H),
+    (755 / DESIGN_W, 220 / DESIGN_H),
+    (1045 / DESIGN_W, 417 / DESIGN_H),
+    (125 / DESIGN_W, 825 / DESIGN_H),
+    (855 / DESIGN_W, 672 / DESIGN_H)]
 
     cloud_w = cloud_layer_2.get_width()
     cloud_x_5 = random.randint(0, screen_width)
@@ -45,7 +50,11 @@ def game_on(screen, screensize):
     all_sprites = pygame.sprite.LayeredUpdates()
 
     # create 4 players
-    player_positions = random.sample(spawn_position, 4)
+    player_positions = [
+    (int(x_r * screen_width), int(y_r * screen_height))
+    for (x_r, y_r) in random.sample(spawn_position_ratios, 4)
+]
+
     players = []
     keylisteners = []
     active_player = 0
