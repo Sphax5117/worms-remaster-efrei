@@ -22,7 +22,8 @@ def game_on(screen, screensize):
     cloud2 = base_path / '..' / 'assets' / 'gameon' / '3.png'
     cloud4 = base_path / '..' / 'assets' / 'gameon' / '5.png'
     mapimg = base_path / '..' / 'assets' / 'gameon' / 'maptest.png'
-    arrow_img = pygame.image.load("assets/gameon/arrow.png").convert_alpha()
+    arrow = base_path / '..' / 'assets' / 'gameon' / 'arrow.png'
+    arrow_img = pygame.image.load(arrow).convert_alpha()
     arrow_img = pygame.transform.scale(arrow_img, (30,50))
 
     screen_width, screen_height = screensize
