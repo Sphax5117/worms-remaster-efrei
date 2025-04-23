@@ -35,11 +35,14 @@ def game_on(screen, screensize):
     cloud_layer_5 = pygame.transform.scale(pygame.image.load(str(cloud4)).convert_alpha(), (screen_width, screen_height - 10))
     map_img = pygame.transform.smoothscale(pygame.image.load(str(mapimg)).convert_alpha(), (screen_width, screen_height))
     spawn_position_ratios = [
-    (376 / DESIGN_W, 158 / DESIGN_H),
-    (755 / DESIGN_W, 220 / DESIGN_H),
-    (1045 / DESIGN_W, 417 / DESIGN_H),
-    (125 / DESIGN_W, 825 / DESIGN_H),
-    (855 / DESIGN_W, 672 / DESIGN_H)]
+        (376 / DESIGN_W, 160 / DESIGN_H),
+        (49 / DESIGN_W, 250 / DESIGN_H),
+        (750 / DESIGN_W, 120 / DESIGN_H),
+        (1835 / DESIGN_W, 50 / DESIGN_H),
+        (1835 / DESIGN_W, 120 / DESIGN_H),
+        (1050 / DESIGN_W, 310 / DESIGN_H),
+        (1300 / DESIGN_W, 500 / DESIGN_H)
+        ]
 
     cloud_w = cloud_layer_2.get_width()
     cloud_x_5 = random.randint(0, screen_width)
@@ -53,8 +56,7 @@ def game_on(screen, screensize):
     # create 4 players
     player_positions = [
     (int(x_r * screen_width), int(y_r * screen_height))
-    for (x_r, y_r) in random.sample(spawn_position_ratios, 4)
-]
+    for (x_r, y_r) in random.sample(spawn_position_ratios, 4)]
 
     players = []
     keylisteners = []
