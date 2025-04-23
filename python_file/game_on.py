@@ -10,7 +10,7 @@ def game_on(screen, screensize):
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
     pygame.display.set_caption("Funny Granny")
 
-    # ----- DESIGN RESOLUTION -----
+    # resoltion design
     DESIGN_W = 1920
     DESIGN_H = 1080
 
