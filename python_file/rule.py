@@ -2,7 +2,6 @@ import pygame
 import os
 from sys import exit
 from pathlib import Path
-import menu  # Assuming you have a menu.py with a menu() function
 
 # Get the absolute path to the current file's directory
 base_path = Path(__file__).resolve().parent
@@ -11,7 +10,7 @@ base_path = Path(__file__).resolve().parent
 rules_path = base_path / '..' / 'assets' / 'rules' / 'rules.png'
 exit_button_path = base_path / '..' / 'assets' / 'rules' / 'setting_exit.png'
 
-def setting(screensize):
+def rule(screensize):
     # Step 1: Initialize pygame
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
     pygame.init()
@@ -67,11 +66,7 @@ def setting(screensize):
 
         pygame.display.update()
         clock.tick(60)  # Limit to 60 FPS
-
-    # Instead of quitting pygame here, simply return so the main program can go back to the menu.
+        
     return
 
-# For testing purposes, run the settings screen if this module is executed directly.
-if __name__ == "__main__":
-    screensize = (1280, 720)  # Example resolution
-    setting(screensize)
+

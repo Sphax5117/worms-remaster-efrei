@@ -1,5 +1,5 @@
 import pygame
-import players
+import player
 from sys import exit
 pygame.init()
 class Item:

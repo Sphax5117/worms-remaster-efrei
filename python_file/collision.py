@@ -4,31 +4,30 @@ from pygame.sprite import Sprite
 class Obstacle(Sprite):
     def __init__(self, x, y, is_solid=True, color=(255, 0, 0), width=50, height=50):
         super().__init__()
-        self.image = pygame.Surface((width, height), pygame.SRCALPHA)  # surface avec alpha
-        
-        # Remplir l'image complètement transparente
-        self.image.fill((0, 0, 0, 0))  # invisible
-        
+        self.image = pygame.Surface((width, height), pygame.SRCALPHA)
+        # Fill image with a semi-transparent red color (debug!)
+        self.image.fill((255, 0, 0, 120))  # semi-visible for debugging
+
         self.rect = self.image.get_rect(topleft=(x, y))
         self.is_solid = is_solid
-        
+
         if is_solid:
-            # Crée un masque solide même si invisible
+            # Ensure the mask is nonempty and fills the block
             solid_surface = pygame.Surface((width, height))
-            solid_surface.fill((255, 255, 255))  # blanc pour collision
+            solid_surface.fill((255, 255, 255))  # white for collision mask
             self.mask = pygame.mask.from_surface(solid_surface)
         else:
             self.mask = None
 
 
 class Wall(Obstacle):
-    """Un mur solide invisible pour collisions"""
+    # An invisible solid wall for collisions
     def __init__(self, x, y, width=50, height=50):
         super().__init__(x, y, is_solid=True, color=(255, 0, 0), width=width, height=height)
 
 
 class WallLine:
-    """Créer une ligne de murs facilement"""
+    # Easily create a line of walls (horizontal or vertical)
     def __init__(self, start_x, start_y, num_blocks, direction='horizontal', block_width=50, block_height=50):
         self.start_x = start_x
         self.start_y = start_y
@@ -52,11 +51,6 @@ class WallLine:
 
 
 class Decoration(Obstacle):
-    """Un décor sans collision"""
+    # A decoration object without collision
     def __init__(self, x, y):
         super().__init__(x, y, is_solid=False, color=(100, 200, 100))
-
-
-
-
-

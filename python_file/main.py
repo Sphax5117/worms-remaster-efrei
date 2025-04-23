@@ -1,10 +1,10 @@
 import os
 import pygame
 from pygame import display
-from game_on_true import game_on
 from menu import menu
-from setting import setting
+from rule import rule
 from utilities import size
+from game_on import game_on
 
 def main():
     # Initialisation Pygame
@@ -25,15 +25,9 @@ def main():
         if choice == 'start':
             game_on(screen, screensize)  # Lance directement le jeu complet
         elif choice == 'setting':
-            if setting(screensize):
-                screensize = size()
-                screen = display.set_mode(screensize)
+            rule(screensize)
         elif choice == 'exit':
             running = False
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_x, mouse_y = pygame.mouse.get_pos()  # Récupère la position du clic de la souris
-                print(f"Coordonnées du clic: ({mouse_x}, {mouse_y})")
 
     pygame.quit()
 
