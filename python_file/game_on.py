@@ -3,6 +3,7 @@ import os
 import random
 from sys import exit
 from pathlib import Path
+from throwables_weapon import ExplodingSlipper, BurningSoup
 
 from player import Player, Keylistener
 from collision import WallLine
@@ -56,6 +57,7 @@ def game_on(screen, screensize):
     all_sprites = pygame.sprite.LayeredUpdates()
     solid_obstacles = pygame.sprite.Group()
     all_sprites = pygame.sprite.LayeredUpdates()
+    projectiles = pygame.sprite.Group()
 
     # create 4 players
     player_positions = [
@@ -68,6 +70,7 @@ def game_on(screen, screensize):
     controle_switch = 45
     switch_timer = 0
 
+    current_weapon = "slipper"
     #for 2 mamy and 2 papy
     for i, pos in enumerate(player_positions):
         kl = Keylistener()
@@ -132,14 +135,33 @@ def game_on(screen, screensize):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
+                #attribution de touches pour les armes
+                elif event.key == pygame.K_1:
+                    current_weapon = "slipper"
+                elif event.key == pygame.K_2:
+                    current_weapon = "soup"
                 keylisteners[active_player].add_key(event.key)
             elif event.type == pygame.KEYUP:
                 keylisteners[active_player].remove_key(event.key)
+            #elif event.type == pygame.MOUSEBUTTONDOWN:
+                #if event.button == 1:  # Left mouse button
+                   # pos = pygame.mouse.get_pos()
+                    #print()
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:  # Left mouse button
-                    pos = pygame.mouse.get_pos()
-                    print()
-        
+                if event.button == 1:  # Clic gauche
+                    try:
+                        player = players[active_player]
+                        mouse_pos = pygame.mouse.get_pos()
+
+                        if current_weapon == "slipper":
+                            proj = ExplodingSlipper.fire(player.rect.center, mouse_pos)
+                        elif current_weapon == "soup":
+                            proj = BurningSoup.fire(player.rect.center, mouse_pos)
+
+                        projectiles.add(proj)
+                    except Exception as e:
+                        print(f"small error : {e}")
+
         # Calculate time remaining for current player
         time_left = int(controle_switch - switch_timer)
         if time_left < 0:  # just in case!
@@ -160,6 +182,8 @@ def game_on(screen, screensize):
 
         all_sprites.update(solid_obstacles)
         player_group.draw(screen)
+        projectiles.update(solid_obstacles)
+        projectiles.draw(screen)
 
         # Draw the arrow above the active player
         player = players[active_player]  # Player object, not the group!
