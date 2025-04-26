@@ -17,18 +17,18 @@ class ThrowableWeapon(pg.sprite.Sprite):
         self.alive = True
 
     def update(self, obstacles_group):
-        # Apply gravity
+        #apply gravity
         self.velocity.y += self.gravity
         self.pos += self.velocity
         self.rect.center = self.pos
 
-        # Collision detection
+        #collision detection
         for obstacle in obstacles_group:
             if pg.sprite.collide_mask(self, obstacle):
                 self.on_impact()
                 break
 
-        # Out of bounds check
+        #out of bounds check
         if self.rect.top > 1000 or self.rect.left > 2000 or self.rect.right < 0:
             self.kill()
 
@@ -63,7 +63,7 @@ class BurningSoup(ThrowableWeapon):
     def on_impact(self):
         print(" Soupe brûlante répandue !")
         puddle = SoupPuddle(self.rect.center)
-        self.groups()[0].add(puddle)  # Ajoute dans le même groupe que le projectile
+        self.groups()[0].add(puddle)  
         self.kill()
 
     @staticmethod
@@ -79,9 +79,9 @@ class SoupPuddle(pg.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.image = pg.Surface((40, 20), pg.SRCALPHA)
-        self.image.fill((100, 255, 100, 180))  # Vert translucide
+        self.image.fill((100, 255, 100, 180))  
         self.rect = self.image.get_rect(center=pos)
-        self.timer = 5.0  # Durée de vie en secondes
+        self.timer = 5.0  
 
     def update(self, *args):
         dt = 1 / 60.0

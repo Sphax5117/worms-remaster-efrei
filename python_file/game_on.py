@@ -17,11 +17,11 @@ def game_on(screen, screensize):
     pygame.display.set_caption("Funny Granny")
     font = pygame.font.SysFont(None, 150)
 
-    # resolution design
+    #resolution design
     DESIGN_W = 1920
     DESIGN_H = 1080
 
-    # assets
+    #assets
     base_path = Path(__file__).resolve().parent
     bg = base_path / '..' / 'assets' / 'gameon' / 'bg.png'
     cloud2 = base_path / '..' / 'assets' / 'gameon' / '3.png'
@@ -34,7 +34,7 @@ def game_on(screen, screensize):
     screen_width, screen_height = screensize
     clock = pygame.time.Clock()
 
-    # Load and scale assets with convert/convert_alpha for better blitting
+    #load and scale assets with convert/convert_alpha for better blitting
     background_img = pygame.transform.scale(pygame.image.load(str(bg)).convert(), (screen_width, screen_height))
     cloud_layer_2 = pygame.transform.scale(pygame.image.load(str(cloud2)).convert_alpha(), (screen_width, screen_height - 10))
     cloud_layer_5 = pygame.transform.scale(pygame.image.load(str(cloud4)).convert_alpha(), (screen_width, screen_height - 10))
@@ -53,13 +53,13 @@ def game_on(screen, screensize):
     cloud_x_5 = random.randint(0, screen_width)
     cloud_speed_5 = 20
 
-    # SPRITE GROUPS
+    #sprite group
     all_sprites = pygame.sprite.LayeredUpdates()
     solid_obstacles = pygame.sprite.Group()
     all_sprites = pygame.sprite.LayeredUpdates()
     projectiles = pygame.sprite.Group()
 
-    # create 4 players
+    #create 4 players
     player_positions = [
     (int(x_r * screen_width), int(y_r * screen_height))
     for (x_r, y_r) in random.sample(spawn_position_ratios, 4)]
@@ -86,7 +86,7 @@ def game_on(screen, screensize):
     player_group = pygame.sprite.Group(players)
 
 
-    # for the wall obstacle
+    #for the wall obstacle
     wall_definitions_ratios = [
         (WallLine, (48 / DESIGN_W, 415 / DESIGN_H), {'num_blocks': 3, 'direction': 'horizontal', 'block_width': 55 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
         (WallLine, (370 / DESIGN_W, 158 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 50 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
@@ -115,6 +115,8 @@ def game_on(screen, screensize):
         wall_line = wall_cls(wall_x, wall_y, **k)
         wall_line.build(all_sprites, solid_obstacles)
 
+
+    #loop to launch the game
     running = True
     while running:
         delta_time = clock.tick(60) / 1000
@@ -122,7 +124,7 @@ def game_on(screen, screensize):
         #timer to switch the player that you are currently using
         switch_timer += delta_time
         if switch_timer > controle_switch:
-            # Clear keys for outgoing player (avoid stuck movement)
+            #clear keys for outgoing player (avoid stuck movement)
             keylisteners[active_player].keys.clear()
             active_player = (active_player + 1) % 4
             switch_timer = 0
@@ -143,12 +145,9 @@ def game_on(screen, screensize):
                 keylisteners[active_player].add_key(event.key)
             elif event.type == pygame.KEYUP:
                 keylisteners[active_player].remove_key(event.key)
-            #elif event.type == pygame.MOUSEBUTTONDOWN:
-                #if event.button == 1:  # Left mouse button
-                   # pos = pygame.mouse.get_pos()
-                    #print()
+
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:  # Clic gauche
+                if event.button == 1:  #clic gauche
                     try:
                         player = players[active_player]
                         mouse_pos = pygame.mouse.get_pos()
@@ -162,16 +161,16 @@ def game_on(screen, screensize):
                     except Exception as e:
                         print(f"small error : {e}")
 
-        # Calculate time remaining for current player
+        #calculate time remaining for current player
         time_left = int(controle_switch - switch_timer)
-        if time_left < 0:  # just in case!
+        if time_left < 0:  #just in case!
             time_left = 0
 
         timer_text = font.render(str(time_left), True, (0, 0, 0))  # big black numbers
         timer_rect = timer_text.get_rect(midtop=(screen.get_width() // 2, 10))
 
 
-        # Cloud layers with integer cast and modulo for wrapping
+        #cloud layers with integer cast and modulo for wrapping
         cloud_x_5 = (cloud_x_5 - cloud_speed_5 * delta_time) % (screen_width + cloud_w)
 
         screen.blit(background_img, (0, 0))
@@ -185,14 +184,14 @@ def game_on(screen, screensize):
         projectiles.update(solid_obstacles)
         projectiles.draw(screen)
 
-        # Draw the arrow above the active player
-        player = players[active_player]  # Player object, not the group!
+        #draw the arrow above the active player
+        player = players[active_player]  
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
 
 
 
-        # Show FPS in the window title for debugging
+        #show FPS in the window title for debugging/ onteresting stats
         pygame.display.set_caption(f"Funny Granny - FPS: {clock.get_fps():.2f}")
 
         pygame.display.update()
