@@ -88,7 +88,14 @@ def game_on(screen, screensize):
         (WallLine, (1835 / DESIGN_W, 155 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 55 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
         (WallLine, (850 / DESIGN_W, 672 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 300 / DESIGN_W, 'block_height': 10 / DESIGN_H}),
         (WallLine, (1230 / DESIGN_W, 610 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 520 / DESIGN_W, 'block_height': 10 / DESIGN_H}),
-        (WallLine, (120 / DESIGN_W, 825 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 300 / DESIGN_W, 'block_height': 10 / DESIGN_H})
+        (WallLine, (120 / DESIGN_W, 825 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 300 / DESIGN_W, 'block_height': 10 / DESIGN_H}),
+        (WallLine, (560 / DESIGN_W, 650 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 170 / DESIGN_W, 'block_height': 10 / DESIGN_H}),
+        (WallLine, (213 / DESIGN_W, 280 / DESIGN_H), {'num_blocks': 2, 'direction': 'horizontal', 'block_width': 85 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
+        (WallLine, (985 / DESIGN_W, 305 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 75 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
+        (WallLine, (1730 / DESIGN_W, 260 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 70 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
+        (WallLine, (505 / DESIGN_W, 478 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 70 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
+        (WallLine, (1330 / DESIGN_W, 478 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 70 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
+        (WallLine, (1350 / DESIGN_W, 108 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 70 / DESIGN_W, 'block_height': 5 / DESIGN_H})
     ]
 
     for wall_cls, (x_r, y_r), kwargs in wall_definitions_ratios:
