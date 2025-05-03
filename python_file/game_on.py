@@ -3,25 +3,21 @@ import os
 import random
 from sys import exit
 from pathlib import Path
-from throwables_weapon import ExplodingSlipper, BurningSoup
+from throwables_weapon import ExplodingSlipper, BurningSoup, ToiletPaperRoll, BoomerangDenture
 
 from player import Player, Keylistener
 from collision import WallLine
 from readyscreen import readyscreen
 
 def game_on(screen, screensize):
-    #The ready screen
-    readyscreen(screen,screensize, 5)
-
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
     pygame.display.set_caption("Funny Granny")
     font = pygame.font.SysFont(None, 150)
 
-    #resolution design
     DESIGN_W = 1920
     DESIGN_H = 1080
 
-    #assets
+    # load asset
     base_path = Path(__file__).resolve().parent
     bg = base_path / '..' / 'assets' / 'gameon' / 'bg.png'
     cloud2 = base_path / '..' / 'assets' / 'gameon' / '3.png'
@@ -29,16 +25,17 @@ def game_on(screen, screensize):
     mapimg = base_path / '..' / 'assets' / 'gameon' / 'maptest.png'
     arrow = base_path / '..' / 'assets' / 'gameon' / 'arrow.png'
     arrow_img = pygame.image.load(arrow).convert_alpha()
-    arrow_img = pygame.transform.scale(arrow_img, (30,50))
+    arrow_img = pygame.transform.scale(arrow_img, (30, 50))
 
     screen_width, screen_height = screensize
     clock = pygame.time.Clock()
 
-    #load and scale assets with convert/convert_alpha for better blitting
     background_img = pygame.transform.scale(pygame.image.load(str(bg)).convert(), (screen_width, screen_height))
     cloud_layer_2 = pygame.transform.scale(pygame.image.load(str(cloud2)).convert_alpha(), (screen_width, screen_height - 10))
     cloud_layer_5 = pygame.transform.scale(pygame.image.load(str(cloud4)).convert_alpha(), (screen_width, screen_height - 10))
     map_img = pygame.transform.smoothscale(pygame.image.load(str(mapimg)).convert_alpha(), (screen_width, screen_height))
+
+    # pos des spawn random
     spawn_position_ratios = [
         (376 / DESIGN_W, 160 / DESIGN_H),
         (49 / DESIGN_W, 250 / DESIGN_H),
@@ -47,49 +44,41 @@ def game_on(screen, screensize):
         (1835 / DESIGN_W, 120 / DESIGN_H),
         (1050 / DESIGN_W, 310 / DESIGN_H),
         (1300 / DESIGN_W, 500 / DESIGN_H)
-        ]
+    ]
 
     cloud_w = cloud_layer_2.get_width()
     cloud_x_5 = random.randint(0, screen_width)
     cloud_speed_5 = 20
 
-    #sprite group
     all_sprites = pygame.sprite.LayeredUpdates()
     solid_obstacles = pygame.sprite.Group()
-    all_sprites = pygame.sprite.LayeredUpdates()
     projectiles = pygame.sprite.Group()
 
-    #create 4 players
     player_positions = [
-    (int(x_r * screen_width), int(y_r * screen_height))
-    for (x_r, y_r) in random.sample(spawn_position_ratios, 4)]
+        (int(x_r * screen_width), int(y_r * screen_height))
+        for (x_r, y_r) in random.sample(spawn_position_ratios, 4)
+    ]
 
     players = []
     keylisteners = []
     active_player = 0
     controle_switch = 45
     switch_timer = 0
-    player_health={1:5, 2:5, 3:5, 4:5}
 
+    arme_actuelle = "slipper"  # default weapon
 
-    current_weapon = "slipper"
-    #for 2 mamy and 2 papy
+    # creation of player, papy and mamy
     for i, pos in enumerate(player_positions):
         kl = Keylistener()
         keylisteners.append(kl)
-        if i %2 == 0:
-            costume = "mamy"      
-        elif i %2 == 1:
-            costume = "papy"   
+        costume = "mamy" if i % 2 == 0 else "papy"
         p = Player(kl, *pos, costume=costume)
         players.append(p)
         all_sprites.add(p, layer=1)
-        
 
     player_group = pygame.sprite.Group(players)
 
-
-    #for the wall obstacle
+    # creation wall and obstacle
     wall_definitions_ratios = [
         (WallLine, (48 / DESIGN_W, 415 / DESIGN_H), {'num_blocks': 3, 'direction': 'horizontal', 'block_width': 55 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
         (WallLine, (370 / DESIGN_W, 158 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 50 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
@@ -99,14 +88,7 @@ def game_on(screen, screensize):
         (WallLine, (1835 / DESIGN_W, 155 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 55 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
         (WallLine, (850 / DESIGN_W, 672 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 300 / DESIGN_W, 'block_height': 10 / DESIGN_H}),
         (WallLine, (1230 / DESIGN_W, 610 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 520 / DESIGN_W, 'block_height': 10 / DESIGN_H}),
-        (WallLine, (120 / DESIGN_W, 825 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 300 / DESIGN_W, 'block_height': 10 / DESIGN_H}),
-        (WallLine, (560 / DESIGN_W, 650 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 170 / DESIGN_W, 'block_height': 10 / DESIGN_H}),
-        (WallLine, (213 / DESIGN_W, 280 / DESIGN_H), {'num_blocks': 2, 'direction': 'horizontal', 'block_width': 85 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
-        (WallLine, (985 / DESIGN_W, 305 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 75 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
-        (WallLine, (1730 / DESIGN_W, 260 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 70 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
-        (WallLine, (505 / DESIGN_W, 478 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 70 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
-        (WallLine, (1330 / DESIGN_W, 478 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 70 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
-        (WallLine, (1350 / DESIGN_W, 108 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 70 / DESIGN_W, 'block_height': 5 / DESIGN_H})
+        (WallLine, (120 / DESIGN_W, 825 / DESIGN_H), {'num_blocks': 10, 'direction': 'vertical', 'block_width': 300 / DESIGN_W, 'block_height': 10 / DESIGN_H})
     ]
 
     for wall_cls, (x_r, y_r), kwargs in wall_definitions_ratios:
@@ -118,16 +100,13 @@ def game_on(screen, screensize):
         wall_line = wall_cls(wall_x, wall_y, **k)
         wall_line.build(all_sprites, solid_obstacles)
 
-
-    #loop to launch the game
     running = True
     while running:
         delta_time = clock.tick(60) / 1000
-        
-        #timer to switch the player that you are currently using
+
         switch_timer += delta_time
         if switch_timer > controle_switch:
-            #clear keys for outgoing player (avoid stuck movement)
+            # automatique change of player after a certain time
             keylisteners[active_player].keys.clear()
             active_player = (active_player + 1) % 4
             switch_timer = 0
@@ -140,40 +119,50 @@ def game_on(screen, screensize):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
-                #attribution de touches pour les armes
+                # touche pour changer d'armes
                 elif event.key == pygame.K_1:
-                    current_weapon = "slipper"
+                    arme_actuelle = "slipper"
                 elif event.key == pygame.K_2:
-                    current_weapon = "soup"
+                    arme_actuelle = "soup"
+                elif event.key == pygame.K_3:
+                    arme_actuelle = "toilet"
+                elif event.key == pygame.K_4:
+                    arme_actuelle = "boomerang"
                 keylisteners[active_player].add_key(event.key)
             elif event.type == pygame.KEYUP:
                 keylisteners[active_player].remove_key(event.key)
-
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:  #clic gauche
+                if event.button == 1:
                     try:
                         player = players[active_player]
                         mouse_pos = pygame.mouse.get_pos()
-
-                        if current_weapon == "slipper":
+                        # to choose weapon
+                        if arme_actuelle == "slipper":
                             proj = ExplodingSlipper.fire(player.rect.center, mouse_pos)
-                        elif current_weapon == "soup":
+                            projectiles.add(proj)
+                        elif arme_actuelle == "soup":
                             proj = BurningSoup.fire(player.rect.center, mouse_pos)
-
-                        projectiles.add(proj)
+                            projectiles.add(proj)
+                        elif arme_actuelle == "toilet":
+                            rolls = ToiletPaperRoll.fire(player.rect.center, mouse_pos)
+                            for roll in rolls:
+                                projectiles.add(roll)
+                        elif arme_actuelle == "boomerang":
+                            proj = BoomerangDenture.fire(player.rect.center, mouse_pos)
+                            projectiles.add(proj)
+                        print("Tir effectué par:", arme_actuelle)  # Petit debug sympa
                     except Exception as e:
-                        print(f"small error : {e}")
+                        print(f"Erreur lors du tir : {e}")
 
-        #calculate time remaining for current player
+        # print timer for the players
         time_left = int(controle_switch - switch_timer)
-        if time_left < 0:  #just in case!
+        if time_left < 0:
             time_left = 0
 
-        timer_text = font.render(str(time_left), True, (0, 0, 0))  # big black numbers
+        timer_text = font.render(str(time_left), True, (0, 0, 0))
         timer_rect = timer_text.get_rect(midtop=(screen.get_width() // 2, 10))
 
-
-        #cloud layers with integer cast and modulo for wrapping
+        # cloud mooving (paralaxe)
         cloud_x_5 = (cloud_x_5 - cloud_speed_5 * delta_time) % (screen_width + cloud_w)
 
         screen.blit(background_img, (0, 0))
@@ -181,27 +170,31 @@ def game_on(screen, screensize):
         screen.blit(map_img, (0, 0))
         screen.blit(timer_text, timer_rect)
 
-
         all_sprites.update(solid_obstacles)
         player_group.draw(screen)
         projectiles.update(solid_obstacles)
         projectiles.draw(screen)
 
-        #draw the arrow above the active player
-        player = players[active_player]  
+
+        player = players[active_player]
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
 
-        for projectile in projectiles :
-            if pygame.sprite.collide_mask(projectile, player):
-                player_health[active_player]-= 1
-                projectile.kill()
-
-
-
-
-        #show FPS in the window title for debugging/ onteresting stats
         pygame.display.set_caption(f"Funny Granny - FPS: {clock.get_fps():.2f}")
-
         pygame.display.update()
 
+
+# elif event.type == pygame.MOUSEBUTTONDOWN:
+# if event.button == 1:  # Left mouse button
+# pos = pygame.mouse.get_pos()
+# print()
+
+###  a faire ##
+# - limiter le nombre d'utilisation des armes (genre on peut tirer 3 fois max sinon c'est op) et utiliser que 1 seule armes sur les 45 secondes des tours
+# - afficher l'armes que on est en train d'utiliser sur le player, ou un message en haut de l'écran ou jsp juste que on sache
+# - faire affihcer les sprites qui sont dans assets/items
+# - BONUS, ajouter l'armes qui eparpille les bullets la, trouver un nom, et demander a tom de faire un sprite
+# - changer les trajectoires pour en avoir 1 qui est plus droite (celle qui explose pas par exemple) faire genre un snipe pour tirer de loin
+# - BONUS, afficher la trajectoires a l'écran pour que les joueurs puissent viser à l'aide la trajectoire
+# - verifier l'erreur du fait que on ne peut utiliser que 1 des deux armes, les deux sont pareils si on appuis sur 1 ou 2
+# - ajouter des commentaires pas chat sur le programme
