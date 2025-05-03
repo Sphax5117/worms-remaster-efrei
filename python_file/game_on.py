@@ -69,6 +69,8 @@ def game_on(screen, screensize):
     active_player = 0
     controle_switch = 45
     switch_timer = 0
+    player_health={1:5, 2:5, 3:5, 4:5}
+
 
     current_weapon = "slipper"
     #for 2 mamy and 2 papy
@@ -82,6 +84,7 @@ def game_on(screen, screensize):
         p = Player(kl, *pos, costume=costume)
         players.append(p)
         all_sprites.add(p, layer=1)
+        
 
     player_group = pygame.sprite.Group(players)
 
@@ -188,6 +191,12 @@ def game_on(screen, screensize):
         player = players[active_player]  
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
+
+        for projectile in projectiles :
+            if pygame.sprite.collide_mask(projectile, player):
+                player_health[active_player]-= 1
+                projectile.kill()
+
 
 
 
