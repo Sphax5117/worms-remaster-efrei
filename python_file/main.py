@@ -10,7 +10,7 @@ def main():
     pygame.init()
     os.environ['SDL_VIDEO_CENTERED'] = '1'
 
-    #screen configuration
+    #screen configuration 
     info = pygame.display.Info()
     screensize = (info.current_w, info.current_h)
     screen = display.set_mode(screensize)
