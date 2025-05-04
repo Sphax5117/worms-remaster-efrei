@@ -51,6 +51,11 @@ def game_on(screen, screensize):
     pill_img = pygame.image.load(pill).convert_alpha()
     pill_img = pygame.transform.scale(pill_img, (250,300))
 
+    #to display the numbers 
+    font_number = pygame.font.SysFont(None, 60)
+    pill_num_surface = font_number.render("1", True, (0, 0, 0))
+    marmel_num_surface = font_number.render("2", True, (0,0,0))
+
     screen_width, screen_height = screensize
     clock = pygame.time.Clock()
 
@@ -200,9 +205,13 @@ def game_on(screen, screensize):
         player_group.draw(screen)
         projectiles.update(solid_obstacles)
         projectiles.draw(screen)
+
+        #weapons choices wiht a bar + number assiciated
         pygame.draw.rect(screen, (255,255,255), (int(DESIGN_W*0.5),int(DESIGN_H*1.2), 700,150))
         screen.blit(pill_img,(int(DESIGN_W*0.48),int(DESIGN_H*1.13)))
+        screen.blit(pill_num_surface,(int(DESIGN_W*0.59), int(DESIGN_H*1.2)))
         screen.blit(marmel_img,(int(DESIGN_W*0.605),int(DESIGN_H*1.19)))
+        screen.blit(marmel_num_surface,(int(DESIGN_W*0.68), int(DESIGN_H*1.2)))
 
         #arrow on top of the player to know which one we are playing with
         player = players[active_player]
