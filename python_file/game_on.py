@@ -228,24 +228,24 @@ def game_on(screen, screensize):
             
         #papy lives at the top left corner
         if lives_papy == 3 :
-            lives3_rect = lives3_img.get_rect(0,0)
+            lives3_rect = lives3_img.get_rect(center = (50,5))
             screen.blit(lives3_img, lives3_rect)
         elif lives_papy == 2 :
-            lives2_rect = lives2_img.get_rect(0,0)
+            lives2_rect = lives2_img.get_rect(center = (50,5))
             screen.blit(lives2_img, lives2_rect)
         elif lives_papy == 1 :
-            lives1_rect = lives1_img.get_rect(0,0)
+            lives1_rect = lives1_img.get_rect(center =(50,5))
             screen.blit(lives1_img, lives1_rect)
 
         #mamy lives at the top right corner 
         if lives_mamy == 3 :
-            lives3_rect = lives3_img.get_rect(screen_width-100,0)
+            lives3_rect = lives3_img.get_rect(center=(screen_width-50,5))
             screen.blit(lives3_img, lives3_rect)
         elif lives_mamy == 2 :
-            lives2_rect = lives2_img.get_rect(screen_width-100,0)
+            lives2_rect = lives2_img.get_rect(center= (screen_width-50,5))
             screen.blit(lives2_img, lives2_rect)
         elif lives_mamy == 1 :
-            lives1_rect = lives1_img.get_rect(screen_width-100,0)
+            lives1_rect = lives1_img.get_rect(center = (screen_width-50,5))
             screen.blit(lives1_img, lives1_rect)
 
         
