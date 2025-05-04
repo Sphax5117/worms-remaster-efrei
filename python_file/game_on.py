@@ -10,6 +10,10 @@ from collision import WallLine
 from readyscreen import readyscreen
 
 def game_on(screen, screensize):
+    #The ready screen
+    readyscreen(screen,screensize, 5)
+
+
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
     pygame.display.set_caption("Funny Granny")
     font = pygame.font.SysFont(None, 150)
@@ -24,6 +28,9 @@ def game_on(screen, screensize):
     cloud4 = base_path / '..' / 'assets' / 'gameon' / '5.png'
     mapimg = base_path / '..' / 'assets' / 'gameon' / 'maptest.png'
     arrow = base_path / '..' / 'assets' / 'gameon' / 'arrow.png'
+    health5= base_path / '..' / 'assets' / 'lives' / 'health_5.png'
+    health5_img = pygame.image.load(health5).convert_alpha()
+    health5_img = pygame.transform.scale(health5_img, (100,10))
     arrow_img = pygame.image.load(arrow).convert_alpha()
     arrow_img = pygame.transform.scale(arrow_img, (30, 50))
 
@@ -52,6 +59,7 @@ def game_on(screen, screensize):
 
     all_sprites = pygame.sprite.LayeredUpdates()
     solid_obstacles = pygame.sprite.Group()
+    all_sprites = pygame.sprite.LayeredUpdates()
     projectiles = pygame.sprite.Group()
 
     player_positions = [
@@ -64,6 +72,7 @@ def game_on(screen, screensize):
     active_player = 0
     controle_switch = 45
     switch_timer = 0
+    player_health={1:5, 2:5, 3:5, 4:5}
 
     arme_actuelle = "slipper"  # default weapon
 
@@ -71,7 +80,10 @@ def game_on(screen, screensize):
     for i, pos in enumerate(player_positions):
         kl = Keylistener()
         keylisteners.append(kl)
-        costume = "mamy" if i % 2 == 0 else "papy"
+        if i %2 == 0:
+            costume = "mamy"      
+        elif i %2 == 1:
+            costume = "papy" 
         p = Player(kl, *pos, costume=costume)
         players.append(p)
         all_sprites.add(p, layer=1)
@@ -182,10 +194,19 @@ def game_on(screen, screensize):
         projectiles.update(solid_obstacles)
         projectiles.draw(screen)
 
-
+        #arrow on top of the player to know which one we are playing with
         player = players[active_player]
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
+
+        health5_rect=health5_img.get_rect(midbottom=(300,200))
+        screen.blit(health5_img, health5_rect)
+        
+
+        for projectile in projectiles :
+            if pygame.sprite.collide_mask(projectile, player):
+                player_health[active_player]-= 1
+                projectile.kill()
 
         pygame.display.set_caption(f"Funny Granny - FPS: {clock.get_fps():.2f}")
         pygame.display.update()
