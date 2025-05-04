@@ -198,7 +198,7 @@ def game_on(screen, screensize):
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
 
-        health5_rect=health5_img.get_rect(midbottom=(1000,800))
+        health5_rect=health5_img.get_rect(midbottom=(player.rect.centerx, player.rect.top-4))
         screen.blit(health5_img, health5_rect)
         
 
