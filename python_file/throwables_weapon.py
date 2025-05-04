@@ -2,6 +2,13 @@ import pygame as pg
 import math
 import random
 
+soup_img = pg.image.load("assets/items/soup.png")
+pill_img = pg.image.load("assets/items/pill.png")
+grenade_img =pg.image.load("assets/items/grenade_it.png")
+pill_img = pg.transform.scale(pill_img, (40,40))
+soup_img = pg.transform.scale(soup_img, (40,40))
+grenade_img = pg.transform.scale(grenade_img, (40,40))
+
 # basic class
 class ThrowableWeapon(pg.sprite.Sprite):
     def __init__(self, pos, angle, puissance, gravite=0.5, degats=10):
@@ -32,35 +39,40 @@ class ThrowableWeapon(pg.sprite.Sprite):
                 break
 
         # Check hors screen
-        if self.rect.top > 1000 or self.rect.left > 2000 or self.rect.right < 0:
+        if self.rect.top > 1000 or self.rect.left > 3000 or self.rect.right < 0:
             self.kill()
 
     def on_impact(self):
-        print("Impact détecté - arme générique")
         self.kill()
 
 
 class ExplodingSlipper(ThrowableWeapon):
     def __init__(self, pos, angle, puissance):
         super().__init__(pos, angle, puissance, gravite=0.6, degats=25)
-        self.image.fill((200, 100, 0))  # Marron/orange
+        self.image = pill_img
+        self.rect = self.image.get_rect(center=self.pos)
 
     def on_impact(self):
-        print("chausson explosé sur l'obstacle !")
         self.kill()
 
     @staticmethod
     def fire(player_pos, mouse_pos):
+        distance = 115
         dx = mouse_pos[0] - player_pos[0]
         dy = mouse_pos[1] - player_pos[1]
         angle = math.degrees(math.atan2(-dy, dx))
-        return ExplodingSlipper(player_pos, angle, puissance=15)
+        offset_x = distance * math.cos(math.radians(angle))
+        offset_y = -distance * math.sin(math.radians(angle))
+        spawn_pos = (player_pos[0] + offset_x, player_pos[1] + offset_y)
+        return ExplodingSlipper(spawn_pos, angle, puissance=15)
+
 
 
 class BurningSoup(ThrowableWeapon):
     def __init__(self, pos, angle, puissance):
         super().__init__(pos, angle, puissance, gravite=0.5, degats=10)
-        self.image.fill((0, 150, 0))  #Vert
+        self.image = grenade_img
+        self.rect = self.image.get_rect(center =pos)
 
     def on_impact(self):
         print("Soupe brûlante sur le sol")
@@ -70,22 +82,27 @@ class BurningSoup(ThrowableWeapon):
 
     @staticmethod
     def fire(player_pos, mouse_pos):
+        distance = 115
         dx = mouse_pos[0] - player_pos[0]
         dy = mouse_pos[1] - player_pos[1]
         angle = math.degrees(math.atan2(-dy, dx))
-        return BurningSoup(player_pos, angle, puissance=15)
+        offset_x = distance * math.cos(math.radians(angle))
+        offset_y = -distance * math.sin(math.radians(angle))
+        spawn_pos = (player_pos[0] + offset_x, player_pos[1] + offset_y)
+        return BurningSoup(spawn_pos, angle, puissance=15)
+
 
 
 class SoupPuddle(pg.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.image = pg.Surface((40, 20), pg.SRCALPHA)
-        self.image.fill((100, 255, 100, 180))  # Vert clair sah
+        self.image.fill((100, 255, 100, 180))  #vert clair sah
         self.rect = self.image.get_rect(center=pos)
-        self.timer = 5.0  # Durée de vie (secondes)
+        self.timer = 5.0  #durée de vie (secondes)
 
     def update(self, *args):
-        # supprime la flaque au bout d'un certain temps (erwan t un bg)
+        # supprime la flaque au bout d'un certain temps (erwann t un bg)
         dt = 1 / 60.0
         self.timer -= dt
         if self.timer <= 0:
@@ -96,11 +113,11 @@ class ToiletPaperRoll(pg.sprite.Sprite):
     def __init__(self, pos, angle, vitesse=10, degats=5):
         super().__init__()
         self.image = pg.Surface((8, 8))
-        self.image.fill((255, 255, 255))  # Blanc
+        self.image.fill((255, 255, 255))  #blanc
         self.rect = self.image.get_rect(center=pos)
         self.pos = pg.Vector2(pos)
 
-        # Mouvement linear
+        #mouvement linear
         self.vitesse_vecteur = pg.Vector2(
             vitesse * math.cos(math.radians(angle)),
             -vitesse * math.sin(math.radians(angle))
@@ -116,12 +133,13 @@ class ToiletPaperRoll(pg.sprite.Sprite):
                 self.on_impact()
                 break
 
-        if self.rect.top > 1000 or self.rect.left > 2000 or self.rect.right < 0:
+        if self.rect.top > 1000 or self.rect.left > 3000 or self.rect.right < 0:
             self.kill()
 
     def on_impact(self):
         print("papier toilette a touché quelque chose")
         self.kill()
+
 
     @staticmethod
     def fire(player_pos, mouse_pos):
@@ -129,11 +147,18 @@ class ToiletPaperRoll(pg.sprite.Sprite):
         dy = mouse_pos[1] - player_pos[1]
         angle = math.degrees(math.atan2(-dy, dx))
         rouleaux = []
-        for _ in range(5):  # rouleaux envoyés avec écart
+        distance = 30  #distance in pixels in front of the player
+
+        for _ in range(5):  #rouleaux envoyés avec écart
             offset = random.uniform(-5, 5)
-            proj = ToiletPaperRoll(player_pos, angle + offset)
+            effective_angle = angle + offset
+            offset_x = distance * math.cos(math.radians(effective_angle))
+            offset_y = -distance * math.sin(math.radians(effective_angle))
+            spawn_pos = (player_pos[0] + offset_x, player_pos[1] + offset_y)
+            proj = ToiletPaperRoll(spawn_pos, effective_angle)
             rouleaux.append(proj)
         return rouleaux
+
 
 
 class BoomerangDenture(pg.sprite.Sprite):
@@ -151,7 +176,7 @@ class BoomerangDenture(pg.sprite.Sprite):
             -vitesse * math.sin(math.radians(angle))
         )
         #to modify to change the distance of the dentier
-        self.portee_max = 250
+        self.portee_max = 350
         self.en_retour = False
         self.degats = degats
 
@@ -164,22 +189,29 @@ class BoomerangDenture(pg.sprite.Sprite):
             #Le dentier invers the trajectoire for revenir in the place initiale
             self.vitesse_vecteur *= -1
             self.en_retour = True
+        
+        if self.en_retour == True and distance <= 10:
+            self.kill()
 
         for obstacle in obstacles_group:
             if pg.sprite.collide_mask(self, obstacle):
                 self.on_impact()
                 break
 
-        if self.rect.top > 1000 or self.rect.left > 2000 or self.rect.right < 0:
+        if self.rect.top > 1000 or self.rect.left > 3000 or self.rect.right < 0:
             self.kill()
 
     def on_impact(self):
-        print("dentier boomerang a touché sa cible")
         self.kill()
+
 
     @staticmethod
     def fire(player_pos, mouse_pos):
+        distance = 120
         dx = mouse_pos[0] - player_pos[0]
         dy = mouse_pos[1] - player_pos[1]
         angle = math.degrees(math.atan2(-dy, dx))
-        return BoomerangDenture(player_pos, angle)
+        offset_x = distance * math.cos(math.radians(angle))
+        offset_y = -distance * math.sin(math.radians(angle))
+        spawn_pos = (player_pos[0] + offset_x, player_pos[1] + offset_y)
+        return BoomerangDenture(spawn_pos, angle)

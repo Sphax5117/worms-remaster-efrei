@@ -23,8 +23,6 @@ def game_on(screen, screensize):
     # load asset
     base_path = Path(__file__).resolve().parent
     bg = base_path / '..' / 'assets' / 'gameon' / 'bg.png'
-    cloud2 = base_path / '..' / 'assets' / 'gameon' / '3.png'
-    cloud4 = base_path / '..' / 'assets' / 'gameon' / '5.png'
     mapimg = base_path / '..' / 'assets' / 'gameon' / 'maptest.png'
     arrow = base_path / '..' / 'assets' / 'gameon' / 'arrow.png'
     health5 = base_path / '..' / 'assets' / 'lives' / 'health_5.png'
@@ -49,8 +47,6 @@ def game_on(screen, screensize):
     clock = pygame.time.Clock()
 
     background_img = pygame.transform.scale(pygame.image.load(str(bg)).convert(), (screen_width, screen_height))
-    cloud_layer_2 = pygame.transform.scale(pygame.image.load(str(cloud2)).convert_alpha(), (screen_width, screen_height - 10))
-    cloud_layer_5 = pygame.transform.scale(pygame.image.load(str(cloud4)).convert_alpha(), (screen_width, screen_height - 10))
     map_img = pygame.transform.smoothscale(pygame.image.load(str(mapimg)).convert_alpha(), (screen_width, screen_height))
 
     # pos des spawn random
@@ -63,10 +59,6 @@ def game_on(screen, screensize):
         (1050 / DESIGN_W, 310 / DESIGN_H),
         (1300 / DESIGN_W, 500 / DESIGN_H)
     ]
-
-    cloud_w = cloud_layer_2.get_width()
-    cloud_x_5 = random.randint(0, screen_width)
-    cloud_speed_5 = 20
 
     all_sprites = pygame.sprite.LayeredUpdates()
     solid_obstacles = pygame.sprite.Group()
@@ -182,7 +174,6 @@ def game_on(screen, screensize):
                         elif arme_actuelle == "boomerang":
                             proj = BoomerangDenture.fire(player.rect.center, mouse_pos)
                             projectiles.add(proj)
-                        print("Tir effectué par:", arme_actuelle)  # Petit debug sympa
                     except Exception as e:
                         print(f"Erreur lors du tir : {e}")
 
@@ -194,14 +185,9 @@ def game_on(screen, screensize):
         timer_text = font.render(str(time_left), True, (0, 0, 0))
         timer_rect = timer_text.get_rect(midtop=(screen.get_width() // 2, 10))
 
-        # cloud mooving (paralaxe)
-        cloud_x_5 = (cloud_x_5 - cloud_speed_5 * delta_time) % (screen_width + cloud_w)
-
         screen.blit(background_img, (0, 0))
-        screen.blit(cloud_layer_5, (int(cloud_x_5), 0))
         screen.blit(map_img, (0, 0))
         screen.blit(timer_text, timer_rect)
-
         all_sprites.update(solid_obstacles)
         player_group.draw(screen)
         projectiles.update(solid_obstacles)
@@ -253,7 +239,7 @@ def game_on(screen, screensize):
         pygame.display.update()
 
 
-###  a faire ##
+###  a faire ###
 # - limiter le nombre d'utilisation des armes (genre on peut tirer 3 fois max sinon c'est op) et utiliser que 1 seule armes sur les 45 secondes des tours
 # - afficher l'armes que on est en train d'utiliser sur le player, ou un message en haut de l'écran ou jsp juste que on sache
 # - faire affihcer les sprites qui sont dans assets/items
