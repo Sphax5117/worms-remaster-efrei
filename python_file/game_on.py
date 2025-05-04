@@ -202,19 +202,19 @@ def game_on(screen, screensize):
 
         for key in player_health.keys():
             if player_health[key]==5:
-                health5_rect= health5_img.get_rect(midbottom=(players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                health5_rect= health5_img.get_rect(midbottom=(players[key].rect.centerx, players[key].rect.top - 4))
                 screen.blit(health5_img, health5_rect)
             elif player_health[key] == 4 :
-                health4_rect = health4_img.get_rect(midbottom = (players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                health4_rect = health4_img.get_rect(midbottom = (players[key].rect.centerx, players[key].rect.top - 4))
                 screen.blit(health4_img, health4_rect)
             elif player_health[key] == 3 :
-                health3_rect = health3_img.get_rect(midbottom = (players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                health3_rect = health3_img.get_rect(midbottom = (players[key].rect.centerx, players[key].rect.top - 4))
                 screen.blit(health3_img, health3_rect)
             elif player_health[key] == 2 :
-                health2_rect = health2_img.get_rect(midbottom = (players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                health2_rect = health2_img.get_rect(midbottom = (players[key].rect.centerx, players[key].rect.top - 4))
                 screen.blit(health2_img, health2_rect)
             elif player_health[key]==1:
-                health1_rect = health1_img.get_rect(midbottom = (players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                health1_rect = health1_img.get_rect(midbottom = (players[key].rect.centerx, players[key].rect.top - 4))
                 screen.blit(health1_img, health1_rect)
         
 
