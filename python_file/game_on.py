@@ -27,9 +27,21 @@ def game_on(screen, screensize):
     cloud4 = base_path / '..' / 'assets' / 'gameon' / '5.png'
     mapimg = base_path / '..' / 'assets' / 'gameon' / 'maptest.png'
     arrow = base_path / '..' / 'assets' / 'gameon' / 'arrow.png'
-    health5= base_path / '..' / 'assets' / 'lives' / 'health_5.png'
+    health5 = base_path / '..' / 'assets' / 'lives' / 'health_5.png'
+    health4 = base_path / '..' / 'assets' / 'lives' / 'health_4.png'
+    health3 = base_path / '..' / 'assets' / 'lives' / 'health_3.png'
+    health2 = base_path / '.. ' / 'assets' / 'lives' / 'health_2.png'
+    health1 = base_path / '..' / 'assets' / 'lives' / 'health_1.png'
     health5_img = pygame.image.load(health5).convert_alpha()
     health5_img = pygame.transform.scale(health5_img, (100,10))
+    health4_img = pygame.image.load(health4).convert_alpha()
+    health4_img = pygame.transform.scale(health4_img, (100,10))
+    health3_img = pygame.image.load(health3).convert_alpha()
+    health3_img = pygame.transform.scale(health3_img, (100,10))
+    health2_img = pygame.image.load(health2).convert_alpha()
+    health2_img = pygame.transform.scale(health2_img, (100,10))
+    health1_img = pygame.image.load(health1).convert_alpha()
+    health1_img = pygame.transform.scale(health1_img, (100,10))
     arrow_img = pygame.image.load(arrow).convert_alpha()
     arrow_img = pygame.transform.scale(arrow_img, (30, 50))
 
@@ -72,6 +84,8 @@ def game_on(screen, screensize):
     controle_switch = 45
     switch_timer = 0
     player_health={1:5, 2:5, 3:5, 4:5}
+    lives_papy = 3
+    lives_mamy = 3
 
     arme_actuelle = "slipper"  # default weapon
 
@@ -198,14 +212,42 @@ def game_on(screen, screensize):
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
 
-        health5_rect=health5_img.get_rect(midbottom=(player.rect.centerx, player.rect.top-4))
-        screen.blit(health5_img, health5_rect)
+        
+
+        for key in player_health.keys():
+            if player_health[key]==5:
+                health5_rect= health5_img.get_rect(midbottom=(players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                screen.blit(health5_img, health5_rect)
+            elif player_health[key] == 4 :
+                health4_rect = health4_img.get_rect(midbottom = (players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                screen.blit(health4_img, health4_rect)
+            elif player_health[key] == 3 :
+                health3_rect = health3_img.get_rect(midbottom = (players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                screen.blit(health3_img, health3_rect)
+            elif player_health[key] == 2 :
+                health2_rect = health2_img.get_rect(midbottom = (players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                screen.blit(health2_img, health2_rect)
+            elif player_health[key]==1:
+                health1_rect = health1_img.get_rect(midbottom = (players[key-1].rect.centerx, players[key-1].rect.top - 4))
+                screen.blit(health1_img, health1_rect)
         
 
         for projectile in projectiles :
-            if pygame.sprite.collide_mask(projectile, player):
+            #if lives papy or mamy current player are different from 0 :
+            if pygame.sprite.collide_mask(projectile, player) and player_health[active_player]>0:
                 player_health[active_player]-= 1
                 projectile.kill()
+            elif player_health[active_player]==0 :
+                player_health[active_player]=5
+                lives-=1
+            #else :
+                #gameover
+            
+        
+
+
+            
+
 
         pygame.display.set_caption(f"Funny Granny - FPS: {clock.get_fps():.2f}")
         pygame.display.update()
