@@ -137,7 +137,6 @@ class ToiletPaperRoll(pg.sprite.Sprite):
             self.kill()
 
     def on_impact(self):
-        print("papier toilette a touché quelque chose")
         self.kill()
 
 
