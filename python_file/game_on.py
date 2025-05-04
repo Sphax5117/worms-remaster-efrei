@@ -75,7 +75,7 @@ def game_on(screen, screensize):
     active_player = 0
     controle_switch = 45
     switch_timer = 0
-    player_health={1:5, 2:5, 3:5, 4:5}
+    player_health={0:5, 1:5, 2:5, 3:5}
     lives_papy = 3
     lives_mamy = 3
 
