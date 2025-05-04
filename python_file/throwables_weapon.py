@@ -2,9 +2,9 @@ import pygame as pg
 import math
 import random
 
-soup_img = pg.image.load("assets/items/soup.png")
-pill_img = pg.image.load("assets/items/pill.png")
-grenade_img =pg.image.load("assets/items/grenade_it.png")
+soup_img = pg.image.load('assets/items/soup.png')
+pill_img = pg.image.load('assets/items/pill.png')
+grenade_img =pg.image.load('assets/items/grenade_it.png')
 pill_img = pg.transform.scale(pill_img, (40,40))
 soup_img = pg.transform.scale(soup_img, (40,40))
 grenade_img = pg.transform.scale(grenade_img, (40,40))
