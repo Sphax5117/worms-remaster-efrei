@@ -39,7 +39,7 @@ class ThrowableWeapon(pg.sprite.Sprite):
                 break
 
         # Check hors screen
-        if self.rect.top > 1000 or self.rect.left > 3000 or self.rect.right < 0:
+        if self.rect.top > 2000 or self.rect.left > 3000 or self.rect.right < 0:
             self.kill()
 
     def on_impact(self):
@@ -57,13 +57,10 @@ class ExplodingSlipper(ThrowableWeapon):
 
     @staticmethod
     def fire(player_pos, mouse_pos):
-        distance = 115
         dx = mouse_pos[0] - player_pos[0]
         dy = mouse_pos[1] - player_pos[1]
         angle = math.degrees(math.atan2(-dy, dx))
-        offset_x = distance * math.cos(math.radians(angle))
-        offset_y = -distance * math.sin(math.radians(angle))
-        spawn_pos = (player_pos[0] + offset_x, player_pos[1] + offset_y)
+        spawn_pos = (player_pos[0] , player_pos[1])
         return ExplodingSlipper(spawn_pos, angle, puissance=15)
 
 
@@ -82,13 +79,10 @@ class BurningSoup(ThrowableWeapon):
 
     @staticmethod
     def fire(player_pos, mouse_pos):
-        distance = 115
         dx = mouse_pos[0] - player_pos[0]
         dy = mouse_pos[1] - player_pos[1]
         angle = math.degrees(math.atan2(-dy, dx))
-        offset_x = distance * math.cos(math.radians(angle))
-        offset_y = -distance * math.sin(math.radians(angle))
-        spawn_pos = (player_pos[0] + offset_x, player_pos[1] + offset_y)
+        spawn_pos = (player_pos[0], player_pos[1])
         return BurningSoup(spawn_pos, angle, puissance=15)
 
 
@@ -133,7 +127,7 @@ class ToiletPaperRoll(pg.sprite.Sprite):
                 self.on_impact()
                 break
 
-        if self.rect.top > 1000 or self.rect.left > 3000 or self.rect.right < 0:
+        if self.rect.top > 2000 or self.rect.left > 3000 or self.rect.right < 0:
             self.kill()
 
     def on_impact(self):
@@ -146,14 +140,11 @@ class ToiletPaperRoll(pg.sprite.Sprite):
         dy = mouse_pos[1] - player_pos[1]
         angle = math.degrees(math.atan2(-dy, dx))
         rouleaux = []
-        distance = 30  #distance in pixels in front of the player
 
         for _ in range(5):  #rouleaux envoyés avec écart
             offset = random.uniform(-5, 5)
             effective_angle = angle + offset
-            offset_x = distance * math.cos(math.radians(effective_angle))
-            offset_y = -distance * math.sin(math.radians(effective_angle))
-            spawn_pos = (player_pos[0] + offset_x, player_pos[1] + offset_y)
+            spawn_pos = (player_pos[0] , player_pos[1] )
             proj = ToiletPaperRoll(spawn_pos, effective_angle)
             rouleaux.append(proj)
         return rouleaux
@@ -189,7 +180,7 @@ class BoomerangDenture(pg.sprite.Sprite):
             self.vitesse_vecteur *= -1
             self.en_retour = True
         
-        if self.en_retour == True and distance <= 10:
+        if self.en_retour == True and distance == 0:
             self.kill()
 
         for obstacle in obstacles_group:
@@ -197,7 +188,7 @@ class BoomerangDenture(pg.sprite.Sprite):
                 self.on_impact()
                 break
 
-        if self.rect.top > 1000 or self.rect.left > 3000 or self.rect.right < 0:
+        if self.rect.top > 2000 or self.rect.left > 3000 or self.rect.right < 0:
             self.kill()
 
     def on_impact(self):
@@ -206,11 +197,8 @@ class BoomerangDenture(pg.sprite.Sprite):
 
     @staticmethod
     def fire(player_pos, mouse_pos):
-        distance = 120
         dx = mouse_pos[0] - player_pos[0]
         dy = mouse_pos[1] - player_pos[1]
         angle = math.degrees(math.atan2(-dy, dx))
-        offset_x = distance * math.cos(math.radians(angle))
-        offset_y = -distance * math.sin(math.radians(angle))
-        spawn_pos = (player_pos[0] + offset_x, player_pos[1] + offset_y)
+        spawn_pos = (player_pos[0], player_pos[1])
         return BoomerangDenture(spawn_pos, angle)

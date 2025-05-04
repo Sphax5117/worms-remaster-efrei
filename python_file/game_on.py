@@ -20,6 +20,10 @@ def game_on(screen, screensize):
     DESIGN_W = 1920
     DESIGN_H = 1080
 
+    screen_width, screen_height = screensize
+    clock = pygame.time.Clock()
+    pass_turn = False
+
     # load asset
     base_path = Path(__file__).resolve().parent
     bg = base_path / '..' / 'assets' / 'gameon' / 'bg.png'
@@ -50,11 +54,11 @@ def game_on(screen, screensize):
     health1_img = pygame.image.load(health1).convert_alpha()
     health1_img = pygame.transform.scale(health1_img, (100,10))
 
+    ground_rect = pygame.Rect(0, screen_height - 70, screen_width, 20)
+
     arrow_img = pygame.image.load(arrow).convert_alpha()
     arrow_img = pygame.transform.scale(arrow_img, (30, 50))
 
-    screen_width, screen_height = screensize
-    clock = pygame.time.Clock()
 
     background_img = pygame.transform.scale(pygame.image.load(str(bg)).convert(), (screen_width, screen_height))
     map_img = pygame.transform.smoothscale(pygame.image.load(str(mapimg)).convert_alpha(), (screen_width, screen_height))
@@ -139,11 +143,12 @@ def game_on(screen, screensize):
         delta_time = clock.tick(60) / 1000
 
         switch_timer += delta_time
-        if switch_timer > controle_switch:
+        if switch_timer > controle_switch or pass_turn == True:
             # automatique change of player after a certain time
             keylisteners[active_player].keys.clear()
             active_player = (active_player + 1) % 4
             switch_timer = 0
+            pass_turn = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -182,7 +187,7 @@ def game_on(screen, screensize):
                             for roll in rolls:
                                 projectiles.add(roll)
                         elif arme_actuelle == "boomerang":
-                            proj = BoomerangDenture.fire(player.rect.center, mouse_pos)
+                            proj = BoomerangDenture.fire(player.rect.center, mouse_pos, player)
                             projectiles.add(proj)
                     except Exception as e:
                         print(f"Erreur lors du tir : {e}")
@@ -195,9 +200,11 @@ def game_on(screen, screensize):
         timer_text = font.render(str(time_left), True, (0, 0, 0))
         timer_rect = timer_text.get_rect(midtop=(screen.get_width() // 2, 10))
 
+        pygame.draw.rect(screen, (255, 0, 0), ground_rect) 
         screen.blit(background_img, (0, 0))
         screen.blit(map_img, (0, 0))
         screen.blit(timer_text, timer_rect)
+
         all_sprites.update(solid_obstacles)
         player_group.draw(screen)
         projectiles.update(solid_obstacles)
@@ -270,14 +277,28 @@ def game_on(screen, screensize):
                         running =False
                     elif lives_mamy == 0 :
                         running = False
-            
-
-
         
+        #check for collisions with the ground
+        for i, player in enumerate(players):
+            random_spawn = random.choice(spawn_position_ratios)
+            if player.rect.colliderect(ground_rect): 
+                if player_health[i] > 0: 
+                    player_health[i] -= 5
+                    player.rect.topleft = (int(random_spawn[0] * screen_width), int(random_spawn[1] * screen_height))
+
+                    if player_health[i] == 0:
+                        player_health[i] = 5
+                        if i % 2 == 0:
+                            lives_mamy -= 1
+                        else:
+                            lives_papy -= 1
+                pass_turn = True
+            else:
+                if lives_papy ==0:
+                    running =False
+                elif lives_mamy == 0 :
+                    running = False
         
-
-
-            
 
 
         pygame.display.set_caption(f"Funny Granny - FPS: {clock.get_fps():.2f}")
