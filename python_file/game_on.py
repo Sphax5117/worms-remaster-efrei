@@ -3,8 +3,6 @@ import os
 import random
 from sys import exit
 from pathlib import Path
-
-import pygame.locals
 from throwables_weapon import ExplodingSlipper, BurningSoup, ToiletPaperRoll, BoomerangDenture
 
 from player import Player, Keylistener
@@ -32,8 +30,6 @@ def game_on(screen, screensize):
     health3 = base_path / '..' / 'assets' / 'lives' / 'health_3.png'
     health2 = base_path / '..' / 'assets' / 'lives' / 'health_2.png'
     health1 = base_path / '..' / 'assets' / 'lives' / 'health_1.png'
-    marmel = base_path /".." / 'assets' / 'items' /'grenade_it.png'
-    pill = base_path /'..'/'assets' / 'items' / 'pill.png'
     health5_img = pygame.image.load(health5).convert_alpha()
     health5_img = pygame.transform.scale(health5_img, (100,10))
     health4_img = pygame.image.load(health4).convert_alpha()
@@ -46,15 +42,6 @@ def game_on(screen, screensize):
     health1_img = pygame.transform.scale(health1_img, (100,10))
     arrow_img = pygame.image.load(arrow).convert_alpha()
     arrow_img = pygame.transform.scale(arrow_img, (30, 50))
-    marmel_img = pygame.image.load(marmel).convert_alpha()
-    marmel_img = pygame.transform.scale(marmel_img, (150,168))
-    pill_img = pygame.image.load(pill).convert_alpha()
-    pill_img = pygame.transform.scale(pill_img, (250,300))
-
-    #to display the numbers 
-    font_number = pygame.font.SysFont(None, 60)
-    pill_num_surface = font_number.render("1", True, (0, 0, 0))
-    marmel_num_surface = font_number.render("2", True, (0,0,0))
 
     screen_width, screen_height = screensize
     clock = pygame.time.Clock()
@@ -206,18 +193,33 @@ def game_on(screen, screensize):
         projectiles.update(solid_obstacles)
         projectiles.draw(screen)
 
-        #weapons choices wiht a bar + number assiciated
-        pygame.draw.rect(screen, (255,255,255), (int(DESIGN_W*0.5),int(DESIGN_H*1.2), 700,150))
-        screen.blit(pill_img,(int(DESIGN_W*0.48),int(DESIGN_H*1.13)))
-        screen.blit(pill_num_surface,(int(DESIGN_W*0.59), int(DESIGN_H*1.2)))
-        screen.blit(marmel_img,(int(DESIGN_W*0.605),int(DESIGN_H*1.19)))
-        screen.blit(marmel_num_surface,(int(DESIGN_W*0.68), int(DESIGN_H*1.2)))
-
         #arrow on top of the player to know which one we are playing with
         player = players[active_player]
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
 
+
+
+        
+        
+
+        for projectile in projectiles :
+            if lives_mamy >0 and lives_papy !=0 :
+                if pygame.sprite.collide_mask(projectile, player) and player_health[active_player]>0:
+                    player_health[active_player]-= 1
+                    projectile.kill()
+                elif player_health[active_player]==0 :
+                    player_health[active_player]=5
+                    if active_player%2==0:
+                        lives_mamy-=1
+                    else:
+                        lives_papy-=1
+            else :
+                if lives_papy ==0:
+                    running =False
+                elif lives_mamy == 0 :
+                    running = False
+            
 
 
         for key in player_health.keys():
@@ -236,21 +238,12 @@ def game_on(screen, screensize):
             elif player_health[key]==1:
                 health1_rect = health1_img.get_rect(midbottom = (players[key].rect.centerx, players[key].rect.top - 4))
                 screen.blit(health1_img, health1_rect)
+            
         
 
-        for projectile in projectiles :
-            #if lives papy or mamy current player are different from 0 :
-            for i, target_player in enumerate(players):
-                if pygame.sprite.collide_mask(projectile, target_player) and player_health[i] > 0:
-                    player_health[i] -= 1
-                    projectile.kill()
-                    break
-                elif player_health[active_player]==0 :
-                    player_health[active_player]=5
-                    lives-=1
-            #else :
-                #gameover
+
             
+
 
         pygame.display.set_caption(f"Funny Granny - FPS: {clock.get_fps():.2f}")
         pygame.display.update()
