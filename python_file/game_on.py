@@ -30,7 +30,7 @@ def game_on(screen, screensize):
     health5 = base_path / '..' / 'assets' / 'lives' / 'health_5.png'
     health4 = base_path / '..' / 'assets' / 'lives' / 'health_4.png'
     health3 = base_path / '..' / 'assets' / 'lives' / 'health_3.png'
-    health2 = base_path / '.. ' / 'assets' / 'lives' / 'health_2.png'
+    health2 = base_path / '..' / 'assets' / 'lives' / 'health_2.png'
     health1 = base_path / '..' / 'assets' / 'lives' / 'health_1.png'
     health5_img = pygame.image.load(health5).convert_alpha()
     health5_img = pygame.transform.scale(health5_img, (100,10))
@@ -212,7 +212,7 @@ def game_on(screen, screensize):
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
 
-        
+
 
         for key in player_health.keys():
             if player_health[key]==5:
