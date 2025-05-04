@@ -252,7 +252,7 @@ def game_on(screen, screensize):
         #collisions with the player and projectiles 
         for projectile in projectiles:
             for i, p in enumerate(players):
-                if player_health[i] > 0 and pygame.sprite.collide_mask(projectile, p):
+                if player_health[i] > 0 and pygame.sprite.collide_mask(projectile, p) and i != active_player and (i % 2) != active_player % 2:
                     player_health[i] -= 1
                     projectile.kill()
                     # Lives handling:
@@ -263,11 +263,13 @@ def game_on(screen, screensize):
                         else:
                             lives_papy -= 1
                     break 
-            else :
-                if lives_papy ==0:
-                    running =False
-                elif lives_mamy == 0 :
-                    running = False
+                elif pygame.sprite.collide_mask(projectile, p) and i != active_player and i % 2 == active_player % 2:
+                    projectile.kill()
+                else :
+                    if lives_papy ==0:
+                        running =False
+                    elif lives_mamy == 0 :
+                        running = False
             
 
 
