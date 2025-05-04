@@ -34,11 +34,11 @@ def game_on(screen, screensize):
     lives2 = base_path / '..' / 'assets' / 'lives' / '2lives.png'
     lives1 = base_path / '..' / 'assets' / 'lives' / '1live.png'
     lives3_img = pygame.image.load(lives3).convert_alpha()
-    lives3_img = pygame.transform.scale(lives3_img, (100,10))
+    lives3_img = pygame.transform.scale(lives3_img, (200,30))
     lives2_img = pygame.image.load(lives2).convert_alpha()
-    lives2_img = pygame.transform.scale(lives2_img, (100,10))
+    lives2_img = pygame.transform.scale(lives2_img, (200,30))
     lives1_img = pygame.image.load(lives1).convert_alpha()
-    lives1_img = pygame.transform.scale(lives1_img, (100,10))
+    lives1_img = pygame.transform.scale(lives1_img, (300,30))
     health5_img = pygame.image.load(health5).convert_alpha()
     health5_img = pygame.transform.scale(health5_img, (100,10))
     health4_img = pygame.image.load(health4).convert_alpha()
@@ -228,24 +228,24 @@ def game_on(screen, screensize):
             
         #papy lives at the top left corner
         if lives_papy == 3 :
-            lives3_rect = lives3_img.get_rect(center = (50,5))
+            lives3_rect = lives3_img.get_rect(center = (100,15))
             screen.blit(lives3_img, lives3_rect)
         elif lives_papy == 2 :
-            lives2_rect = lives2_img.get_rect(center = (50,5))
+            lives2_rect = lives2_img.get_rect(center = (100,15))
             screen.blit(lives2_img, lives2_rect)
         elif lives_papy == 1 :
-            lives1_rect = lives1_img.get_rect(center =(50,5))
+            lives1_rect = lives1_img.get_rect(center =(100,15))
             screen.blit(lives1_img, lives1_rect)
 
         #mamy lives at the top right corner 
         if lives_mamy == 3 :
-            lives3_rect = lives3_img.get_rect(center=(screen_width-50,5))
+            lives3_rect = lives3_img.get_rect(center=(screen_width-100,15))
             screen.blit(lives3_img, lives3_rect)
         elif lives_mamy == 2 :
-            lives2_rect = lives2_img.get_rect(center= (screen_width-50,5))
+            lives2_rect = lives2_img.get_rect(center= (screen_width-100,15))
             screen.blit(lives2_img, lives2_rect)
         elif lives_mamy == 1 :
-            lives1_rect = lives1_img.get_rect(center = (screen_width-50,5))
+            lives1_rect = lives1_img.get_rect(center = (screen_width-100,15))
             screen.blit(lives1_img, lives1_rect)
 
         
