@@ -3,6 +3,8 @@ import os
 import random
 from sys import exit
 from pathlib import Path
+
+import pygame.locals
 from throwables_weapon import ExplodingSlipper, BurningSoup, ToiletPaperRoll, BoomerangDenture
 
 from player import Player, Keylistener
@@ -30,6 +32,8 @@ def game_on(screen, screensize):
     health3 = base_path / '..' / 'assets' / 'lives' / 'health_3.png'
     health2 = base_path / '..' / 'assets' / 'lives' / 'health_2.png'
     health1 = base_path / '..' / 'assets' / 'lives' / 'health_1.png'
+    marmel = base_path /".." / 'assets' / 'items' /'grenade_it.png'
+    pill = base_path /'..'/'assets' / 'items' / 'pill.png'
     health5_img = pygame.image.load(health5).convert_alpha()
     health5_img = pygame.transform.scale(health5_img, (100,10))
     health4_img = pygame.image.load(health4).convert_alpha()
@@ -42,6 +46,10 @@ def game_on(screen, screensize):
     health1_img = pygame.transform.scale(health1_img, (100,10))
     arrow_img = pygame.image.load(arrow).convert_alpha()
     arrow_img = pygame.transform.scale(arrow_img, (30, 50))
+    marmel_img = pygame.image.load(marmel).convert_alpha()
+    marmel_img = pygame.transform.scale(marmel_img, (150,168))
+    pill_img = pygame.image.load(pill).convert_alpha()
+    pill_img = pygame.transform.scale(pill_img, (250,300))
 
     screen_width, screen_height = screensize
     clock = pygame.time.Clock()
@@ -192,6 +200,9 @@ def game_on(screen, screensize):
         player_group.draw(screen)
         projectiles.update(solid_obstacles)
         projectiles.draw(screen)
+        pygame.draw.rect(screen, (255,255,255), (int(DESIGN_W*0.5),int(DESIGN_H*1.2), 700,150))
+        screen.blit(pill_img,(int(DESIGN_W*0.48),int(DESIGN_H*1.13)))
+        screen.blit(marmel_img,(int(DESIGN_W*0.605),int(DESIGN_H*1.19)))
 
         #arrow on top of the player to know which one we are playing with
         player = players[active_player]
@@ -220,20 +231,17 @@ def game_on(screen, screensize):
 
         for projectile in projectiles :
             #if lives papy or mamy current player are different from 0 :
-            if pygame.sprite.collide_mask(projectile, player) and player_health[active_player]>0:
-                player_health[active_player]-= 1
-                projectile.kill()
-            elif player_health[active_player]==0 :
-                player_health[active_player]=5
-                lives-=1
+            for i, target_player in enumerate(players):
+                if pygame.sprite.collide_mask(projectile, target_player) and player_health[i] > 0:
+                    player_health[i] -= 1
+                    projectile.kill()
+                    break
+                elif player_health[active_player]==0 :
+                    player_health[active_player]=5
+                    lives-=1
             #else :
                 #gameover
             
-        
-
-
-            
-
 
         pygame.display.set_caption(f"Funny Granny - FPS: {clock.get_fps():.2f}")
         pygame.display.update()
