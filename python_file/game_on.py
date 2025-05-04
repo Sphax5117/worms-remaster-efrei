@@ -11,8 +11,7 @@ from readyscreen import readyscreen
 
 def game_on(screen, screensize):
     #The ready screen
-    readyscreen(screen,screensize, 5)
-
+    #readyscreen(screen,screensize, 5)
 
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
     pygame.display.set_caption("Funny Granny")
@@ -199,7 +198,7 @@ def game_on(screen, screensize):
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
 
-        health5_rect=health5_img.get_rect(midbottom=(300,200))
+        health5_rect=health5_img.get_rect(midbottom=(1000,800))
         screen.blit(health5_img, health5_rect)
         
 
@@ -211,11 +210,6 @@ def game_on(screen, screensize):
         pygame.display.set_caption(f"Funny Granny - FPS: {clock.get_fps():.2f}")
         pygame.display.update()
 
-
-# elif event.type == pygame.MOUSEBUTTONDOWN:
-# if event.button == 1:  # Left mouse button
-# pos = pygame.mouse.get_pos()
-# print()
 
 ###  a faire ##
 # - limiter le nombre d'utilisation des armes (genre on peut tirer 3 fois max sinon c'est op) et utiliser que 1 seule armes sur les 45 secondes des tours
