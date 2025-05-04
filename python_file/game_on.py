@@ -30,6 +30,15 @@ def game_on(screen, screensize):
     health3 = base_path / '..' / 'assets' / 'lives' / 'health_3.png'
     health2 = base_path / '..' / 'assets' / 'lives' / 'health_2.png'
     health1 = base_path / '..' / 'assets' / 'lives' / 'health_1.png'
+    lives3 = base_path / '..' / 'assets' / 'lives' / '3lives.png'
+    lives2 = base_path / '..' / 'assets' / 'lives' / '2lives.png'
+    lives1 = base_path / '..' / 'assets' / 'lives' / '1live.png'
+    lives3_img = pygame.image.load(lives3).convert_alpha()
+    lives3_img = pygame.transform.scale(lives3_img, (100,10))
+    lives2_img = pygame.image.load(lives2).convert_alpha()
+    lives2_img = pygame.transform.scale(lives2_img, (100,10))
+    lives1_img = pygame.image.load(lives1).convert_alpha()
+    lives1_img = pygame.transform.scale(lives1_img, (100,10))
     health5_img = pygame.image.load(health5).convert_alpha()
     health5_img = pygame.transform.scale(health5_img, (100,10))
     health4_img = pygame.image.load(health4).convert_alpha()
@@ -40,6 +49,7 @@ def game_on(screen, screensize):
     health2_img = pygame.transform.scale(health2_img, (100,10))
     health1_img = pygame.image.load(health1).convert_alpha()
     health1_img = pygame.transform.scale(health1_img, (100,10))
+
     arrow_img = pygame.image.load(arrow).convert_alpha()
     arrow_img = pygame.transform.scale(arrow_img, (30, 50))
 
@@ -198,7 +208,7 @@ def game_on(screen, screensize):
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
 
-
+        #display of the health bar above the player head
         for key in player_health.keys():
             if player_health[key]==5:
                 health5_rect= health5_img.get_rect(midbottom=(players[key].rect.centerx, players[key].rect.top - 4))
@@ -216,11 +226,32 @@ def game_on(screen, screensize):
                 health1_rect = health1_img.get_rect(midbottom = (players[key].rect.centerx, players[key].rect.top - 4))
                 screen.blit(health1_img, health1_rect)
             
-        
-        
+        #papy lives at the top left corner
+        if lives_papy == 3 :
+            lives3_rect = lives3_img.get_rect(0,0)
+            screen.blit(lives3_img, lives3_rect)
+        elif lives_papy == 2 :
+            lives2_rect = lives2_img.get_rect(0,0)
+            screen.blit(lives2_img, lives2_rect)
+        elif lives_papy == 1 :
+            lives1_rect = lives1_img.get_rect(0,0)
+            screen.blit(lives1_img, lives1_rect)
 
+        #mamy lives at the top right corner 
+        if lives_mamy == 3 :
+            lives3_rect = lives3_img.get_rect(screen_width-100,0)
+            screen.blit(lives3_img, lives3_rect)
+        elif lives_mamy == 2 :
+            lives2_rect = lives2_img.get_rect(screen_width-100,0)
+            screen.blit(lives2_img, lives2_rect)
+        elif lives_mamy == 1 :
+            lives1_rect = lives1_img.get_rect(screen_width-100,0)
+            screen.blit(lives1_img, lives1_rect)
+
+        
+        #collisions with the player and projectiles 
         for projectile in projectiles :
-            if lives_mamy >0 and lives_papy !=0 :
+            if (lives_mamy) >0 and (lives_papy >0) :
                 if pygame.sprite.collide_mask(projectile, player) and player_health[active_player]>0:
                     player_health[active_player]-= 1
                     projectile.kill()
