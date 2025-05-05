@@ -187,7 +187,7 @@ def game_on(screen, screensize):
                             for roll in rolls:
                                 projectiles.add(roll)
                         elif arme_actuelle == "boomerang":
-                            proj = BoomerangDenture.fire(player.rect.center, mouse_pos, player)
+                            proj = BoomerangDenture.fire(player.rect.center, mouse_pos)
                             projectiles.add(proj)
                     except Exception as e:
                         print(f"Erreur lors du tir : {e}")
@@ -314,3 +314,10 @@ def game_on(screen, screensize):
 # - BONUS, afficher la trajectoires a l'écran pour que les joueurs puissent viser à l'aide la trajectoire
 # - verifier l'erreur du fait que on ne peut utiliser que 1 des deux armes, les deux sont pareils si on appuis sur 1 ou 2
 # - ajouter des commentaires pas chat sur le programme
+
+# - rajouter bar d'armes
+# - faire screen de fin en fonction de mamie ou papi mort
+# - bug de sauté a gauche ou a droite
+# - ready screen plus joli 
+# - corrigé bug 
+# - 
