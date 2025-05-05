@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="045a82a0-2001-4408-92db-16b328ed4204" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="045a82a0-2001-4408-92db-16b328ed4204" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,11 +50,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/items" />
       <recent name="$PROJECT_DIR$/assets/test.png" />
       <recent name="$PROJECT_DIR$/assets/gameon/nature_props" />
       <recent name="$PROJECT_DIR$/assets/gameon/nature_env" />
       <recent name="$PROJECT_DIR$/assets/gameon" />
-      <recent name="$PROJECT_DIR$/assets/rules" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -80,6 +78,7 @@
       <workItem from="1745418890762" duration="2104000" />
       <workItem from="1745843617559" duration="737000" />
       <workItem from="1746174202656" duration="602000" />
+      <workItem from="1746429107570" duration="489000" />
     </task>
     <servers />
   </component>
