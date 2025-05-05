@@ -2,12 +2,15 @@ import pygame as pg
 import math
 import random
 
-soup_img = pg.image.load('assets/items/soup.png')
 pill_img = pg.image.load('assets/items/pill.png')
 grenade_img =pg.image.load('assets/items/grenade_it.png')
+glasses_img = pg.image.load('assets/items/glasses.png')
+toiletp_img = pg.image.load('assets/items/toilet_paper.png')
+
 pill_img = pg.transform.scale(pill_img, (40,40))
-soup_img = pg.transform.scale(soup_img, (40,40))
 grenade_img = pg.transform.scale(grenade_img, (40,40))
+glasses_img = pg.transform.scale(glasses_img, (50,50))
+toiletp_img = pg.transform.scale(toiletp_img, (20,20))
 
 # basic class
 class ThrowableWeapon(pg.sprite.Sprite):
@@ -106,8 +109,7 @@ class SoupPuddle(pg.sprite.Sprite):
 class ToiletPaperRoll(pg.sprite.Sprite):
     def __init__(self, pos, angle, vitesse=10, degats=5):
         super().__init__()
-        self.image = pg.Surface((8, 8))
-        self.image.fill((255, 255, 255))  #blanc
+        self.image = toiletp_img
         self.rect = self.image.get_rect(center=pos)
         self.pos = pg.Vector2(pos)
 
@@ -154,8 +156,7 @@ class ToiletPaperRoll(pg.sprite.Sprite):
 class BoomerangDenture(pg.sprite.Sprite):
     def __init__(self, pos, angle, vitesse=8, degats=20):
         super().__init__()
-        self.image = pg.Surface((14, 14))
-        self.image.fill((255, 200, 200))  # pink
+        self.image = glasses_img
         self.rect = self.image.get_rect(center=pos)
         self.start_pos = pg.Vector2(pos)
         self.pos = pg.Vector2(pos)

@@ -37,6 +37,14 @@ def game_on(screen, screensize):
     lives3 = base_path / '..' / 'assets' / 'lives' / '3lives.png'
     lives2 = base_path / '..' / 'assets' / 'lives' / '2lives.png'
     lives1 = base_path / '..' / 'assets' / 'lives' / '1live.png'
+    glasses = base_path /'..' / 'assets' / 'items' / 'glasses.png'
+    marmel = base_path / '..' / 'assets' / 'items' / 'grenade_it.png'
+    pill = base_path / '..' / 'assets' / 'items' / 'pill.png'
+    toiletp = base_path / '..' / 'assets' / 'items' / 'toilet_paper.png'
+    glasses_img = pygame.image.load(glasses).convert_alpha()
+    marmel_img = pygame.image.load(marmel).convert_alpha()
+    pill_img = pygame.image.load(pill).convert_alpha()
+    toiletp_img = pygame.image.load(toiletp).convert_alpha()
     lives3_img = pygame.image.load(lives3).convert_alpha()
     lives3_img = pygame.transform.scale(lives3_img, (200,60))
     lives2_img = pygame.image.load(lives2).convert_alpha()
@@ -315,9 +323,11 @@ def game_on(screen, screensize):
 # - verifier l'erreur du fait que on ne peut utiliser que 1 des deux armes, les deux sont pareils si on appuis sur 1 ou 2
 # - ajouter des commentaires pas chat sur le programme
 
-# - rajouter bar d'armes
+# - rajouter bar d'armes (avant limiter armes)
 # - faire screen de fin en fonction de mamie ou papi mort
 # - bug de sauté a gauche ou a droite
-# - ready screen plus joli 
+# - ready screen plus jolie
 # - corrigé bug 
-# - 
+# - changer les regles
+# - repasser sur les commentaires et les variables qui ont un nom francais
+# - limiter l'utilisation des armes
