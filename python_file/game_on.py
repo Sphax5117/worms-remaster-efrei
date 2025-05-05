@@ -11,7 +11,7 @@ from readyscreen import readyscreen
 
 def game_on(screen, screensize):
     #The ready screen
-    #readyscreen(screen,screensize, 5)
+    readyscreen(screen,screensize, 5)
 
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
     pygame.display.set_caption("Funny Granny")
@@ -41,6 +41,7 @@ def game_on(screen, screensize):
     marmel = base_path / '..' / 'assets' / 'items' / 'grenade_it.png'
     pill = base_path / '..' / 'assets' / 'items' / 'pill.png'
     toiletp = base_path / '..' / 'assets' / 'items' / 'toilet_paper.png'
+    winningp = base_path / '..' / 'assets' / 'gameon' / 'grandpa_win.png'
     glasses_img = pygame.image.load(glasses).convert_alpha()
     marmel_img = pygame.image.load(marmel).convert_alpha()
     pill_img = pygame.image.load(pill).convert_alpha()
@@ -303,7 +304,7 @@ def game_on(screen, screensize):
                 pass_turn = True
             else:
                 if lives_papy ==0:
-                    running =False
+                    running = False
                 elif lives_mamy == 0 :
                     running = False
         
