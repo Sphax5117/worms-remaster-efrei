@@ -9,9 +9,16 @@ from player import Player, Keylistener
 from collision import WallLine
 from readyscreen import readyscreen
 
+
+def winning_screen(screen, winner_image):
+    screen.fill((255, 255, 255))  
+    screen.blit(winner_image, (screen.get_width() // 2 - winner_image.get_width() // 2, screen.get_height() // 2 - winner_image.get_height() // 2))
+    pygame.display.update()
+    pygame.time.wait(5000)
+
 def game_on(screen, screensize):
     #The ready screen
-    readyscreen(screen,screensize, 5)
+    #readyscreen(screen,screensize, 5)
 
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
     pygame.display.set_caption("Funny Granny")
@@ -42,6 +49,9 @@ def game_on(screen, screensize):
     pill = base_path / '..' / 'assets' / 'items' / 'pill.png'
     toiletp = base_path / '..' / 'assets' / 'items' / 'toilet_paper.png'
     winningp = base_path / '..' / 'assets' / 'gameon' / 'grandpa_win.png'
+    winningg = base_path /'..' / 'assets' / 'gameon' / 'grandma_win.png'
+    winningp_img = pygame.image.load(winningp).convert_alpha()
+    winningg_img = pygame.image.load(winningg).convert_alpha()
     glasses_img = pygame.image.load(glasses).convert_alpha()
     marmel_img = pygame.image.load(marmel).convert_alpha()
     pill_img = pygame.image.load(pill).convert_alpha()
@@ -283,8 +293,10 @@ def game_on(screen, screensize):
                     projectile.kill()
                 else :
                     if lives_papy ==0:
-                        running =False
+                        winning_screen(screen, winningg_img)
+                        running = False
                     elif lives_mamy == 0 :
+                        winning_screen(screen, winningp_img)
                         running = False
         
         #check for collisions with the ground
@@ -304,8 +316,10 @@ def game_on(screen, screensize):
                 pass_turn = True
             else:
                 if lives_papy ==0:
+                    winning_screen(screen, winningg_img)
                     running = False
                 elif lives_mamy == 0 :
+                    winning_screen(screen, winningp_img)
                     running = False
         
 
@@ -325,7 +339,6 @@ def game_on(screen, screensize):
 # - ajouter des commentaires pas chat sur le programme
 
 # - rajouter bar d'armes (avant limiter armes)
-# - faire screen de fin en fonction de mamie ou papi mort
 # - bug de sauté a gauche ou a droite
 # - ready screen plus jolie
 # - corrigé bug 
