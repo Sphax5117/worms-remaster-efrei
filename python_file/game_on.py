@@ -332,3 +332,4 @@ def game_on(screen, screensize):
 # - changer les regles
 # - repasser sur les commentaires et les variables qui ont un nom francais
 # - limiter l'utilisation des armes
+# - frame quand le perso ne bouge pas
