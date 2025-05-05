@@ -1,11 +1,18 @@
 import pygame as pg
 import math
 import random
+from pathlib import Path
 
-pill_img = pg.image.load('assets/items/pill.png')
-grenade_img =pg.image.load('assets/items/grenade_it.png')
-glasses_img = pg.image.load('assets/items/glasses.png')
-toiletp_img = pg.image.load('assets/items/toilet_paper.png')
+base_path = Path(__file__).resolve().parent
+pill = base_path / '..' / 'assets' / 'items' / 'pill.png'
+grenade = base_path / '..' / 'assets' / 'items' / 'grenade_it.png'
+glasses = base_path / '..' / 'assets' / 'items' / 'glasses.png'
+toiletp = base_path / '..' / 'assets' / 'items' / 'toilet_paper.png'
+
+pill_img = pg.image.load(pill)
+grenade_img =pg.image.load(grenade)
+glasses_img = pg.image.load(glasses)
+toiletp_img = pg.image.load(toiletp)
 
 pill_img = pg.transform.scale(pill_img, (40,40))
 grenade_img = pg.transform.scale(grenade_img, (40,40))
