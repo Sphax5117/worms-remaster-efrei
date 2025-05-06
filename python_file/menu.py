@@ -3,10 +3,8 @@ from sys import exit
 import os
 from pathlib import Path
 
-# Get the absolute path to the `menu.py` file
+#get the absolute path to the `menu.py` file + more stable and more sure
 base_path = Path(__file__).resolve().parent
-
-# Construct the path to the image
 start_img_path = base_path / '..' / 'assets' / 'menu' / 'start_btn.png'
 exit_img_path = base_path / '..' / 'assets' / 'menu' / 'exit_btn.png'
 setting_img_path = base_path / '..' / 'assets' / 'menu' / 'setting_btn.png'
@@ -14,14 +12,13 @@ background_img_path = base_path / '..' / 'assets' / 'menu' / 'bg2.png'
 music_path = base_path / '..' / 'Musics' / 'Funny Granny 2.mp3'
 
 
-
-# Load the image
-  # Convert Path object to string
-
+#definition of the menu to dsiplay it and used it
 def menu(screensize, screen):
-    os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
+    #configuration of the screen + music handling
+    os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  
     pygame.init()
     pygame.mixer.init()
+    pygame.display.set_caption("Funny Granny")
 
     #usefull variables
     run = True
@@ -42,20 +39,17 @@ def menu(screensize, screen):
     setting_img = pygame.transform.smoothscale(setting_img, (screen_width//3, screen_height//9))
     backround_img = pygame.transform.smoothscale(backround_img, (screen_width, screen_height))
 
-    #initialization of the screen of the side of the screen and we set a caption for the window
-    pygame.display.set_caption("Funny Granny")
-
-    # Button class
+    # Button class to have buton with no absolute values and just depends on the size of the screen
     class Button():
         def __init__(self, x_factor, y_factor, image):
             self.image = image
-            self.x_factor = x_factor  # Percentage of screen width
-            self.y_factor = y_factor  # Percentage of screen height
+            self.x_factor = x_factor  
+            self.y_factor = y_factor  
             self.update_position(screen_width, screen_height)
             self.clicked = False
 
         def update_position(self, screen_width, screen_height):
-            #Update button position based on new screen size.
+            #update button position based on new screen size.
             self.rect = self.image.get_rect()
             self.rect.topleft = (int(screen_width * self.x_factor), int(screen_height * self.y_factor))
 

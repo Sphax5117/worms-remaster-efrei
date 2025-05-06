@@ -6,7 +6,7 @@ from rule import rule
 from game_on import game_on
 
 def main():
-    #initialization
+    #initialization of the screen and of pygame
     pygame.init()
     os.environ['SDL_VIDEO_CENTERED'] = '1'
 
@@ -16,16 +16,21 @@ def main():
     screen = display.set_mode(screensize)
     pygame.display.set_caption("Funny Granny")
     
+    #the loop of all the game 
     running = True
+
     while running:
         #to display the menu
         choice = menu(screensize, screen)
 
         if choice == 'start':
-            game_on(screen, screensize)  #launch the game
+            #to launch the game
+            game_on(screen, screensize) 
         elif choice == 'setting':
+            #to access to the rules
             rule(screensize)
         elif choice == 'exit':
+            #to exit the game
             running = False
 
     pygame.quit()

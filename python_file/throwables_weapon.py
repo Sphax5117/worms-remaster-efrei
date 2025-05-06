@@ -3,32 +3,33 @@ import math
 import random
 from pathlib import Path
 
+#the sprite needed to the calsses
 base_path = Path(__file__).resolve().parent
 pill = base_path / '..' / 'assets' / 'items' / 'pill.png'
 grenade = base_path / '..' / 'assets' / 'items' / 'grenade_it.png'
 glasses = base_path / '..' / 'assets' / 'items' / 'glasses.png'
 toiletp = base_path / '..' / 'assets' / 'items' / 'toilet_paper.png'
 
+#ajust and load the images
 pill_img = pg.image.load(pill)
 grenade_img =pg.image.load(grenade)
 glasses_img = pg.image.load(glasses)
 toiletp_img = pg.image.load(toiletp)
-
 pill_img = pg.transform.scale(pill_img, (40,40))
 grenade_img = pg.transform.scale(grenade_img, (40,40))
 glasses_img = pg.transform.scale(glasses_img, (50,50))
 toiletp_img = pg.transform.scale(toiletp_img, (20,20))
 
-# basic class
+#the main class that is use on all functions
 class ThrowableWeapon(pg.sprite.Sprite):
     def __init__(self, pos, angle, puissance, gravite=0.5, degats=10):
         super().__init__()
         self.image = pg.Surface((10, 10))
-        self.image.fill((255, 255, 0))  # Jaune defaut
+        self.image.fill((255, 255, 0)) 
         self.rect = self.image.get_rect(center=pos)
         self.pos = pg.Vector2(pos)
 
-        # speed initial of projectil
+        #speed initial of the prohjectil
         self.vitesse_vecteur = pg.Vector2(
             puissance * math.cos(math.radians(angle)),
             -puissance * math.sin(math.radians(angle))
@@ -37,25 +38,25 @@ class ThrowableWeapon(pg.sprite.Sprite):
         self.degats = degats
 
     def update(self, obstacles_group):
-        # Gestion de la gravité + déplacement
+        #collision ang gravity handle
         self.vitesse_vecteur.y += self.gravite
         self.pos += self.vitesse_vecteur
         self.rect.center = self.pos
 
-        # verify the colision
+        #verify the colision
         for obstacle in obstacles_group:
             if pg.sprite.collide_mask(self, obstacle):
                 self.on_impact()
                 break
 
-        # Check hors screen
+        #checks for the out of the screen
         if self.rect.top > 2000 or self.rect.left > 3000 or self.rect.right < 0:
             self.kill()
 
     def on_impact(self):
         self.kill()
 
-
+#class for the first weapon slipper 
 class ExplodingSlipper(ThrowableWeapon):
     def __init__(self, pos, angle, puissance):
         super().__init__(pos, angle, puissance, gravite=0.6, degats=25)
@@ -65,6 +66,7 @@ class ExplodingSlipper(ThrowableWeapon):
     def on_impact(self):
         self.kill()
 
+    #for no self method
     @staticmethod
     def fire(player_pos, mouse_pos):
         dx = mouse_pos[0] - player_pos[0]
@@ -74,7 +76,7 @@ class ExplodingSlipper(ThrowableWeapon):
         return ExplodingSlipper(spawn_pos, angle, puissance=15)
 
 
-
+#class for the scond weapon the burning soup 
 class BurningSoup(ThrowableWeapon):
     def __init__(self, pos, angle, puissance):
         super().__init__(pos, angle, puissance, gravite=0.5, degats=10)
@@ -87,6 +89,7 @@ class BurningSoup(ThrowableWeapon):
         self.groups()[0].add(flaque)
         self.kill()
 
+    #for no self method
     @staticmethod
     def fire(player_pos, mouse_pos):
         dx = mouse_pos[0] - player_pos[0]
@@ -95,24 +98,22 @@ class BurningSoup(ThrowableWeapon):
         spawn_pos = (player_pos[0], player_pos[1])
         return BurningSoup(spawn_pos, angle, puissance=15)
 
-
-
+#class for the rest of the soup
 class SoupPuddle(pg.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.image = pg.Surface((40, 20), pg.SRCALPHA)
-        self.image.fill((100, 255, 100, 180))  #vert clair sah
+        self.image.fill((100, 255, 100, 180))  
         self.rect = self.image.get_rect(center=pos)
-        self.timer = 5.0  #durée de vie (secondes)
+        self.timer = 5.0 
 
     def update(self, *args):
-        # supprime la flaque au bout d'un certain temps (erwann t un bg)
         dt = 1 / 60.0
         self.timer -= dt
         if self.timer <= 0:
             self.kill()
 
-
+#class for the third weapon toilet paper roll
 class ToiletPaperRoll(pg.sprite.Sprite):
     def __init__(self, pos, angle, vitesse=10, degats=5):
         super().__init__()
@@ -142,7 +143,7 @@ class ToiletPaperRoll(pg.sprite.Sprite):
     def on_impact(self):
         self.kill()
 
-
+    #for no self method
     @staticmethod
     def fire(player_pos, mouse_pos):
         dx = mouse_pos[0] - player_pos[0]
@@ -159,7 +160,7 @@ class ToiletPaperRoll(pg.sprite.Sprite):
         return rouleaux
 
 
-
+#class for the fourth weapon the boomrang
 class BoomerangDenture(pg.sprite.Sprite):
     def __init__(self, pos, angle, vitesse=8, degats=20):
         super().__init__()
@@ -168,12 +169,10 @@ class BoomerangDenture(pg.sprite.Sprite):
         self.start_pos = pg.Vector2(pos)
         self.pos = pg.Vector2(pos)
 
-        # Init direction
         self.vitesse_vecteur = pg.Vector2(
             vitesse * math.cos(math.radians(angle)),
             -vitesse * math.sin(math.radians(angle))
         )
-        #to modify to change the distance of the dentier
         self.portee_max = 350
         self.en_retour = False
         self.degats = degats
@@ -184,7 +183,6 @@ class BoomerangDenture(pg.sprite.Sprite):
 
         distance = self.pos.distance_to(self.start_pos)
         if distance >= self.portee_max and not self.en_retour:
-            #Le dentier invers the trajectoire for revenir in the place initiale
             self.vitesse_vecteur *= -1
             self.en_retour = True
         
@@ -202,7 +200,7 @@ class BoomerangDenture(pg.sprite.Sprite):
     def on_impact(self):
         self.kill()
 
-
+    #for no self method
     @staticmethod
     def fire(player_pos, mouse_pos):
         dx = mouse_pos[0] - player_pos[0]

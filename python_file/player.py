@@ -36,7 +36,8 @@ class Player(Sprite):
             # Images statiques
             self.images = {
                 "down": pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile132.png')).convert_alpha(),
-                "up": pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile132.png')).convert_alpha()
+                "up": pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile132.png')).convert_alpha(),
+                "still" : pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile080.png')).convert_alpha()
             }
         
         #for the papy
@@ -52,7 +53,8 @@ class Player(Sprite):
             # Images statiques
             self.images = {
                 "down": pygame.image.load(str(base_path / '..' / 'frame papy' / 'tile132.png')).convert_alpha(),
-                "up": pygame.image.load(str(base_path / '..' / 'frame papy' / 'tile132.png')).convert_alpha()
+                "up": pygame.image.load(str(base_path / '..' / 'frame papy' / 'tile132.png')).convert_alpha(),
+                "still" : pygame.image.load(str(base_path / '..' / 'frame papy' / 'tile080.png')).convert_alpha()
             }
 
         self.image = self.images["down"]
@@ -83,10 +85,14 @@ class Player(Sprite):
         self.rect.y += int(self.velocity_y)
 
     def handle_movement(self):
+        self.is_moving = False
+
         if self.keylistener.key_pressed(pygame.K_LEFT):
             self.move_left()
+            self.is_moving = True
         if self.keylistener.key_pressed(pygame.K_RIGHT):
             self.move_right()
+            self.is_moving = True
 
         # Début du saut
         if self.keylistener.key_pressed(pygame.K_UP) and self.on_ground:
@@ -99,6 +105,13 @@ class Player(Sprite):
             if self.velocity_y < 0:  # Seulement si on monte
                 self.velocity_y *= self.jump_cut_power
             self.is_jumping = False
+    
+        if not self.is_moving:
+            self.set_idle_image()
+
+    def set_idle_image(self):
+        self.image = self.images["still"]
+        self.mask = pygame.mask.from_surface(self.image)
 
     def animate(self):
         self.animation_timer += 1 / 60.0

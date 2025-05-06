@@ -3,70 +3,53 @@ import os
 from sys import exit
 from pathlib import Path
 
-# Get the absolute path to the current file's directory
+#to get the path of the different usefull sprite
 base_path = Path(__file__).resolve().parent
-
-# Paths for assets
 rules_path = base_path / '..' / 'assets' / 'rules' / 'rules.png'
 exit_button_path = base_path / '..' / 'assets' / 'rules' / 'setting_exit.png'
 
+#definiton of the rule game that is in the menu
 def rule(screensize):
-    # Step 1: Initialize pygame
-    os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"  # Force window to top-left
+    #initalize pygame + the screen + caption
+    os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0" 
     pygame.init()
     pygame.display.set_caption("Display Rules")
 
-    # Step 2: Set up the screen size
+    #set up screen + usefull variables
     screen_width, screen_height = screensize
     screen = pygame.display.set_mode((screen_width, screen_height))
+    clock = pygame.time.Clock()
+    padding = 15
 
-    # Step 3: Load and scale the rules image
+    #assets and sprite
     rules_img_str = str(rules_path)
-    if not os.path.exists(rules_img_str):
-        print(f"Error: The file '{rules_img_str}' does not exist.")
-        pygame.quit()
-        exit()
-
     rules_img = pygame.image.load(rules_img_str).convert_alpha()
     rules_img = pygame.transform.smoothscale(rules_img, (screen_width, screen_height))
-
-    # Load and position the exit button image
     exit_button_str = str(exit_button_path)
-    if not os.path.exists(exit_button_str):
-        print(f"Error: The file '{exit_button_str}' does not exist.")
-        pygame.quit()
-        exit()
-
     exit_button = pygame.image.load(exit_button_str).convert_alpha()
-    # Set initial position (0,0); we'll add padding later by modifying its blit position.
     exit_button_rect = exit_button.get_rect(topleft=(0, 0))
-    exit_button_rect.topleft = (0, 0)  # Top-left corner
+    exit_button_rect.topleft = (0, 0) 
 
-    # Step 4: Main display loop for the settings screen
+    #the big loop to dsiplay it
     running = True
-    clock = pygame.time.Clock()
     while running:
         for event in pygame.event.get():
-            # Allow window to be closed via the X button.
             if event.type == pygame.QUIT:
                 running = False
 
-            # Check for mouse clicks.
+            #handle the click of the user
             if event.type == pygame.MOUSEBUTTONDOWN:
-                # event.pos is the mouse position at click.
                 if exit_button_rect.collidepoint(event.pos[0] - 15, event.pos[1] - 15):
-                    # The exit button was clicked—return to the menu.
                     return
 
-        # Draw the rules background first.
+        #display the buttons and the screen
         screen.blit(rules_img, (0, 0))
-        # Add a bit of padding (15 pixels) to the exit button.
-        padding = 15
         screen.blit(exit_button, (exit_button_rect.x + padding, exit_button_rect.y + padding))
 
+        #update and limit the fps
         pygame.display.update()
-        clock.tick(60)  # Limit to 60 FPS
+        clock.tick(60)
         
-    return
+
 
 

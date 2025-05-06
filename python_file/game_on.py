@@ -10,28 +10,35 @@ from collision import WallLine
 from readyscreen import readyscreen
 
 
+#definitoin of the function taht allows to dsiplay a winning screen when a player is at 0 hearth 
 def winning_screen(screen, winner_image):
+    #fill the screen in a white screen and blit the image and wait 5 seconds
     screen.fill((255, 255, 255))  
     screen.blit(winner_image, (screen.get_width() // 2 - winner_image.get_width() // 2, screen.get_height() // 2 - winner_image.get_height() // 2))
     pygame.display.update()
     pygame.time.wait(5000)
 
+
+#definition of the game_on( ) function taht allows to play the game (mix of player, collision, weapon, ready screen and all)
 def game_on(screen, screensize):
-    #The ready screen
+    #the ready screen
     #readyscreen(screen,screensize, 5)
 
+    #initialize the screen + caption
     os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
     pygame.display.set_caption("Funny Granny")
-    font = pygame.font.SysFont(None, 150)
 
+    #usefull variables all used in the rest of the programm
+    font = pygame.font.SysFont(None, 150)
     DESIGN_W = 1920
     DESIGN_H = 1080
-
     screen_width, screen_height = screensize
     clock = pygame.time.Clock()
     pass_turn = False
+    controle_switch = 15
+    switch_timer = 0
 
-    # load asset
+    #load all the assest needed (Base path for mare stability, and to patch the error of the system different)
     base_path = Path(__file__).resolve().parent
     bg = base_path / '..' / 'assets' / 'gameon' / 'bg.png'
     mapimg = base_path / '..' / 'assets' / 'gameon' / 'maptest.png'
@@ -72,17 +79,14 @@ def game_on(screen, screensize):
     health2_img = pygame.transform.scale(health2_img, (100,10))
     health1_img = pygame.image.load(health1).convert_alpha()
     health1_img = pygame.transform.scale(health1_img, (100,10))
-
-    ground_rect = pygame.Rect(0, screen_height - 70, screen_width, 20)
-
     arrow_img = pygame.image.load(arrow).convert_alpha()
     arrow_img = pygame.transform.scale(arrow_img, (30, 50))
-
-
     background_img = pygame.transform.scale(pygame.image.load(str(bg)).convert(), (screen_width, screen_height))
     map_img = pygame.transform.smoothscale(pygame.image.load(str(mapimg)).convert_alpha(), (screen_width, screen_height))
 
-    # pos des spawn random
+    ground_rect = pygame.Rect(0, screen_height - 70, screen_width, 20)
+
+    #position of the random spawnes
     spawn_position_ratios = [
         (376 / DESIGN_W, 160 / DESIGN_H),
         (49 / DESIGN_W, 250 / DESIGN_H),
@@ -93,28 +97,28 @@ def game_on(screen, screensize):
         (1300 / DESIGN_W, 500 / DESIGN_H)
     ]
 
+    #definiton off all the sprite needed + group them
     all_sprites = pygame.sprite.LayeredUpdates()
     solid_obstacles = pygame.sprite.Group()
     all_sprites = pygame.sprite.LayeredUpdates()
     projectiles = pygame.sprite.Group()
 
+    ###create the 4 players###
     player_positions = [
         (int(x_r * screen_width), int(y_r * screen_height))
         for (x_r, y_r) in random.sample(spawn_position_ratios, 4)
     ]
 
+    #needed varaibles
     players = []
     keylisteners = []
     active_player = 0
-    controle_switch = 45
-    switch_timer = 0
     player_health={0:5, 1:5, 2:5, 3:5}
     lives_papy = 3
     lives_mamy = 3
+    arme_actuelle = "slipper"
 
-    arme_actuelle = "slipper"  # default weapon
-
-    # creation of player, papy and mamy
+    #loop for the creation of player, papy and mamy
     for i, pos in enumerate(player_positions):
         kl = Keylistener()
         keylisteners.append(kl)
@@ -127,8 +131,10 @@ def game_on(screen, screensize):
         all_sprites.add(p, layer=1)
 
     player_group = pygame.sprite.Group(players)
+    ###end of the creation of the players###
 
-    # creation wall and obstacle
+
+    #creation of walls taht are basicaly the collision
     wall_definitions_ratios = [
         (WallLine, (48 / DESIGN_W, 415 / DESIGN_H), {'num_blocks': 3, 'direction': 'horizontal', 'block_width': 55 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
         (WallLine, (370 / DESIGN_W, 158 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 50 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
@@ -148,6 +154,7 @@ def game_on(screen, screensize):
         (WallLine, (1350 / DESIGN_W, 108 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 70 / DESIGN_W, 'block_height': 5 / DESIGN_H})
     ]
 
+    #use to place the collision depend on the screensize of the user
     for wall_cls, (x_r, y_r), kwargs in wall_definitions_ratios:
         k = kwargs.copy()
         k['block_width'] = int(k['block_width'] * screen_width)
@@ -157,19 +164,24 @@ def game_on(screen, screensize):
         wall_line = wall_cls(wall_x, wall_y, **k)
         wall_line.build(all_sprites, solid_obstacles)
 
+    ###the principal loop###
     running = True
+
     while running:
+        #clock usefull for limiting the fps of the game + times to switch between players
         delta_time = clock.tick(60) / 1000
 
+        #creation of the clock for the switch player (when 15 second are gone it switch player)
         switch_timer += delta_time
         if switch_timer > controle_switch or pass_turn == True:
-            # automatique change of player after a certain time
             keylisteners[active_player].keys.clear()
             active_player = (active_player + 1) % 4
             switch_timer = 0
             pass_turn = False
 
+        #loop to use the weapons (1,2,3,4) and to exit the game with exit
         for event in pygame.event.get():
+            #to exit the game
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
@@ -177,7 +189,7 @@ def game_on(screen, screensize):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
-                # touche pour changer d'armes
+                #to change the weapon (to detect the touch)
                 elif event.key == pygame.K_1:
                     arme_actuelle = "slipper"
                 elif event.key == pygame.K_2:
@@ -189,6 +201,7 @@ def game_on(screen, screensize):
                 keylisteners[active_player].add_key(event.key)
             elif event.type == pygame.KEYUP:
                 keylisteners[active_player].remove_key(event.key)
+            #to actually use the weapons that the player press the touch
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     try:
@@ -211,19 +224,18 @@ def game_on(screen, screensize):
                     except Exception as e:
                         print(f"Erreur lors du tir : {e}")
 
-        # print timer for the players
+        #to print timer for the players
         time_left = int(controle_switch - switch_timer)
         if time_left < 0:
             time_left = 0
-
         timer_text = font.render(str(time_left), True, (0, 0, 0))
         timer_rect = timer_text.get_rect(midtop=(screen.get_width() // 2, 10))
 
+        #to draw all the sprite need in the screen + update them
         pygame.draw.rect(screen, (255, 0, 0), ground_rect) 
         screen.blit(background_img, (0, 0))
         screen.blit(map_img, (0, 0))
         screen.blit(timer_text, timer_rect)
-
         all_sprites.update(solid_obstacles)
         player_group.draw(screen)
         projectiles.update(solid_obstacles)
@@ -234,7 +246,7 @@ def game_on(screen, screensize):
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
 
-        #display of the health bar above the player head
+        #display of the health bar above the player head 
         for key in player_health.keys():
             if player_health[key]==5:
                 health5_rect= health5_img.get_rect(midbottom=(players[key].rect.centerx, players[key].rect.top - 4))
@@ -281,7 +293,7 @@ def game_on(screen, screensize):
                 if player_health[i] > 0 and pygame.sprite.collide_mask(projectile, p) and i != active_player and (i % 2) != active_player % 2:
                     player_health[i] -= 1
                     projectile.kill()
-                    # Lives handling:
+                    #lives handling:
                     if player_health[i] == 0:
                         player_health[i] = 5
                         if i % 2 == 0:
@@ -292,6 +304,7 @@ def game_on(screen, screensize):
                 elif pygame.sprite.collide_mask(projectile, p) and i != active_player and i % 2 == active_player % 2:
                     projectile.kill()
                 else :
+                    #to display the winning screen if somone is at 0 hearth
                     if lives_papy ==0:
                         winning_screen(screen, winningg_img)
                         running = False
@@ -323,7 +336,7 @@ def game_on(screen, screensize):
                     running = False
         
 
-
+        #display the number of fps (needed for the debugging) + the nale of the game + update 
         pygame.display.set_caption(f"Funny Granny - FPS: {clock.get_fps():.2f}")
         pygame.display.update()
 
@@ -345,4 +358,3 @@ def game_on(screen, screensize):
 # - changer les regles
 # - repasser sur les commentaires et les variables qui ont un nom francais
 # - limiter l'utilisation des armes
-# - frame quand le perso ne bouge pas
