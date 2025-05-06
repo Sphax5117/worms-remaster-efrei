@@ -84,7 +84,7 @@ def game_on(screen, screensize):
     background_img = pygame.transform.scale(pygame.image.load(str(bg)).convert(), (screen_width, screen_height))
     map_img = pygame.transform.smoothscale(pygame.image.load(str(mapimg)).convert_alpha(), (screen_width, screen_height))
 
-    ground_rect = pygame.Rect(0, screen_height - 70, screen_width, 20)
+    ground_rect = pygame.Rect(-500, screen_height - 70, screen_width + 1000, 20)
 
     #position of the random spawnes
     spawn_position_ratios = [
@@ -342,19 +342,9 @@ def game_on(screen, screensize):
 
 
 ###  a faire ###
-# - limiter le nombre d'utilisation des armes (genre on peut tirer 3 fois max sinon c'est op) et utiliser que 1 seule armes sur les 45 secondes des tours
 # - afficher l'armes que on est en train d'utiliser sur le player, ou un message en haut de l'écran ou jsp juste que on sache
-# - faire affihcer les sprites qui sont dans assets/items
-# - BONUS, ajouter l'armes qui eparpille les bullets la, trouver un nom, et demander a tom de faire un sprite
-# - changer les trajectoires pour en avoir 1 qui est plus droite (celle qui explose pas par exemple) faire genre un snipe pour tirer de loin
 # - BONUS, afficher la trajectoires a l'écran pour que les joueurs puissent viser à l'aide la trajectoire
-# - verifier l'erreur du fait que on ne peut utiliser que 1 des deux armes, les deux sont pareils si on appuis sur 1 ou 2
-# - ajouter des commentaires pas chat sur le programme
-
 # - rajouter bar d'armes (avant limiter armes)
-# - bug de sauté a gauche ou a droite
 # - ready screen plus jolie
-# - corrigé bug 
 # - changer les regles
-# - repasser sur les commentaires et les variables qui ont un nom francais
 # - limiter l'utilisation des armes
