@@ -348,3 +348,4 @@ def game_on(screen, screensize):
 # - ready screen plus jolie
 # - changer les regles
 # - limiter l'utilisation des armes
+#NOTIONNNNNNNNNNNNNNNNNNNN
