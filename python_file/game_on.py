@@ -1,6 +1,7 @@
 import pygame
 import os
 import random
+import math
 from sys import exit
 from pathlib import Path
 from throwables_weapon import ExplodingSlipper, BurningSoup, ToiletPaperRoll, BoomerangDenture
@@ -8,6 +9,42 @@ from throwables_weapon import ExplodingSlipper, BurningSoup, ToiletPaperRoll, Bo
 from player import Player, Keylistener
 from collision import WallLine
 from readyscreen import readyscreen
+
+
+def print_trajectory(screen, start_pos, mouse_pos, weapon):
+    # physical parameter
+    if weapon == "slipper":
+        power = 15
+        gravity = 0.6
+    elif weapon == "soup":
+        power = 15
+        gravity = 0.5
+    else:
+        return  # no print if no weapon
+
+    # calculation of speed
+    dx = mouse_pos[0] - start_pos[0]
+    dy = mouse_pos[1] - start_pos[1]
+    angle = math.atan2(-dy, dx)
+    speed_x = power * math.cos(angle)
+    speed_y = -power * math.sin(angle)
+
+    # simulation by pts
+    num_pts = 50  # number of pts
+    t_interval = 0.2  # times interval
+
+    for i in range(num_pts):
+        t = i * t_interval
+        x = start_pos[0] + speed_x * t
+        y = start_pos[1] + speed_y * t + 0.5 * gravity * (t ** 2)
+
+        #stop if point go out the screen
+        if x < 0 or x > screen.get_width() or y < 0 or y > screen.get_height():
+            break
+
+        # draw the trajectory in color (je vous laisse gerer)
+        couleur = (255, 0, 0) if weapon == "slipper" else (0, 150, 0)  # Red for slipper, Green for soup
+        pygame.draw.circle(screen, couleur, (int(x), int(y)), 3)  # Draw the circle
 
 
 #definitoin of the function taht allows to dsiplay a winning screen when a player is at 0 hearth 
@@ -116,7 +153,8 @@ def game_on(screen, screensize):
     player_health={0:5, 1:5, 2:5, 3:5}
     lives_papy = 3
     lives_mamy = 3
-    arme_actuelle = "slipper"
+    actual_weapon = "slipper"
+    print_trajectory_active = False   # True = printed by default
 
     #loop for the creation of player, papy and mamy
     for i, pos in enumerate(player_positions):
@@ -191,13 +229,16 @@ def game_on(screen, screensize):
                     running = False
                 #to change the weapon (to detect the touch)
                 elif event.key == pygame.K_1:
-                    arme_actuelle = "slipper"
+                    actual_weapon = "slipper"
                 elif event.key == pygame.K_2:
-                    arme_actuelle = "soup"
+                    actual_weapon = "soup"
                 elif event.key == pygame.K_3:
-                    arme_actuelle = "toilet"
+                    actual_weapon = "toilet"
                 elif event.key == pygame.K_4:
-                    arme_actuelle = "boomerang"
+                    actual_weapon = "boomerang"
+                elif event.key == pygame.K_p:
+                    print_trajectory_active = not print_trajectory_active  # bascule in the states
+                    print(f"Trajectoire {'active' if print_trajectory_active else 'desactive'}")
                 keylisteners[active_player].add_key(event.key)
             elif event.type == pygame.KEYUP:
                 keylisteners[active_player].remove_key(event.key)
@@ -208,17 +249,17 @@ def game_on(screen, screensize):
                         player = players[active_player]
                         mouse_pos = pygame.mouse.get_pos()
                         # to choose weapon
-                        if arme_actuelle == "slipper":
+                        if actual_weapon == "slipper":
                             proj = ExplodingSlipper.fire(player.rect.center, mouse_pos)
                             projectiles.add(proj)
-                        elif arme_actuelle == "soup":
+                        elif actual_weapon == "soup":
                             proj = BurningSoup.fire(player.rect.center, mouse_pos)
                             projectiles.add(proj)
-                        elif arme_actuelle == "toilet":
+                        elif actual_weapon == "toilet":
                             rolls = ToiletPaperRoll.fire(player.rect.center, mouse_pos)
                             for roll in rolls:
                                 projectiles.add(roll)
-                        elif arme_actuelle == "boomerang":
+                        elif actual_weapon == "boomerang":
                             proj = BoomerangDenture.fire(player.rect.center, mouse_pos)
                             projectiles.add(proj)
                     except Exception as e:
@@ -245,6 +286,9 @@ def game_on(screen, screensize):
         player = players[active_player]
         arrow_rect = arrow_img.get_rect(midbottom=(player.rect.centerx, player.rect.top - 8))
         screen.blit(arrow_img, arrow_rect)
+
+        if print_trajectory_active and actual_weapon in ["slipper", "soup"]:
+            print_trajectory(screen, player.rect.center, pygame.mouse.get_pos(), actual_weapon)
 
         #display of the health bar above the player head 
         for key in player_health.keys():
