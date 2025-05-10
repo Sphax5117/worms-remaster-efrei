@@ -21,7 +21,7 @@ class Obstacle(Sprite):
             self.mask = None
 
 
-#the calss wall used fo the colsion
+#the class wall used fo the colsion
 class Wall(Obstacle):
     #invisible solid wall for collisions
     def __init__(self, x, y, width=50, height=50):

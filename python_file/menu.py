@@ -39,7 +39,7 @@ def menu(screensize, screen):
     setting_img = pygame.transform.smoothscale(setting_img, (screen_width//3, screen_height//9))
     backround_img = pygame.transform.smoothscale(backround_img, (screen_width, screen_height))
 
-    # Button class to have buton with no absolute values and just depends on the size of the screen
+    #button class to have button with no absolute values and just depends on the size of the screen
     class Button():
         def __init__(self, x_factor, y_factor, image):
             self.image = image

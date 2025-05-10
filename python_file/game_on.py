@@ -42,12 +42,12 @@ def print_trajectory(screen, start_pos, mouse_pos, weapon):
         if x < 0 or x > screen.get_width() or y < 0 or y > screen.get_height():
             break
 
-        # draw the trajectory in color (je vous laisse gerer)
-        couleur = (255, 0, 0) if weapon == "slipper" else (0, 150, 0)  # Red for slipper, Green for soup
-        pygame.draw.circle(screen, couleur, (int(x), int(y)), 3)  # Draw the circle
+        # draw the trajectory in color
+        couleur = (255, 0, 0) if weapon == "slipper" else (0, 150, 0)  #red for slipper and green for soup
+        pygame.draw.circle(screen, couleur, (int(x), int(y)), 3)  #draw the circle
 
 
-#definitoin of the function taht allows to dsiplay a winning screen when a player is at 0 hearth 
+#definition of the function taht allows to dsiplay a winning screen when a player is at 0 hearth 
 def winning_screen(screen, winner_image):
     #fill the screen in a white screen and blit the image and wait 5 seconds
     screen.fill((255, 255, 255))  
@@ -172,7 +172,7 @@ def game_on(screen, screensize):
     ###end of the creation of the players###
 
 
-    #creation of walls taht are basicaly the collision
+    #creation of walls that are basicaly the collision
     wall_definitions_ratios = [
         (WallLine, (48 / DESIGN_W, 415 / DESIGN_H), {'num_blocks': 3, 'direction': 'horizontal', 'block_width': 55 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
         (WallLine, (370 / DESIGN_W, 158 / DESIGN_H), {'num_blocks': 1, 'direction': 'horizontal', 'block_width': 50 / DESIGN_W, 'block_height': 5 / DESIGN_H}),
@@ -331,6 +331,8 @@ def game_on(screen, screensize):
             screen.blit(lives1_img, lives1_rect)
 
         count_projectiles=0
+
+        
         #collisions with the player and projectiles 
         for projectile in projectiles:
             for i, p in enumerate(players):
@@ -391,6 +393,4 @@ def game_on(screen, screensize):
 # - BONUS, afficher la trajectoires a l'écran pour que les joueurs puissent viser à l'aide la trajectoire
 # - rajouter bar d'armes (avant limiter armes)
 # - ready screen plus jolie
-# - changer les regles
 # - limiter l'utilisation des armes
-#NOTIONNNNNNNNNNNNNNNNNNNN

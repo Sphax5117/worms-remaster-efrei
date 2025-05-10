@@ -121,7 +121,7 @@ class ToiletPaperRoll(pg.sprite.Sprite):
         self.rect = self.image.get_rect(center=pos)
         self.pos = pg.Vector2(pos)
 
-        #mouvement linear
+        #linear movement 
         self.vitesse_vecteur = pg.Vector2(
             vitesse * math.cos(math.radians(angle)),
             -vitesse * math.sin(math.radians(angle))
@@ -151,7 +151,7 @@ class ToiletPaperRoll(pg.sprite.Sprite):
         angle = math.degrees(math.atan2(-dy, dx))
         rouleaux = []
 
-        for _ in range(5):  #rouleaux envoyés avec écart
+        for _ in range(5):  #rolls sent with a gap
             offset = random.uniform(-5, 5)
             effective_angle = angle + offset
             spawn_pos = (player_pos[0] , player_pos[1] )

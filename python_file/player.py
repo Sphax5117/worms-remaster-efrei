@@ -26,14 +26,14 @@ class Player(Sprite):
         #for the mamy
         if costume == "mamy":
 
-            # Chargement des animations
+            #loading animations
             self.left_frames = []
             for frame in range(117, 126):
                 frame_path = base_path / '..' / 'frame grand mère' / f'tile{frame}.png'
                 image = pygame.image.load(str(frame_path)).convert_alpha()
                 self.left_frames.append(image)
 
-            # Images statiques
+            #static images
             self.images = {
                 "down": pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile132.png')).convert_alpha(),
                 "up": pygame.image.load(str(base_path / '..' / 'frame grand mère' / 'tile132.png')).convert_alpha(),
@@ -43,14 +43,14 @@ class Player(Sprite):
         #for the papy
         elif costume == "papy":
 
-            # Chargement des animations
+            #loading animations
             self.left_frames = []
             for frame in range(117, 126):
                 frame_path = base_path / '..' / 'frame papy' / f'tile{frame}.png'
                 image = pygame.image.load(str(frame_path)).convert_alpha()
                 self.left_frames.append(image)
 
-            # Images statiques
+            #static images
             self.images = {
                 "down": pygame.image.load(str(base_path / '..' / 'frame papy' / 'tile132.png')).convert_alpha(),
                 "up": pygame.image.load(str(base_path / '..' / 'frame papy' / 'tile132.png')).convert_alpha(),
@@ -65,15 +65,15 @@ class Player(Sprite):
         self.animation_speed = 0.015
         self.mask = pygame.mask.from_surface(self.image)
 
-        # Gravité et Saut
+        #gravity and jump
         self.velocity_y = 0
         self.gravity = 0.4     # Gravité plus douce
         self.jump_strength = -15  # Saut plus puissant (plus haut)
         self.on_ground = False
 
-        # Saut nerveux
+        #nervous jump
         self.is_jumping = False
-        self.jump_cut_power = 0.4  # Coupe un peu moins violemment pour des petits sauts
+        self.jump_cut_power = 0.4  #cut less violently for small jumps
 
     def update(self, obstacles):
         self.apply_gravity()
@@ -94,15 +94,15 @@ class Player(Sprite):
             self.move_right()
             self.is_moving = True
 
-        # Début du saut
+        #beginning of the jump
         if self.keylistener.key_pressed(pygame.K_UP) and self.on_ground:
             self.velocity_y = self.jump_strength
             self.on_ground = False
             self.is_jumping = True
 
-        # Saut nerveux (si on relâche espace en plein saut)
+        #nervous jump (if you release space key during a jump)
         if not self.keylistener.key_pressed(pygame.K_UP) and self.is_jumping:
-            if self.velocity_y < 0:  # Seulement si on monte
+            if self.velocity_y < 0:  #only if we go up
                 self.velocity_y *= self.jump_cut_power
             self.is_jumping = False
     
@@ -134,7 +134,7 @@ class Player(Sprite):
     def handle_collision(self, obstacles):
         self.on_ground = False
 
-        # Collision verticale
+        #vertical collision
         for obstacle in obstacles:
             if pygame.sprite.collide_mask(self, obstacle):
                 if self.velocity_y > 0:  # Tombe
@@ -146,7 +146,7 @@ class Player(Sprite):
                     self.rect.top = obstacle.rect.bottom
                     self.velocity_y = 0
 
-        # Collision horizontale
+        #horizontal collision
         for obstacle in obstacles:
             if pygame.sprite.collide_mask(self, obstacle):
                 if self.keylistener.key_pressed(pygame.K_LEFT):
