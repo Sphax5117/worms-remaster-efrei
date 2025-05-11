@@ -216,7 +216,7 @@ def game_on(screen, screensize):
             keylisteners[active_player].keys.clear()
             active_player = (active_player + 1) % 4
             switch_timer = 0
-            shots_left = 5
+            shots_left = 5 #set a limit of shots by player of 5 and actualise it when changing of player
             pass_turn = False
 
         #loop to use the weapons (1,2,3,4) and to exit the game with exit
@@ -265,7 +265,7 @@ def game_on(screen, screensize):
                             proj = BoomerangDenture.fire(player.rect.center, mouse_pos)
                             projectiles.add(proj)
 
-                        shots_left -=1
+                        shots_left -=1 #decrease the number of shots that are left
 
                     except Exception as e:
                         print(f"Erreur lors du tir : {e}")
@@ -277,11 +277,16 @@ def game_on(screen, screensize):
         timer_text = font.render(str(time_left), True, (0, 0, 0))
         timer_rect = timer_text.get_rect(midtop=(screen.get_width() // 2, 10))
 
+        #to print the number of shots left for the players
+        shot_text = font.render(f"{shots_left}/5 TIRS", True, (0,0,0))
+        shot_rect= shot_text.get_rect(midtop=(screen.get_width() //2, 100))
+
         #to draw all the sprite need in the screen + update them
         pygame.draw.rect(screen, (255, 0, 0), ground_rect) 
         screen.blit(background_img, (0, 0))
         screen.blit(map_img, (0, 0))
         screen.blit(timer_text, timer_rect)
+        screen.blit(shot_text, shot_rect)
         all_sprites.update(solid_obstacles)
         player_group.draw(screen)
         projectiles.update(solid_obstacles)
