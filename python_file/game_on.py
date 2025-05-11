@@ -154,6 +154,7 @@ def game_on(screen, screensize):
     lives_papy = 3
     lives_mamy = 3
     actual_weapon = "slipper"
+    shots_left = 5
     print_trajectory_active = False   # True = printed by default
 
     #loop for the creation of player, papy and mamy
@@ -215,6 +216,7 @@ def game_on(screen, screensize):
             keylisteners[active_player].keys.clear()
             active_player = (active_player + 1) % 4
             switch_timer = 0
+            shots_left = 5
             pass_turn = False
 
         #loop to use the weapons (1,2,3,4) and to exit the game with exit
@@ -262,6 +264,9 @@ def game_on(screen, screensize):
                         elif actual_weapon == "boomerang":
                             proj = BoomerangDenture.fire(player.rect.center, mouse_pos)
                             projectiles.add(proj)
+
+                        shots_left -=1
+
                     except Exception as e:
                         print(f"Erreur lors du tir : {e}")
 
