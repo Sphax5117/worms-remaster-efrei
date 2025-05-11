@@ -246,7 +246,7 @@ def game_on(screen, screensize):
                 keylisteners[active_player].remove_key(event.key)
             #to actually use the weapons that the player press the touch
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
+                if event.button == 1 and shots_left > 0:
                     try:
                         player = players[active_player]
                         mouse_pos = pygame.mouse.get_pos()
