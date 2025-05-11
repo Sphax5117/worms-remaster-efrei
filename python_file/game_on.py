@@ -30,22 +30,23 @@ def print_trajectory(screen, start_pos, mouse_pos, weapon):
     speed_y = -power * math.sin(angle)
 
     # simulation by pts
+    t = 0
     num_pts = 50  # number of pts
     t_interval = 0.2  # times interval
+    max_height = screen.get_height()
 
-    for i in range(num_pts):
-        t = i * t_interval
+    while True:
         x = start_pos[0] + speed_x * t
         y = start_pos[1] + speed_y * t + 0.5 * gravity * (t ** 2)
 
-        #stop if point go out the screen
-        if x < 0 or x > screen.get_width() or y < 0 or y > screen.get_height():
+        if x < 0 or x > screen.get_width() or y > max_height:
             break
 
-        # draw the trajectory in color
-        couleur = (255, 0, 0) if weapon == "slipper" else (0, 150, 0)  #red for slipper and green for soup
-        pygame.draw.circle(screen, couleur, (int(x), int(y)), 3)  #draw the circle
+        # draw the trajectory in color (je vous laisse gerer)
+        couleur = (255, 0, 0) if weapon == "slipper" else (0, 150, 0)  # Red for slipper, Green for soup
+        pygame.draw.circle(screen, couleur, (int(x), int(y)), 3)  # Draw the circle
 
+        t += t_interval
 
 #definition of the function taht allows to dsiplay a winning screen when a player is at 0 hearth 
 def winning_screen(screen, winner_image):
