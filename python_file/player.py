@@ -67,8 +67,8 @@ class Player(Sprite):
 
         #gravity and jump
         self.velocity_y = 0
-        self.gravity = 0.4     # Gravité plus douce
-        self.jump_strength = -15  # Saut plus puissant (plus haut)
+        self.gravity = 0.4     #gentler gravity
+        self.jump_strength = -15  #jump more powerful (higher)
         self.on_ground = False
 
         #nervous jump
