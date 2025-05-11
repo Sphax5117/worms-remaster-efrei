@@ -388,9 +388,3 @@ def game_on(screen, screensize):
         pygame.display.update()
 
 
-###  a faire ###
-# - afficher l'armes que on est en train d'utiliser sur le player, ou un message en haut de l'écran ou jsp juste que on sache
-# - BONUS, afficher la trajectoires a l'écran pour que les joueurs puissent viser à l'aide la trajectoire
-# - rajouter bar d'armes (avant limiter armes)
-# - ready screen plus jolie
-# - limiter l'utilisation des armes
