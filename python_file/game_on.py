@@ -278,7 +278,8 @@ def game_on(screen, screensize):
         timer_rect = timer_text.get_rect(midtop=(screen.get_width() // 2, 10))
 
         #to print the number of shots left for the players
-        shot_text = font.render(f"{shots_left}/5 TIRS", True, (0,0,0))
+        font_size=pygame.font.Font(None, 24)
+        shot_text = font_size.render(f"{shots_left}/5 TIRS", True, (0,0,0))
         shot_rect= shot_text.get_rect(midtop=(screen.get_width() //2, 100))
 
         #to draw all the sprite need in the screen + update them
@@ -329,6 +330,11 @@ def game_on(screen, screensize):
             lives1_rect = lives1_img.get_rect(center =(100,30))
             screen.blit(lives1_img, lives1_rect)
 
+        font_size_lives = pygame.font.Font(None, 50)
+        lives_papy_text = font_size_lives.render("Grandpa", True, (0,0,0))
+        lives_papy_rect= lives_papy_text.get_rect(midtop=(100, 70))
+        screen.blit(lives_papy_text, lives_papy_rect)
+
         #mamy lives at the top right corner 
         if lives_mamy == 3 :
             lives3_rect = lives3_img.get_rect(center=(screen_width-100,30))
@@ -340,7 +346,12 @@ def game_on(screen, screensize):
             lives1_rect = lives1_img.get_rect(center = (screen_width-100,30))
             screen.blit(lives1_img, lives1_rect)
 
-        count_projectiles=0
+        font_size_lives = pygame.font.Font(None, 50)
+        lives_mamy_text = font_size_lives.render("Granny", True, (0,0,0))
+        lives_mamy_rect= lives_mamy_text.get_rect(midtop=(screen_width-100, 70))
+        screen.blit(lives_mamy_text, lives_mamy_rect)
+
+
 
         
         #collisions with the player and projectiles 
