@@ -360,7 +360,6 @@ def game_on(screen, screensize):
             for i, p in enumerate(players):
                 if player_health[i] > 0 and pygame.sprite.collide_mask(projectile, p) and i != active_player and (i % 2) != active_player % 2:
                     player_health[i] -= 1
-                    count_projectiles +=1
                     projectile.kill()
                     #lives handling:
                     if player_health[i] == 0:
