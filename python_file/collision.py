@@ -52,8 +52,4 @@ class WallLine:
             all_sprites.add(wall)
             solid_obstacles.add(wall)
 
-#class decoration
-class Decoration(Obstacle):
-    #a decoration object without collision
-    def __init__(self, x, y):
-        super().__init__(x, y, is_solid=False, color=(100, 200, 100))
+
